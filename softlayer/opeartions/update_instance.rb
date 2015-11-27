@@ -42,11 +42,11 @@ else
 	 response = connector_call.timeout(@request_timeout).sync
 end
 
-#Cloud Connector Response Meta Parameters
+#Softlayer Connector Response Meta Parameters
 response_exitcode=response.exitcode           #Exit status code
 response_message=response.message             #Execution status message
 
-#Cloud Connector Response Parameters
+#Softlayer Connector Response Parameters
 result = response.get("vm-details")              #Response body
 
 if response.exitcode == 0  

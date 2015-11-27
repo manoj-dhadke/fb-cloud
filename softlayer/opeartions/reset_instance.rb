@@ -33,11 +33,11 @@ else
 	 response = connector_call.timeout(@request_timeout).sync
 end
 
-#Cloud Connector Response Meta Parameters
+#Softlayer Connector Response Meta Parameters
 response_exitcode=response.exitcode           #Exit status code
 response_message=response.message             #Execution status message
 
-#Cloud Connector Response Parameters
+#Softlayer Connector Response Parameters
 result = response.get("reset")                #vm reset state
 state = response.get("vm-state")              #vm state
 
