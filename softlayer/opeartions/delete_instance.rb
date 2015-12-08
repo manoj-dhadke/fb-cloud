@@ -37,13 +37,13 @@ response_exitcode=response.exitcode           #Exit status code
 response_message=response.message             #Execution status message
 
 #Softlayer Connector Response Parameters
-@result = response.get("delete")              #Response body
+result = response.get("delete")              #Response body
 
 if response.exitcode == 0  
 	@log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
-	@log.info("#{@connector_name} Response Body Deleted :: #{@result}")
-	@output.set("delete",@result.to_s)
+	@log.info("#{@connector_name} Response Body Deleted :: #{result.to_s}")
+	@output.setraw("response",response.to_s)
  
 else
 	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 

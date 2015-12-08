@@ -45,8 +45,7 @@ if response.exitcode == 0
 	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("Softlayer Response Body :: #{result}")
-	@output.set("power-on",result.to_s)
-    @output.set("state",state.to_s)
+	@output.setraw("response",response.to_s)
  
 else
 	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 

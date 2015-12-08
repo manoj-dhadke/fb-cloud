@@ -44,7 +44,7 @@ end
 	@log.info("SUCCESS in executing cloud Connector where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("Softlayer Response Body :: #{result}")
-    @output.setraw("info",response.to_s)
+    @output.setraw("response",response.to_s)
 else
 	@log.error("ERROR in executing cloud Connector where, exitcode :: #{response_exitcode} | 
 		                                                  message ::  #{response_message}")

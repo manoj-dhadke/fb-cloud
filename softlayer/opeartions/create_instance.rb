@@ -59,8 +59,8 @@ if response.exitcode == 0
 	@log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("#{@connector_name} Machine  Id :: #{id.to_s} | Machine domainName ::#{domainName}")
-	@output.set("id",id.to_s)
-    @output.set("domainName",domainName)
+    @output.setraw("response",response.to_s)	
+
 else
 	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
 		                                                  message ::  #{response_message}")

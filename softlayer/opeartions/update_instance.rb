@@ -53,7 +53,7 @@ if response.exitcode == 0
 	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("#{@connector_name} Response Body :: #{result}")
-	@output.set("details",result.to_s)
+	@output.setraw("response",response.to_s)
   
 else
 	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
