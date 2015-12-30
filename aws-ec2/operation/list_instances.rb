@@ -43,7 +43,7 @@ instances_set=response.get("instance-list")					#Set of Amazon EC2 instances
 
 if response_exitcode == 0
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-	@output.set("exit-code",0).setraw("instance-list",instances_set.to_s)
+	@output.set("exit-code",0).set("message","success").setraw("instance-list",instances_set.to_s)
 else
 	@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")  
 	@output.set("exit-code",1).set("message",response_message)
