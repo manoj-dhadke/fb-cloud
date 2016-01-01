@@ -47,6 +47,7 @@ image_info = response.get("image-info")						#image info json
 if response_exitcode == 0
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 	@log.info("Amazon EC2 Image info : #{image_info.to_s}")
+
 	@output.set("exit-code",0).set("message",response_message).set("image-info",image_info)
 else
 	@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
