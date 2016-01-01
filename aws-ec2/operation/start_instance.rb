@@ -5,7 +5,7 @@ begin
 #Mandatory
 connector_name = @input.get("connector_name")             		#Name of the Amazon EC2 Connector
 action = "start-instances"                                		#Specifies the name of the operation: start-instances
-instance_id = @input.get("instance_id")              		    #Contains one or more instance IDs corresponding to the
+instance_id = @input.get("instance-id")              		    #Contains one or more instance IDs corresponding to the
 																#instances that you want to start
 @access_key = @input.get("access-key")
 @secret_key = @input.get("security-key")

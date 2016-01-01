@@ -5,7 +5,7 @@ begin
 #Mandatory
 connector_name = @input.get("connector_name")			#Name of the Amazon EC2 Connector
 action = "reboot-instances"								#Reboot Amazon EC2 instance action
-instance_id = @input.get("instance_id")					#Amazon Instance ID to reboot Instance
+instance_id = @input.get("instance-id")					#Amazon Instance ID to reboot Instance
 @access_key = @input.get("access-key")
 @secret_key = @input.get("security-key")
 

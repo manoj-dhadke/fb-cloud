@@ -5,7 +5,7 @@ begin
 #mandatory
 connector_name = @input.get("connector_name")					#Name of the Amazon EC2 Connector
 action = "stop-instances"										#stop Amazon EC2 instance action
-instance_id = @input.get("instance_id")							#Amazon Instance ID to stop one or more Instances
+instance_id = @input.get("instance-id")							#Amazon Instance ID to stop one or more Instances
 @access_key = @input.get("access-key")
 @secret_key = @input.get("security-key")
 #optional
