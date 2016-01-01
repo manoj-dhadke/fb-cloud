@@ -20,7 +20,7 @@ if connector_name.nil? || connector_name.empty?
 end
 
 if image_id.nil? || image_id.empty?
-	raise 'Please provide "Amazon EC2 resource ID (image_id)" to describe image'
+	raise 'Please provide "Amazon EC2 image ID (image_id)" to describe image'
 end
 
 connector_call = @call.connector(connector_name).set("action",action).set("image-id",image_id).set("access-key",@access_key).set("security-key",@secret_key)
@@ -47,7 +47,7 @@ image_info = response.get("image-info")						#image info json
 if response_exitcode == 0
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 	@log.info("Amazon EC2 Image info : #{image_info.to_s}")
-	@output.set("exit-code",0).set("message",response_message).setraw("image-info",image_info.to_s)
+	@output.set("exit-code",0).set("message",response_message).set("image-info",image_info)
 else
 	@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 	@output.set("exit-code",1).set("message",response_message)
