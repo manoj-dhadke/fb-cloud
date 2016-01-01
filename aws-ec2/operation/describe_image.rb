@@ -10,17 +10,17 @@ image_id = @input.get("image-id")					#Specifies the image ID of Amazon EC2
 #Optional
 @access_key = @input.get("access-key")
 @secret_key = @input.get("security-key")
-region = @input.get("region")									#Amazon EC2 region (default region is "us-east-1")
-request_timeout = @input.get("timeout")							#Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds) 
+region = @input.get("region")						#Amazon EC2 region (default region is "us-east-1")
+request_timeout = @input.get("timeout")				#Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds) 
 
 @log.info("Flintbit input parameters are, action : #{action} | image_id : #{image_id} | region : #{region}") 
 
 if connector_name.nil? || connector_name.empty?
-	raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe Tags'
+	raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe Image'
 end
 
 if image_id.nil? || image_id.empty?
-	raise 'Please provide "Amazon EC2 resource ID (image_id)" to describe Tags'
+	raise 'Please provide "Amazon EC2 resource ID (image_id)" to describe image'
 end
 
 connector_call = @call.connector(connector_name).set("action",action).set("image-id",image_id).set("access-key",@access_key).set("security-key",@secret_key)
