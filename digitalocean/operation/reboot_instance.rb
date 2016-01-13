@@ -1,5 +1,5 @@
 #begin
-@log.trace("Started executing 'flint-cloud:digitalocean:operation:reboot_instance.rb' flintbit...3333333333333333333333333")
+@log.trace("Started executing 'flint-cloud:digitalocean:operation:reboot_instance.rb' flintbit...")
 begin
 #Flintbit Input Parameters
 #Mandatory 
