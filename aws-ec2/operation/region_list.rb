@@ -38,7 +38,7 @@ region_set=response.get("region")							#Set of Amazon EC2 region
 
 if response_exitcode == 0
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-	@output.set("exit-code",0).setraw("region",region_set.to_s)
+	@output.set("exit-code",0).set("message","success").setraw("region",region_set.to_s)
 else
 	@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")  
 	@output.set("exit-code",1).set("message",response.message)
