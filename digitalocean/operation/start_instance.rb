@@ -17,11 +17,9 @@
                                            timeout ::       #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                  .set("action",@action)
+                  .set("action","start")
                   .set("id",@id)
                   .set("token",@token)
-                 
-                  
 
 if @request_timeout.nil? || @request_timeout.is_a?(String)
    @log.trace("Calling #{@connector_name} with default timeout...")
@@ -45,7 +43,7 @@ if response.exitcode == 0
 	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("#{@connector_name} Action type :: #{actionType}")
-	@output.setraw("response",response.to_s)
+	@output.setraw("response",response.to_s).set("exit-code",0).set("message","success")
 else
 	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
 		                                                  message ::  #{response_message}")

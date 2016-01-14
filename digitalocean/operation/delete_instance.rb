@@ -1,5 +1,7 @@
 #begin
 @log.trace("Started executing 'flint-cloud:digitalocean:operation:delete_instance.rb' flintbit...")
+begin
+
 #Flintbit Input Parameters
 #Mandatory 
 @connector_name= @input.get("connector_name")               #Name of the DigitalOcean Connector
@@ -17,20 +19,23 @@
                                            timeout ::       #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                  .set("action",@action)
+                  .set("action","delete")
                   .set("id",@id)
                   .set("token",@token)
-                  
-                  
+
+if connector_name.nil? || connector_name.empty?
+  raise 'Please provide "digitalocean (connector_name)" to terminate Instance'
+end
 
 if @request_timeout.nil? || @request_timeout.is_a?(String)
    @log.trace("Calling #{@connector_name} with default timeout...")
 	 response = connector_call.sync
 else
-   @log.trace("Calling #{@connector_name} with given timeout #{request_timeout.to_s}...")
+   @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout.to_s}...")
 	 response = connector_call.timeout(@request_timeout).sync
 end
 
+@log.info("Response :  "+response.to_s)
 #DigitalOcean Connector Response Meta Parameters
 response_exitcode=response.exitcode           			#Exit status code
 response_message=response.message             			#Execution status message
@@ -42,12 +47,15 @@ if response.exitcode == 0
 	@log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
     	                                                   message ::  #{response_message}")
 	@log.info("#{@connector_name} Response Body Deleted :: #{requestaccess}")
-	@output.setraw("request-access",response.to_s)
- 
+	@output.setraw("request-access",response.to_s).set("exit-code",0).set("message","success")
 else
 	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
 		                                                  message ::  #{response_message}")
     @output.exit(1,response_message)
+end
+rescue Exception => e
+  @log.error(e.message)
+  @output.set("exit-code",1).set("message",e.message)
 end
 @log.trace("Finished executing 'flint-cloud:digitalocean:operation:delete_instance.rb' flintbit...")
 #end

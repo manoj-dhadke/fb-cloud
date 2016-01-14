@@ -16,7 +16,7 @@
                                           timeout ::        #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                  .set("action",@action)
+                  .set("action","stop")
                   .set("id",@id)
                   .set("token",@token)
                            
@@ -42,8 +42,8 @@ actionStatus = response.get("action-status")   #Action status
 if response.exitcode == 0  
   @log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
                                                          message ::  #{response_message}")
-  @log.info("#{@connector_name} Action type :: #{actionType}")
-  @output.setraw("response",response.to_s)
+  @log.info("#{@connector_name} Action type :: #{actionType}Action id :: #{actionId}")
+  @output.setraw("response",response.to_s).set("exit-code",0).set("message","success")
 
 else
   @log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
