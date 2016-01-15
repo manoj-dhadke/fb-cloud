@@ -23,7 +23,7 @@ connector_call = @call.connector(@connector_name)
                   .set("id",@id)
                   .set("token",@token)
 
-if connector_name.nil? || connector_name.empty?
+if @connector_name.nil? || @connector_name.empty?
   raise 'Please provide "digitalocean (connector_name)" to terminate Instance'
 end
 
