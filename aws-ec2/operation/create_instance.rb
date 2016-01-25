@@ -1,4 +1,5 @@
 # begin
+
 @log.trace("Started executing 'flint-util:aws:operation:create_instance.rb' flintbit...")
 begin
   # Flintbit Input Parameters
@@ -23,13 +24,16 @@ begin
   request_timeout = @input.get('timeout')						# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
   network = @input.get("network")             # Launch Instance into Amazon Virtual Private Cloud
   storage = @input.get("storage")             # Volumn type for instance
-  security_group = @input.get("security_group")            #Security Group for instance
+  security_group = @input.get("security_group")
+  device_name = @input.get("device_name")            #Security Group for instance
   shutdown_behavior = @input.get("shutdown_behavior")
   termination_protection = @input.get("termination_protection")
 
   @log.info("Flintbit input parameters are, action : #{action} | image_id : #{image_id} | availability_zone : #{availability_zone} |instance_type : #{instance_type} |
   key_name : #{key_name} | min_instance : #{min_instance} | max_instance : #{max_instance} | region : #{region} | subnet_id : #{subnet_id}| network : #{network}
   | storage : #{storage}| security_group : #{security_group} | shutdown_behavior : #{shutdown_behavior} | termination_protection : #{termination_protection}")
+
+
 
   if connector_name.nil? || connector_name.empty?
     fail 'Please provide "Amazon EC2 connector name (connector_name)" to launch Instance'
@@ -50,7 +54,12 @@ begin
   if max_instance.nil? || max_instance.is_a?(String)
     fail 'Please provide "Maximum instance value (max_instance)" to launch Instance'
   end
-
+  if !termination_protection.nil?
+    if termination_protection == "true"
+      termination_protection = true
+    end
+    termination_protection = false
+  end
   connector_call = @call.connector(connector_name)
                         .set('action', action)
                         .set('image-id', image_id)
@@ -64,6 +73,7 @@ begin
                         .set('security-group', security_group)
                         .set('shutdown-behavior', shutdown_behavior)
                         .set('termination-protection', termination_protection)
+                        .set('device-name', device_name)
 
   if !region.nil? && !region.empty?
     connector_call.set('region', region)
