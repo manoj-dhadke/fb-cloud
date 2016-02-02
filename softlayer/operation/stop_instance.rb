@@ -1,14 +1,14 @@
 #begin
 @log.trace("Started executing 'flint-cloud:softlayer:operation:stop_instance.rb' flintbit...")
 #Flintbit Input Parameters
-#Mandatory 
+#Mandatory
 @connector_name= @input.get("connector_name")               #Name of the Cloud Connector
 @action = @input.get("action")                              #Action
 @id = @input.get("id")                                      #Id
 #optional
 @username = @input.get("username")                          #username
 @apikey = @input.get("apikey")                              #apikey
-                              
+
 @request_timeout= @input.get("timeout")                     #timeout
 
 @log.info("Flintbit input parameters are, connector name :: #{@connector_name} |
@@ -23,7 +23,8 @@ connector_call = @call.connector(@connector_name)
                   .set("id",@id)
                   .set("apikey",@apikey)
                   .set("username",@username)
-                  
+
+@log.info(" Connector call response  : #{connector_call}")
 
 if @request_timeout.nil? || @request_timeout.is_a?(String)
    @log.trace("Calling #{@connector_name} with default timeout...")
@@ -37,18 +38,19 @@ end
 response_exitcode=response.exitcode           #Exit status code
 response_message=response.message             #Execution status message
 
+@log.info("Response -->  #{response}")
 #Softlayer Connector Response Parameters
 result = response.get("power-off")             #vm power on state
 state = response.get("vm-state")               #vm state
 
-if response.exitcode == 0  
-	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
+if response.exitcode == 0
+	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
 	@log.info("Softlayer Response Body :: #{result.to_s}")
 	@output.setraw("response",response.to_s)
- 
+
 else
-	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
+	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
     @output.exit(1,response_message)
 end
