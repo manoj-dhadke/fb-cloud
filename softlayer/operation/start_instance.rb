@@ -19,8 +19,8 @@
                                            timeout ::       #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                  .set("action",@action)
-                  .set("id",@id)
+                  .set("action","start")
+                  .set("id",@id.to_i)
                   .set("apikey",@apikey)
                   .set("username",@username)
 
@@ -44,10 +44,11 @@ result = response.get("power-on")             #vm power on state
 state = response.get("vm-state")              #vm state
 
 if response.exitcode == 0
+	
 	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
 	@log.info("Softlayer Response Body :: #{result}")
-	@output.setraw("response",response.to_s)
+	@output.setraw("response",response.to_s).set("exit-code",0).set("message","success")
 
 else
 	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
