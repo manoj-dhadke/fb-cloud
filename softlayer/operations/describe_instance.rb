@@ -1,5 +1,5 @@
 # begin
-@log.trace("Started executing 'flint-cloud:softlayer:operation:describe_instance.rb' flintbit...")
+@log.trace("Started executing 'flint-cloud:softlayer:operations:describe_instance.rb' flintbit...")
 # Flintbit Input Parameters
 # Mandatory
 @connector_name = @input.get('connector_name') # Name of the Softlayer Connector
@@ -18,8 +18,8 @@
                                            timeout ::       #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                      .set('action', @action)
-                      .set('id', @id)
+                      .set('action', 'details')
+                      .set('id', @id.to_i)
                       .set('username', @username)
                       .set('apikey', @apikey)
 
@@ -42,8 +42,7 @@ if response.exitcode == 0
   @log.info("response :: #{result}")
   @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
-
-  @output.setraw('response', response.to_s)
+  @output.setraw('response', response.to_s).set("exit-code",0).set("message","success")
 else
   @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
