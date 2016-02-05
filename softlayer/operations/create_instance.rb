@@ -1,5 +1,6 @@
 # begin
 @log.trace("Started executing 'flint-cloud:softlayer:operations:create_instance.rb' flintbit...")
+begin
 # Flintbit Input Parameters
 # Mandatory
 @connector_name = @input.get('connector_name') 							# Name of the Softlayer Connector
@@ -14,7 +15,7 @@
 @username = @input.get('username')                          # Username
 @apikey = @input.get('apikey')                              # apikey
 @request_timeout = @input.get('timeout') # timeout
-
+service_request = @input.get('service-request')
 @log.info("Flintbit input parameters are, connector name :: 	#{@connector_name} |
 	                                        action ::        	#{@action}|
 										   							 		  hostname ::      	#{@hostname}|
@@ -26,6 +27,21 @@
                                           username ::      	#{@username}|
                                           apikey ::        	#{@apikey}|
                                           timeout ::       	#{@request_timeout}")
+if @hostname.nil? || @hostname.empty?
+	fail 'Please provide "softalyer vm hostname (host-name)" to launch instance'
+end
+if @connector_name.nil? || @connector_name.empty?
+	fail 'Please provide "softalyer connector name (connector_name)" to launch instance'
+end
+if @domainname.nil? || @domainname.empty?
+	fail 'Please provide "softlayer domain name (domain-name) " to launch instance'
+end
+if @datacenter.nil? || @datacenter.empty?
+	fail 'Please provide "softalyer data center (datacenter)" to launch instance'
+end
+if @operating_system.nil? | @operating_system.empty?
+	fail 'Please provide "softlayer operating system (operating-system)" to launch instance'
+end
 
 connector_call = @call.connector(@connector_name)
                       .set('action', "create")
@@ -65,6 +81,12 @@ else
   @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
   @output.exit(1, response_message)
+end
+rescue => e
+	@log.error(e.message)
+	@output.set('message', e.message).set("exit-code", -1)
+	@call.bit('flintcloud-integrations:aws:vm_provision_mail.rb').set('exit-code', 1).set('to', @email).set('error', e.message).set('service-request', service_request).async
+	@log.info("output in exception")
 end
 @log.trace("Finished executing 'flint-cloud:softlayer:operation:create_instance.rb' flintbit...")
 # end
