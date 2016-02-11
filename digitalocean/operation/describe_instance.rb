@@ -2,7 +2,7 @@
 begin
 @log.trace("Started executing 'flint-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
 #Flintbit Input Parameters
-#Mandatory  
+#Mandatory
 @connector_name= @input.get("connector_name")		#Name of the DigitalOcean Connector
 @action = "detail"									#Action(detail)
 @id = @input.get("id")								#Id of the machine
@@ -12,8 +12,8 @@ begin
 
 @log.info("Flintbit input parameters are, connector name : #{@connector_name} | action : #{@action}| id : #{@id} | token : #{@token} | timeout : #{@request_timeout}")
 
-connector_call = @call.connector(@connector_name).set("action",@action).set("id",@id).set("token",@token)
-               
+connector_call = @call.connector(@connector_name).set("action",@action).set("id",@id.to_i).set("token",@token)
+
 if @request_timeout.nil? || @request_timeout.is_a?(String)
 	@log.trace("Calling #{@connector_name} with default timeout...")
 	response = connector_call.sync
