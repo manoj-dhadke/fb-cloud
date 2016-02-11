@@ -5,12 +5,12 @@ begin
 # Mandatory
 @connector_name = @input.get('connector_name') 							# Name of the Softlayer Connector
 @action = @input.get('action')                              # Action
-@hostname = @input.get('host-name')                         # Hostname of the machine to be created
-@domainname = @input.get('domain-name')											# DomainName of the machine to be created
+@hostname = @input.get('host_name')                         # Hostname of the machine to be created
+@domainname = @input.get('domain_name')											# DomainName of the machine to be created
 @cpu = @input.get('cpu')                                    # No of cpu required
-@maxmemory = @input.get('max-memory')                       # Max memory required by machine
+@maxmemory = @input.get('max_memory')                       # Max memory required by machine
 @datacenter = @input.get('datacenter')                      # Name of the datacenter where machine is created
-@operating_system = @input.get('opearting-system')          # Name of the operating system which is to be in machine
+@operating_system = @input.get('opearting_system')          # Name of the operating system which is to be in machine
 # optional
 @username = @input.get('username')                          # Username
 @apikey = @input.get('apikey')                              # apikey
