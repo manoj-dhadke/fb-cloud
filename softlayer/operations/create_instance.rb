@@ -14,7 +14,7 @@ begin
 # optional
 @username = @input.get('username')                          # Username
 @apikey = @input.get('apikey')                              # apikey
-@request_timeout = @input.get('timeout') # timeout
+@request_timeout = @input.get('timeout') 										# timeout
 service_request = @input.get('service-request')
 @log.info("Flintbit input parameters are, connector name :: 	#{@connector_name} |
 	                                        action ::        	#{@action}|
