@@ -1,20 +1,19 @@
 # begin
 @log.trace("Started executing 'flint-cloud:softlayer:operations:create_instance.rb' flintbit...")
-begin
 # Flintbit Input Parameters
 # Mandatory
 @connector_name = @input.get('connector_name') 							# Name of the Softlayer Connector
-@action = @input.get('action')                              # Action
-@hostname = @input.get('host_name')                         # Hostname of the machine to be created
-@domainname = @input.get('domain_name')											# DomainName of the machine to be created
+@action = "create"                              						# Action
+@hostname = @input.get('host-name')                         # Hostname of the machine to be created
+@domainname = @input.get('domain-name')											# DomainName of the machine to be created
 @cpu = @input.get('cpu')                                    # No of cpu required
-@maxmemory = @input.get('max_memory')                       # Max memory required by machine
+@maxmemory = @input.get('max-memory')                       # Max memory required by machine
 @datacenter = @input.get('datacenter')                      # Name of the datacenter where machine is created
-@operating_system = @input.get('opearting_system')          # Name of the operating system which is to be in machine
+@operating_system = @input.get('operating-system')          # Name of the operating system which is to be in machine
 # optional
 @username = @input.get('username')                          # Username
 @apikey = @input.get('apikey')                              # apikey
-@request_timeout = @input.get('timeout') 										# timeout
+@request_timeout = @input.get('timeout')  									# timeout
 service_request = @input.get('service-request')
 @log.info("Flintbit input parameters are, connector name :: 	#{@connector_name} |
 	                                        action ::        	#{@action}|
@@ -68,8 +67,8 @@ response_exitcode = response.exitcode           # Exit status code
 response_message = response.message             # Execution status message
 
 # Softlayer Connector Response Parameters
-id = response.get('id')                       # Machine Id
-domainName = response.get('domainName')       # Machine domainName
+id = response.get('id')                         # Machine Id
+domainName = response.get('domainName')         # Machine domainName
 
 if response.exitcode == 0
   @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
