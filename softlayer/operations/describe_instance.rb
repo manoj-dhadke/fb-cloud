@@ -31,6 +31,7 @@ else
   response = connector_call.timeout(@request_timeout).sync
 end
 
+@log.info("Connector response : #{response.to_s}")
 # Softlayer Connector Response Meta Parameters
 response_exitcode = response.exitcode           # Exit status code
 response_message = response.message             # Execution status message
@@ -39,14 +40,15 @@ response_message = response.message             # Execution status message
 result = response.get('vm-details') # Response Body
 
 if response.exitcode == 0
-  @log.info("response :: #{result}")
+  @log.info("response : #{result}")
   @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
   @output.setraw('response', response.to_s).set("exit-code",0).set("message","success")
 else
   @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
-  @output.exit(1, response_message)
+  @output.setraw('response', response.to_s).set("exit-code",1)
+
     end
 @log.trace("Finished executing 'flint-cloud:softlayer:operation:describe_instance.rb' flintbit...")
 # end

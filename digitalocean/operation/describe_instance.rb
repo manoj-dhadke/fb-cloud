@@ -35,7 +35,7 @@ if response.exitcode == 0
 	@output.set("exit-code",0).set("message","success").setraw("droplet-info",droplet_info.to_s)
 else
 	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message ::  #{response_message}")
-	@output.set("exit-code",1).set("message",response.message)
+	@output.set("exit-code",1).setraw("message",response_message)
 end
 rescue Exception => e
 	@log.error(e.message)

@@ -10,12 +10,12 @@ instance_id = @input.get("instance-id")						#Specifies the instance ID of Amazo
 #Optional
 @access_key = @input.get("access-key")
 @secret_key = @input.get("security-key")
-availability_zone = @input.get("availability_zone")			#Specifies the availability zones for 
+availability_zone = @input.get("availability_zone")			#Specifies the availability zones for
 															#launching the required instances availability zone element.
 region = @input.get("region")								#Amazon EC2 region (default region is "us-east-1")
-request_timeout = @input.get("timeout")						#Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds) 
+request_timeout = @input.get("timeout")						#Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-@log.info("Flintbit input parameters are, action : #{action} | instance_id : #{instance_id} | availability_zone : #{availability_zone} | region : #{region}|") 
+@log.info("Flintbit input parameters are, action : #{action} | instance_id : #{instance_id} | availability_zone : #{availability_zone} | region : #{region}|")
 
 @log.trace("Calling #{connector_name} ...")
 
@@ -32,7 +32,7 @@ connector_call = @call.connector(connector_name).set("action",action).set("insta
 if !region.nil? && !region.empty?
 	connector_call.set("region",region)
 else
-	@log.trace("region is not provided so using default region 'us-east-1'")     
+	@log.trace("region is not provided so using default region 'us-east-1'")
 end
 
 if request_timeout.nil? || request_timeout.is_a?(String)
@@ -43,6 +43,7 @@ else
 	response = connector_call.timeout(request_timeout).sync
 end
 
+@log.info(" Connector response :   #{response.to_s}")
 #Amazon EC2 Connector Response Meta Parameters
 response_exitcode = response.exitcode					#Exit status code
 response_message = response.message						#Execution status messages
@@ -50,24 +51,24 @@ response_message = response.message						#Execution status messages
 #Amazon EC2 Connector Response Parameters
 instances_set=response.get("instances-info")			#Set of Amazon EC2 described instances
 
-if response_exitcode == 0
+if response_exitcode == 0 && !instances_set.empty?
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 	instances_set.each do |instance|
 	@log.info("Amazon EC2 instance image id : #{instance.get("image-id")} | public ip : #{instance.get("public-ip")} | instance type : #{instance.get("instance-type")} |
-				key-name : #{instance.get("key-name")} |private ip : #{instance.get("private-ip")} | hypervisor : #{instance.get("hypervisor")} | 
+				key-name : #{instance.get("key-name")} |private ip : #{instance.get("private-ip")} | hypervisor : #{instance.get("hypervisor")} |
 				kernel id : #{instance.get("kernel-id")} | instance id : #{instance.get("instance-id")} | architecture : #{instance.get("architecture")} |
 				client-token : #{instance.get("client-token")} | instance-lifecycle : #{instance.get("instance-lifecycle")} | platform : #{instance.get("platform")} |
 				state code : #{instance.get("instance-state-code")} | state name : #{instance.get("instance-state-name")} | ramdisk id : #{instance.get("ramdisk-id")} |
-				ebs optimized : #{instance.get("ebs-optimized")} | placement tenancy : #{instance.get("placement-tenancy")} | 
-				placement group name : #{instance.get("placement-group-name")} | public DNS name : #{instance.get("public-DNSname")} | 
-				root device name : #{instance.get("root-device-name")} | root device type : #{instance.get("root-device-type")} | 
+				ebs optimized : #{instance.get("ebs-optimized")} | placement tenancy : #{instance.get("placement-tenancy")} |
+				placement group name : #{instance.get("placement-group-name")} | public DNS name : #{instance.get("public-DNSname")} |
+				root device name : #{instance.get("root-device-name")} | root device type : #{instance.get("root-device-type")} |
 				launch time : #{instance.get("launch-time")} | subnet id : #{instance.get("subnet-id")} | virtualization type :  #{instance.get("virtualization-type")} |
 	            vpc id : #{instance.get("vpc-id")} | ami launch index : #{instance.get("ami-launch-index")} |")
 	end
 	@output.set("exit-code",0).setraw("instances-info",instances_set.to_s)
 else
 	@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message :  #{response_message}")
-	@output.set("exit-code",1).set("message",response_message)
+	@output.set("exit-code",1).set("message",response_message).setraw("instances-info",instances_set.to_s)
 	#@output.exit(1,response_message)					#Use to exit from flintbit
 end
 rescue Exception => e
