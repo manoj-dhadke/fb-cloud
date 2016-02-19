@@ -1,5 +1,6 @@
 # begin
 @log.trace("Started executing 'flint-cloud:softlayer:operations:create_instance.rb' flintbit...")
+begin
 # Flintbit Input Parameters
 # Mandatory
 @connector_name = @input.get('connector_name') 							# Name of the Softlayer Connector
