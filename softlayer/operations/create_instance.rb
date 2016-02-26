@@ -50,7 +50,7 @@ connector_call = @call.connector(@connector_name)
                       .set('cpu', @cpu)
                       .set('max-memory', @maxmemory)
                       .set('datacenter', @datacenter)
-                      .set('opearting-system', @operating_system)
+                      .set('operating-system', @operating_system)
                       .set('apikey', @apikey)
                       .set('username', @username)
 
