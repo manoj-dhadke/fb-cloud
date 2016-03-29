@@ -7,10 +7,10 @@ begin
   # Mandatory
   connector_name = @input.get('connector_name')           	# Name of the Amazon EC2 Connector
   action = 'create-instance'                              	# Contains the name of the operation: create-instance
-  image_id = @input.get('ami_id')                     		# Specifies the unique ID for the AMI
-  instance_type = @input.get('instance_type')					# Specifies the type of the instance
-  min_instance = @input.get('min_instance')					# Specifies the minimum number of instances to launch
-  max_instance = @input.get('max_instance')					# Specifies the maximum number of instances to launch
+  image_id = @input.get('ami_id')                     		  # Specifies the unique ID for the AMI
+  instance_type = @input.get('instance_type')					      # Specifies the type of the instance
+  min_instance = @input.get('min_instance')					        # Specifies the minimum number of instances to launch
+  max_instance = @input.get('max_instance')					        # Specifies the maximum number of instances to launch
   @email = @input.get('email-id')
   service_request = @input.get('service-request')
   owner = @input.get('owner')
@@ -18,14 +18,14 @@ begin
   security_key =  @input.get('security-key')
   # Optional
   availability_zone = @input.get('availability_zone')   		# Specifies the availability zones forlaunching the required instances availability zone element.
-  region = @input.get('region')								# Amazon EC2 region (default region is "us-east-1")
-  key_name = @input.get('key_name')							# Specifies the name of the key pair
-  subnet_id = @input.get('subnet_id')							# Subnet ID for VPC instances
-  request_timeout = @input.get('timeout')						# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
-  network = @input.get("network")             # Launch Instance into Amazon Virtual Private Cloud
-  storage = @input.get("storage")             # Volumn type for instance
-  security_group = @input.get("security_group")
-  device_name = @input.get("device_name")            #Security Group for instance
+  region = @input.get('region')								              # Amazon EC2 region (default region is "us-east-1")
+  key_name = @input.get('key_name')							            # Specifies the name of the key pair
+  subnet_id = @input.get('subnet_id')							          # Subnet ID for VPC instances
+  request_timeout = @input.get('timeout')						        # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
+  network = @input.get("network")                           # Launch Instance into Amazon Virtual Private Cloud
+  storage = @input.get("storage")                           # Volume type for instance
+  security_group = @input.get("security_group")             # Security Group for instance
+  device_name = @input.get("device_name")                   
   shutdown_behavior = @input.get("shutdown_behavior")
   termination_protection = @input.get("termination_protection")
 
