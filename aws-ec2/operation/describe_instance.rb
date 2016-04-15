@@ -1,5 +1,5 @@
 #begin
-@log.trace("Started executing 'flint-cloud:aws-ec2:operation:describe_amazon_instance.rb' flintbit...")
+@log.trace("Started executing 'flint-cloud:aws-ec2:operation:describe_instance.rb' flintbit... &")
 begin
 #Flintbit Input Parameters
 #Mandatory
@@ -23,9 +23,9 @@ if connector_name.nil? || connector_name.empty?
 	raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe amazon instance'
 end
 
-if instance_id.nil? || instance_id.empty?
-	raise 'Please provide "Amazon EC2 instance ID (instance_id)" to describe amazon instance'
-end
+#if instance_id.nil? || instance_id.empty?
+#	raise 'Please provide "Amazon EC2 instance ID (instance_id)" to describe amazon instance'
+#end
 
 connector_call = @call.connector(connector_name).set("action",action).set("instance-id",instance_id).set("access-key",@access_key).set("security-key",@secret_key)
 
@@ -50,6 +50,9 @@ response_message = response.message						#Execution status messages
 
 #Amazon EC2 Connector Response Parameters
 instances_set=response.get("instances-info")			#Set of Amazon EC2 described instances
+if instances_set.nil?
+	instances_set= []
+end
 
 if response_exitcode == 0 && !instances_set.empty?
 	@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
