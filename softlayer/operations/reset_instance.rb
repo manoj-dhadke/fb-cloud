@@ -1,29 +1,24 @@
 #begin
 @log.trace("Started executing 'flint-cloud:softlayer:operation:reset_instance.rb' flintbit...")
 #Flintbit Input Parameters
-#Mandatory 
-@connector_name= @input.get("connector_name")               #Name of the Softlayer Connector
-@action = @input.get("action")                              #Action
-@id = @input.get("id")                                      #Id
+#Mandatory
+@connector_name= @input.get("connector_name") #Name of the Softlayer Connector
+@action = @input.get("action") # Contains the name of the operation
+@id = @input.get("id") #Id
 #optional
-@username = @input.get("username")                          #username
-@apikey = @input.get("apikey")                              #apikey
-                              
-@request_timeout= @input.get("timeout")                     #timeout
+@username = @input.get("username") #username of softlayer account
+@apikey = @input.get("apikey") #apikey of softlayer account
+@request_timeout= @input.get("timeout") #timeout
 
-@log.info("Flintbit input parameters are, connector name :: #{@connector_name} |
-	                                       action ::        #{@action}|
-                                           id ::            #{@id}|
-                                           key ::           #{@username}|
-                                           secret ::        #{@apikey}|
-                                           timeout ::       #{@request_timeout}")
+@log.info("Flintbit input parameters are, connector name :: #{@connector_name} | action :: #{@action}| id :: #{@id}|
+key :: #{@username}| secret :: #{@apikey}| timeout :: #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
                   .set("action",@action)
                   .set("id",@id)
                   .set("apikey",@apikey)
                   .set("username",@username)
-                  
+
 
 if @request_timeout.nil? || @request_timeout.is_a?(String)
    @log.trace("Calling #{@connector_name} with default timeout...")
@@ -41,13 +36,13 @@ response_message=response.message             #Execution status message
 result = response.get("reset")                #vm reset state
 state = response.get("vm-state")              #vm state
 
-if response.exitcode == 0  
-	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
+if response.exitcode == 0
+	@log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
 	@log.info("#{@connector_name} Response Body :: #{result.to_s}")
 	@output.setraw("response",response.to_s)
 else
-	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | 
+	@log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
     @output.exit(1,response_message)
 end
