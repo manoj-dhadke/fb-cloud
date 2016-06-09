@@ -1,10 +1,11 @@
 # begin
 
-@log.trace("Started executing 'flint-util:aws:operation:create_instance.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:create_instance.rb' flintbit...")
 begin
     # Flintbit Input Parameters
     @log.info("Input for create instance flintbit :: #{@input}")
-    # Mandatory
+
+    # Mandatory Input Parameters
     connector_name = @input.get('connector_name') # Name of the Amazon EC2 Connector
     action = 'create-instance' # Contains the name of the operation: create-instance
     image_id = @input.get('ami_id') # Specifies the unique ID for the AMI
@@ -14,10 +15,11 @@ begin
     @email = @input.get('email-id') # To notify user via email about success or failure
     service_request = @input.get('service-request') # Service request Id for creation of instance
     owner = @input.get('owner') # User name which is creating instance
+
+    # Optional Input Parameters
     access_key = @input.get('access-key') # access-key of amazon ec2 account
     security_key = @input.get('security-key') # security-key of amazon ec2 account
-    # Optional
-    availability_zone = @input.get('availability_zone') # Specifies the availability zones forlaunching the required instances availability zone element.
+    availability_zone = @input.get('availability_zone') # Specifies the availability zones for launching the required instances availability zone element.
     region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
     key_name = @input.get('key_name') # Specifies the name of the key pair
     subnet_id = @input.get('subnet_id') # Subnet ID for VPC instances
@@ -56,6 +58,8 @@ begin
         termination_protection = true if termination_protection == 'true'
         termination_protection = false
     end
+
+    @log.info("Calling Amazon EC2 Connector :: "+connector_name.to_s)
     connector_call = @call.connector(connector_name)
                           .set('action', action)
                           .set('image-id', image_id)
@@ -108,8 +112,7 @@ begin
     instance_info = response.get('instance-info') # Amazon EC2 created instance info set
 
     if response_exitcode == 0
-        @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} |
-                                    message : #{response_message}")
+        @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         instance_info.each do |instance|
             @log.info("Amazon EC2 Instance ID :	#{instance.get('instance-id')} |Instance Type :	#{instance.get('instance-type')} |
                 Instance public IP : #{instance.get('public-ip')} |	Instance private IP : #{instance.get('private-ip')} ")
@@ -133,5 +136,5 @@ rescue => e
     @call.bit('flintcloud-integrations:aws:vm_provision_mail.rb').set('exit-code', 1).set('to', @email).set('error', e.message).set('service-request', service_request).async
     @log.info('output in exception')
 end
-@log.trace("Finished executing 'flint-util:aws:operation:create_amazon_instance.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_instance.rb' flintbit")
 # end

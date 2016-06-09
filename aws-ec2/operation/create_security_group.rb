@@ -1,20 +1,21 @@
 # begin
-@log.trace("Started executing 'flint-cloud:aws-ec2:operation:delete_security_group.rb' flintbit...")
+@log.trace("Started executing 'flint-cloud:aws-ec2:operation:create_security_group.rb' flintbit...")
 # Flintbit Input Parameters
 # Mandatory
-connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-action = 'delete-security-group' # Specifies the name of the operation: delete-security-group
-group_name = @input.get('group_name')	# Contain security group name corresponding to the
-# region that you want to delete
+connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
+action = 'create-security-group'                    # Specifies the name of the operation: create-security-group
+group_name = @input.get('group_name')	              # Contain security group name that you want to create
+group_description = @input.get('group_description')	# Contain security group description that you want to create
 # Optional
 @access_key = @input.get('access-key')
 @secret_key = @input.get('security-key')
-region = @input.get('region')	# Amazon EC2 region (default region is 'us-east-1')
-request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
+region = @input.get('region')	                      # Amazon EC2 region (default region is 'us-east-1')
+request_timeout = @input.get('timeout')	            # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
 @log.info("Flintbit input parameters are, action : #{action} | group_name : #{group_name} | region : #{region}")
 
-connector_call = @call.connector(connector_name).set('action', action).set('group-name', group_name).set('access-key', @access_key).set('security-key', @secret_key)
+connector_call = @call.connector(connector_name).set('action', action).set('group-name', group_name).set('group-description', group_description)
+                      .set('access-key', @access_key).set('security-key', @secret_key)
 
 if !region.nil? && !region.empty?
     connector_call.set('region', region)
@@ -42,5 +43,5 @@ else
     @output.set('message', response_message)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
-@log.trace("Finished executing 'flint-cloud:aws-ec2:operation:delete_security_group.rb' flintbit")
+@log.trace("Finished executing 'flint-cloud:aws-ec2:operation:create_security_group.rb' flintbit")
 # end

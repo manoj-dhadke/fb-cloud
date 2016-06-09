@@ -1,0 +1,150 @@
+---
+title: "Create Amazon EC2 Instance"
+description: "Launch server instances in Amazon data centers"
+
+flintbit: "fb-cloud:aws-ec2:operation:create_instance.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "amazon-ec2"
+        id: connector_name
+        label: Flint's Amazon EC2 connector name
+        placeholder: "Enter amazon EC2 connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: ami_id
+        label: Amazon Machine Image ID
+        placeholder: "Enter Amazon Machine Image ID"
+        type: textbox
+        required: true
+
+      -
+        default: "t2.micro"
+        id: instance_type
+        label: Instance Type
+        placeholder: "Amazon EC2 Instance type"
+        type: textbox
+        required: true
+      -
+        default: 1
+        id: min_instance
+        label: Minimum Instance
+        placeholder: "Minimum number of instances"
+        type: Integer
+        required: true
+      -
+        default: 1
+        id: max_instance
+        label: Maximum Instance
+        placeholder: "Maximum number of instances"
+        type: Integer
+        required: true
+      -
+        default:
+        id: access-key
+        label: Access Key
+        placeholder: "Access Key"
+        type: textbox
+        required: false
+      -
+        default:
+        id: security-key
+        label: Security Key
+        placeholder: "Security Key"
+        type: password
+        required: false
+      -
+        default: "us-east-1"
+        id: region
+        label: Region
+        placeholder: "Amazon EC2 Region"
+        type: select
+        required: true
+        options:
+          - ap-southeast-1
+          - ap-southeast-2
+          - eu-central-1
+          - ap-northeast-2
+          - ap-northeast-1
+          - us-east-1
+          - sa-east-1
+          - us-west-1
+          - us-west-2
+      -
+        default: "us-east-1a"
+        id: availability_zone
+        label: Availability Zone
+        placeholder: "Security Key"
+        type: password
+        required: false
+      -
+        default:
+        id: key_name
+        label: Key Name
+        placeholder: "Key Name"
+        type: Textbox
+        required: false
+  -
+    section: Network and storage
+    fields:
+      -
+        default:
+        id: subnet_id
+        label: Subnet ID
+        placeholder: "Subnet ID"
+        type: textbox
+        required: false
+      -
+        default:
+        id: network
+        label: Network
+        placeholder: "Network"
+        type: textbox
+        required: false
+      -
+        default:
+        id: storage
+        label: Storage
+        placeholder: "storage"
+        type: textbox
+        required: false
+      -
+        default: "default"
+        id: security_group
+        label: Security Group
+        placeholder: "Security Group"
+        type: textbox
+        required: false
+      -
+        default:
+        id: device_name
+        label: Device Name
+        placeholder: "Device Name"
+        type: textbox
+        required: false
+      -
+        default: "stop"
+        id: shutdown_behavior
+        label: Shutdown Behavior
+        placeholder: "Shutdown Behavior"
+        type: radio
+        required: false
+        options:
+          - stop
+          - terminate
+      -
+        default:
+        id: termination_protection
+        label: Termination Protection
+        placeholder: "Termination Protection"
+        type: radio
+        required: false
+        options:
+          - true
+          - false
+...

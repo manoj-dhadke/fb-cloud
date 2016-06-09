@@ -56,8 +56,7 @@ begin
         end
         @output.set('exit-code', 0).setraw('started-instances', instances_set.to_s)
     else
-        @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |
-      																															 message : #{response_message}")
+        @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
         # @output.exit(1,response_message)														#Use to exit from flintbit
     end
