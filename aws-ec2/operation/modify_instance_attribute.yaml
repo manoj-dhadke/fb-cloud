@@ -1,0 +1,77 @@
+---
+title: "Modify attribute of Amazon EC2 Instance"
+description: "Modify attribute of Amazon EC2 Instance"
+
+flintbit: "fb-cloud:aws-ec2:operation:modify_instance_attribute.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "amazon-ec2"
+        id: connector_name
+        label: Flint's Amazon EC2 connector name
+        placeholder: "Enter amazon EC2 connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: instance_id
+        label: Instance ID
+        placeholder: "Amazon EC2 Instance ID"
+        type: textbox
+        required: true
+      -
+        default: "us-east-1"
+        id: region
+        label: Region
+        placeholder: "Amazon EC2 Region"
+        type: select
+        required: true
+        options:
+          - ap-southeast-1
+          - ap-southeast-2
+          - eu-central-1
+          - ap-northeast-2
+          - ap-northeast-1
+          - us-east-1
+          - sa-east-1
+          - us-west-1
+          - us-west-2        
+      -
+        default:
+        id: attribute
+        label: Attribute
+        placeholder: "Amazon EC2 Instance Attribute"
+        type: textbox
+        required: true
+      -
+        default:
+        id: attribute_value
+        label: Attribute value
+        placeholder: "Amazon EC2 Instance Attribute value"
+        type: textbox
+        required: false
+      -
+        default:
+        id: access-key
+        label: Access Key
+        placeholder: "Access Key"
+        type: textbox
+        required: false
+      -
+        default:
+        id: security-key
+        label: Security Key
+        placeholder: "Security Key"
+        type: password
+        required: false
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: Integer
+        required: false
+...

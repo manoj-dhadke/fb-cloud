@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the Digitalocean Connector
-    @action = @input.get('action') # Action(create)
+    @action = "create" # Action(create)
     @name = @input.get('name')	# name of the machine to be created
     @region = @input.get('region')	# Region name where machine is to be created
     @image = @input.get('image')	# Name of the operating system which is to be in machine

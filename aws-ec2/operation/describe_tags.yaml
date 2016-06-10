@@ -1,0 +1,77 @@
+---
+title: "Describe tags of Amazon EC2 Instance"
+description: "Describe tags for the specified resource or resources"
+
+flintbit: "fb-cloud:aws-ec2:operation:describe_tags.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "amazon-ec2"
+        id: connector_name
+        label: Flint's Amazon EC2 connector name
+        placeholder: "Enter amazon EC2 connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: resource_id
+        label: Amazon Instance ID
+        placeholder: "Enter Amazon Instance ID"
+        type: textbox
+        required: true
+      -
+        default:
+        id: tag_key
+        label: Tag key
+        placeholder: "Enter Tag Key"
+        type: textbox
+        required: true
+      -
+        default:
+        id: tag_value
+        label: Tag value
+        placeholder: "Enter Tag value"
+        type: textbox
+        required: true
+      -
+        default:
+        id: region
+        label: Region
+        placeholder: "Amazon EC2 Region"
+        type: select
+        required: true
+        options:
+          - ap-southeast-1
+          - ap-southeast-2
+          - eu-central-1
+          - ap-northeast-2
+          - ap-northeast-1
+          - us-east-1
+          - sa-east-1
+          - us-west-1
+          - us-west-2
+      -
+        default:
+        id: access-key
+        label: Access Key
+        placeholder: "Access Key"
+        type: textbox
+        required: false
+      -
+        default:
+        id: security-key
+        label: Security Key
+        placeholder: "Security Key"
+        type: password
+        required: false
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: Integer
+        required: false
+...
