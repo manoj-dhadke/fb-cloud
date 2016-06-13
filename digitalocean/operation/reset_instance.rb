@@ -4,8 +4,8 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the DigitalOcean Connector
-    @action = @input.get('action')                              # Action (stop)
-    @id = @input.get('id')                                      # Id of the instance
+    @action = @input.get('action')                 # Action (stop)
+    @id = @input.get('id')                         # Id of the instance
     # optional
     @token = @input.get('token') # token(credential of account)
     @request_timeout = @input.get('timeout') # timeout

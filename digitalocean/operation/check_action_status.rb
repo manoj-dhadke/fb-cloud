@@ -1,12 +1,14 @@
 # begin
-@log.trace("Started executing 'flint-cloud:digitalocean:operation:check_action_status.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:digitalocean:operation:check_action_status.rb' flintbit...")
 begin
     # Flintbit Input Parameters
+
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the DigitalOcean Connector
-    @action = @input.get('action') # Action (stop)
-    @id = @input.get('action_id')
-    @instance_id = @input.get('id') # Id of the instance
+    @action = 'action-status' # Action (action-status)
+    @id = @input.get('action_id') # Id of the action
+    @instance_id = @input.get('id') # Id of the droplet
+
     # optional
     @token = @input.get('token') # token(credential of account)
     @request_timeout = @input.get('timeout') # timeout
@@ -15,7 +17,7 @@ begin
     instance :: #{@instance_id}| token :: #{@token}|timeout :: #{@request_timeout}")
 
     connector_call = @call.connector(@connector_name)
-                          .set('action', 'action-status')
+                          .set('action', @action)
                           .set('action-id', @id)
                           .set('id', @instance_id)
                           .set('token', @token)
@@ -38,19 +40,18 @@ begin
     resourceType = response.get('resource-type')   # Machine type
     actionType = response.get('action-type')       # Action type(power_on)
     actionStatus = response.get('action-status')   # Action status
+
     if response.exitcode == 0
-        @log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
-          	                                                   message ::  #{response_message}")
+        @log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | message ::  #{response_message}")
         @log.info("#{@connector_name} Action type :: #{actionType}")
         @output.setraw('response', response.to_s).set('exit-code', 0).set('message', 'success')
     else
-        @log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} |
-      		                                                  message ::  #{response_message}")
+        @log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | message ::  #{response_message}")
         @output.exit(1, response_message)
     end
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'flint-cloud:digitalocean:operation:start_instance.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:digitalocean:operation:check_action_status.rb' flintbit...")
 # end

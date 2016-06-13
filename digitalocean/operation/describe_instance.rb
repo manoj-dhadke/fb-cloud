@@ -2,10 +2,12 @@
 begin
     @log.trace("Started executing 'flint-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
     # Flintbit Input Parameters
+
     # Mandatory
     @connector_name = @input.get('connector_name')	# Name of the DigitalOcean Connector
     @action = 'detail'	# Action(detail)
     @id = @input.get('id')	# Id of the machine
+
     # optional
     @token = @input.get('token')	# token(credential of account)
     @request_timeout = @input.get('timeout')	# timeout
@@ -24,10 +26,12 @@ begin
     end
 
     # DigitalOcean Connector Response Meta Parameters
+
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status message
 
     # DigitalOcean Connector Response Parameters
+
     droplet_info = response	# Response Body
 
     if response.exitcode == 0

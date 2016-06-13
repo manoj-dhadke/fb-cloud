@@ -1,0 +1,98 @@
+---
+title: "Create DigitalOcean droplet"
+description: "Launch new droplet in DigitalOcean data centers"
+
+flintbit: "fb-cloud:digitalocean:operation:create_instance.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "digitalocean"
+        id: connector_name
+        label: Flint's DigitalOcean connector name
+        placeholder: "Enter DigitalOcean connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: name
+        label: Name of droplet
+        placeholder: "Enter Name of droplet to be created"
+        type: textbox
+        required: true
+
+      -
+        default:
+        id: region
+        label: Region
+        placeholder: "DigitalOcean region"
+        type: textbox
+        required: true
+      -
+        default: 1
+        id: size
+        label: Size
+        placeholder: "The size of the DigitalOcean droplet"
+        type: textbox
+        required: true
+      -
+        default: 1
+        id: image
+        label: Image
+        placeholder: "The image id of your DigitalOcean droplet"
+        type: textbox
+        required: true
+      -
+        default:
+        id: ssh_keys
+        label: SSH Keys
+        placeholder: "SSH key that you wants to embed in droplet"
+        type: textbox
+        required: false
+      -
+        default:
+        id: backups
+        label: Backups
+        placeholder: "Autometed backup should be enable or not"
+        type: radio
+        required: true
+        options:
+          - true
+          - false
+      -
+        default:
+        id: ipv6
+        label: IPV6
+        placeholder: "IPV6 enable or not"
+        type: radio
+        required: true
+        options:
+          - true
+          - false
+      -
+        default:
+        id: user_data
+        label: User Data
+        placeholder: "User data for the droplet"
+        type: textbox
+        required: false
+      -
+        default:
+        id: private_networking
+        label: Private Networking
+        placeholder: "Private networking enable or not"
+        type: radio
+        required: true
+        options:
+          - true
+          - false
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: Integer
+        required: false          
+...
