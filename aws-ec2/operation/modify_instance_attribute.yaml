@@ -38,7 +38,7 @@ inputs:
           - us-east-1
           - sa-east-1
           - us-west-1
-          - us-west-2        
+          - us-west-2
       -
         default:
         id: attribute
@@ -72,6 +72,6 @@ inputs:
         id: timeout
         label: Timeout
         placeholder: "timeout"
-        type: Integer
+        type: integer
         required: false
 ...

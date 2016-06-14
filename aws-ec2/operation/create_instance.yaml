@@ -35,14 +35,14 @@ inputs:
         id: min_instance
         label: Minimum Instance
         placeholder: "Minimum number of instances"
-        type: Integer
+        type: integer
         required: true
       -
         default: 1
         id: max_instance
         label: Maximum Instance
         placeholder: "Maximum number of instances"
-        type: Integer
+        type: integer
         required: true
       -
         default:
@@ -147,4 +147,11 @@ inputs:
         options:
           - true
           - false
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: integer
+        required: false          
 ...

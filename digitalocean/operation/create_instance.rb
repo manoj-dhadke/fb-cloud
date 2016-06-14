@@ -5,7 +5,7 @@ begin
 
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the Digitalocean Connector
-    @action = 'create'                             # Action(create)
+    @action = "create"                             # Action(create)
     @token = @input.get('token')                   # token
     @name = @input.get('name')                     # name of the machine to be created
     @region = @input.get('region')                 # Region name where machine is to be created
@@ -42,7 +42,7 @@ begin
         @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
     else
-        @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+        @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
         response = connector_call.timeout(@request_timeout).sync
     end
 

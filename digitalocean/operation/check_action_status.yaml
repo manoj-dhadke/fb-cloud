@@ -34,6 +34,6 @@ inputs:
         id: timeout
         label: Timeout
         placeholder: "timeout"
-        type: Integer
+        type: integer
         required: false
 ...

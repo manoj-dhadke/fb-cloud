@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the DigitalOcean Connector
-    @action = @input.get('action')                 # Action (stop)
+    @action = "reset"                 # Action (stop)
     @id = @input.get('id')                         # Id of the instance
     # optional
     @token = @input.get('token') # token(credential of account)
@@ -22,7 +22,7 @@ begin
         @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
     else
-        @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+        @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
         response = connector_call.timeout(@request_timeout).sync
     end
 
