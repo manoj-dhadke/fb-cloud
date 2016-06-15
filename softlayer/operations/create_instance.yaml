@@ -1,0 +1,98 @@
+---
+title: "Create IBM Softlayer Instance"
+description: "Launch server instances in IBM Softlayer data centers"
+
+flintbit: "fb-cloud:softlayer:operation:create_instance.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "softlayer"
+        id: connector_name
+        label: Flint's IBM Softlayer connector name
+        placeholder: "Enter IBM Softlayer connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: host-name
+        label: Hostname
+        placeholder: "Hostname of the machine to be created"
+        type: textbox
+        required: true
+      -
+        default:
+        id: domain-name
+        label: Domain Name
+        placeholder: "Domain Name of the machine to be created"
+        type: textbox
+        required: true
+      -
+        default:
+        id: cpu
+        label: CPU
+        placeholder: "Number of CPU"
+        type: integer
+        required: true
+      -
+        default:
+        id: max-memory
+        label: Maximum Memory
+        placeholder: "Maximum Memory"
+        type: integer
+        required: true
+      -
+        default:
+        id: datacenter
+        label: Data Center
+        placeholder: "IBM Softlayer Data Center"
+        type: select
+        required: true
+        options:
+          - ams01
+          - ams03
+          - che01
+          - dal01
+          - dal10
+          - dal02
+          - dal04
+          - dal05
+          - dal06
+          - dal07
+          - dal09
+          - fra02
+          - hkg02
+          - hou02
+          - lon02
+          - mel01
+          - mex01
+          - mil01
+          - mon01
+          - par01
+          - sjc01
+          - sjc03
+          - sao01
+          - sea01
+          - sng01
+          - syd01
+          - tok02
+          - tor01
+          - wdc01
+          - wdc04
+      -
+        default:
+        id: operating-system
+        label: Operating System
+        placeholder: "Operating System"
+        type: textbox
+        required: false
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: integer
+        required: false
+...

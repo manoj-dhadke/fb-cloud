@@ -1,6 +1,6 @@
 # begin
 begin
-    @log.trace("Started executing 'flint-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
+    @log.trace("Started executing 'fb-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
     # Flintbit Input Parameters
 
     # Mandatory
@@ -46,5 +46,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'flint-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:digitalocean:operation:describe_instance.rb' flintbit...")
 # end

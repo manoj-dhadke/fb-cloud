@@ -1,5 +1,5 @@
 # begin
-@log.trace("Started executing 'flint-cloud:aws-ec2:operation:describe_security_group.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:describe_security_group.rb' flintbit...")
 
 # Flintbit Input Parameters
 # Mandatory
@@ -53,5 +53,5 @@ else
     @output.set('error', response_message)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
-@log.trace("Finished executing 'flint-cloud:aws-ec2:operation:describe_security_group.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:describe_security_group.rb' flintbit")
 # end

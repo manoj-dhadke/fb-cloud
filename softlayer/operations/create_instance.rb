@@ -1,5 +1,5 @@
 # begin
-@log.trace("Started executing 'flint-cloud:softlayer:operations:create_instance.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:softlayer:operations:create_instance.rb' flintbit...")
 begin
     # Flintbit Input Parameters
     # Mandatory

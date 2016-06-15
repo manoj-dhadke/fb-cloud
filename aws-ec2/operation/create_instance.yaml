@@ -79,15 +79,15 @@ inputs:
         default: "us-east-1a"
         id: availability_zone
         label: Availability Zone
-        placeholder: "Security Key"
-        type: password
+        placeholder: "Availability Zone"
+        type: textbox
         required: false
       -
         default:
         id: key_name
         label: Key Name
         placeholder: "Key Name"
-        type: Textbox
+        type: textbox
         required: false
   -
     section: Network and storage
@@ -153,5 +153,5 @@ inputs:
         label: Timeout
         placeholder: "timeout"
         type: integer
-        required: false          
+        required: false
 ...

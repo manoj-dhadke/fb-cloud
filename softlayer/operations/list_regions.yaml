@@ -1,18 +1,18 @@
 ---
-title: "Region list of Amazon EC2"
-description: "Region list of Amazon EC2 data centers"
+title: "List All IBM Softlayer Data Centers"
+description: "List All Data Centers of IBM Softlayer"
 
-flintbit: "fb-cloud:aws-ec2:operation:region_list.rb"
+flintbit: "fb-cloud:softlayer:operation:list_regions.rb"
 icon: "fa fa-user"
 inputs:
   -
     section: Basic Fields
     fields:
       -
-        default: "amazon-ec2"
+        default: "softlayer"
         id: connector_name
-        label: Flint's Amazon EC2 connector name
-        placeholder: "Enter amazon EC2 connector name"
+        label: Flint's IBM Softlayer connector name
+        placeholder: "Enter IBM Softlayer connector name"
         type: textbox
         required: true
       -

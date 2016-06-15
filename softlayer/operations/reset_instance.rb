@@ -3,7 +3,7 @@
 #Flintbit Input Parameters
 #Mandatory
 @connector_name= @input.get("connector_name") #Name of the Softlayer Connector
-@action = @input.get("action") # Contains the name of the operation
+@action = 'reset' # Contains the name of the operation
 @id = @input.get("id") #Id
 #optional
 @username = @input.get("username") #username of softlayer account
@@ -24,7 +24,7 @@ if @request_timeout.nil? || @request_timeout.is_a?(String)
    @log.trace("Calling #{@connector_name} with default timeout...")
 	 response = connector_call.sync
 else
-   @log.trace("Calling #{@connector_name} with given timeout #{request_timeout.to_s}...")
+   @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout.to_s}...")
 	 response = connector_call.timeout(@request_timeout).sync
 end
 

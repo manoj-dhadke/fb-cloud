@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the Softlayer Connector
-    @action = @input.get('action') # Contains the name of the operation: details
+    @action = 'details' # Contains the name of the operation: details
     @id = @input.get('id') # Id of the machine
     # optional
     @username = @input.get('username') # username of softlayer account
@@ -15,7 +15,7 @@ begin
     apikey :: #{@apikey}| timeout :: #{@request_timeout}")
 
     connector_call = @call.connector(@connector_name)
-                          .set('action', 'details')
+                          .set('action', @action)
                           .set('id', @id.to_i)
                           .set('username', @username)
                           .set('apikey', @apikey)
@@ -24,7 +24,7 @@ begin
         @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
     else
-        @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+        @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
         response = connector_call.timeout(@request_timeout).sync
     end
 

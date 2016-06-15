@@ -66,5 +66,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'flint-cloud:digitalocean:operation:create_instance.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:digitalocean:operation:create_instance.rb' flintbit...")
 # end

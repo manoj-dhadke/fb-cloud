@@ -1,0 +1,32 @@
+---
+title: "Reboot IBM Softlayer Instance"
+description: "Reboot instance of IBM Softlayer"
+
+flintbit: "fb-cloud:softlayer:operation:reboot_instance.rb"
+icon: "fa fa-user"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default: "softlayer"
+        id: connector_name
+        label: Flint's IBM Softlayer connector name
+        placeholder: "Enter IBM Softlayer connector name"
+        type: textbox
+        required: true
+      -
+        default:
+        id: id
+        label: Instance ID
+        placeholder: "ID of IBM Softlayer Instance"
+        type: textbox
+        required: true
+      -
+        default: 60000
+        id: timeout
+        label: Timeout
+        placeholder: "timeout"
+        type: integer
+        required: false
+...

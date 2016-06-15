@@ -4,7 +4,7 @@ begin
 # Flintbit Input Parameters
 # Mandatory
 @connector_name = @input.get('connector_name') # Name of the Cloud Connector
-@action = @input.get('action') # Contains the name of the operation
+@action = 'stop' # Contains the name of the operation
 @id = @input.get('id') # Id
 # optional
 @username = @input.get('username') # username of softlayer account
@@ -15,7 +15,7 @@ begin
  key :: #{@username}| secret :: #{@apikey}| timeout :: #{@request_timeout}")
 
 connector_call = @call.connector(@connector_name)
-                      .set('action', 'stop')
+                      .set('action', @action)
                       .set('id', @id.to_i)
                       .set('apikey', @apikey)
                       .set('username', @username)
@@ -26,7 +26,7 @@ if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
     response = connector_call.sync
 else
-    @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+    @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
     response = connector_call.timeout(@request_timeout).sync
 end
 
@@ -42,7 +42,6 @@ if response.exitcode == 0
     @log.info("SUCCESS in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | message :: #{response_message}")
     @log.info("Softlayer Response Body :: #{result}")
     @output.setraw('response', response.to_s).set('exit-code', 0).set('message', 'success')
-
 else
     @log.error("ERROR in executing #{@connector_name} Connector where, exitcode :: #{response_exitcode} | message :: #{response_message}")
     @output.exit(1, response_message)

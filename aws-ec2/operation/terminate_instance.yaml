@@ -41,20 +41,6 @@ inputs:
           - us-west-2
       -
         default:
-        id: access-key
-        label: Access Key
-        placeholder: "Access Key"
-        type: textbox
-        required: false
-      -
-        default:
-        id: security-key
-        label: Security Key
-        placeholder: "Security Key"
-        type: password
-        required: false
-      -
-        default:
         id: timeout
         label: Timeout
         placeholder: "timeout"

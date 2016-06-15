@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # Name of the Cloud Connector
-    @action = @input.get('action') # Contains the name of the operation
+    @action = 'start' # Contains the name of the operation
     @id = @input.get('id') # Id
     # optional
     @username = @input.get('username') # username of softlayer account
@@ -26,7 +26,7 @@ begin
         @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
     else
-        @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+        @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
         response = connector_call.timeout(@request_timeout).sync
     end
 
