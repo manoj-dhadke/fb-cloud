@@ -6,15 +6,8 @@ flintbit: "fb-cloud:digitalocean:operation:reset_instance.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
+    section: Reset Droplet
     fields:
-      -
-        default: "digitalocean"
-        id: connector_name
-        label: Flint's DigitalOcean connector name
-        placeholder: "Enter DigitalOcean connector name"
-        type: textbox
-        required: true
       -
         default:
         id: id
@@ -22,11 +15,4 @@ inputs:
         placeholder: "Id of the droplet"
         type: textbox
         required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
 ...

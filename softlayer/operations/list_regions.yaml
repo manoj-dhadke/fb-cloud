@@ -6,20 +6,7 @@ flintbit: "fb-cloud:softlayer:operation:list_regions.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
+    section: List All Data Centers
     fields:
-      -
-        default: "softlayer"
-        id: connector_name
-        label: Flint's IBM Softlayer connector name
-        placeholder: "Enter IBM Softlayer connector name"
-        type: textbox
-        required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
+
 ...

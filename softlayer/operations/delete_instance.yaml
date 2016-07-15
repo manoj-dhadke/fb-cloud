@@ -6,15 +6,8 @@ flintbit: "fb-cloud:softlayer:operation:delete_instance.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
+    section: Delete Instance
     fields:
-      -
-        default: "softlayer"
-        id: connector_name
-        label: Flint's IBM Softlayer connector name
-        placeholder: "Enter IBM Softlayer connector name"
-        type: textbox
-        required: true
       -
         default:
         id: id
@@ -22,11 +15,4 @@ inputs:
         placeholder: "ID of IBM Softlayer Instance"
         type: textbox
         required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
 ...

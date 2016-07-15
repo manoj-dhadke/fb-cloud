@@ -6,15 +6,8 @@ flintbit: "fb-cloud:digitalocean:operation:check_action_status.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
+    section: Check Action Status
     fields:
-      -
-        default: "digitalocean"
-        id: connector_name
-        label: Flint's DigitalOcean connector name
-        placeholder: "Enter DigitalOcean connector name"
-        type: textbox
-        required: true
       -
         default:
         id: action_id
@@ -29,11 +22,4 @@ inputs:
         placeholder: "Id of the droplet"
         type: textbox
         required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
 ...

@@ -6,15 +6,8 @@ flintbit: "fb-cloud:softlayer:operation:update_instance.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
+    section: Update Instance
     fields:
-      -
-        default: "softlayer"
-        id: connector_name
-        label: Flint's IBM Softlayer connector name
-        placeholder: "Enter IBM Softlayer connector name"
-        type: textbox
-        required: true
       -
         default:
         id: id
@@ -43,11 +36,4 @@ inputs:
         placeholder: "Name of Instance"
         type: textbox
         required: true
-      -
-        default: 60000
-        id: 
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
 ...

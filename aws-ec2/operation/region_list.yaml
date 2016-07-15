@@ -6,20 +6,5 @@ flintbit: "fb-cloud:aws-ec2:operation:region_list.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
-    fields:
-      -
-        default: "amazon-ec2"
-        id: connector_name
-        label: Flint's Amazon EC2 connector name
-        placeholder: "Enter amazon EC2 connector name"
-        type: textbox
-        required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
+    section: Region List
 ...

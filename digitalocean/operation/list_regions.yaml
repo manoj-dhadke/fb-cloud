@@ -1,25 +1,11 @@
 ---
-title: "List DigitalOcean regions"
+title: "List DigitalOcean Regions"
 description: "List all DigitalOcean region"
 
 flintbit: "fb-cloud:digitalocean:operation:list_regions.rb"
 icon: "fa fa-user"
 inputs:
   -
-    section: Basic Fields
-    fields:
-      -
-        default: "digitalocean"
-        id: connector_name
-        label: Flint's DigitalOcean connector name
-        placeholder: "Enter DigitalOcean connector name"
-        type: textbox
-        required: true
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
+    section: List DigitalOcean Regions
+
 ...

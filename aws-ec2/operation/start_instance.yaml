@@ -9,13 +9,6 @@ inputs:
     section: Basic Fields
     fields:
       -
-        default: "amazon-ec2"
-        id: connector_name
-        label: Flint's Amazon EC2 connector name
-        placeholder: "Enter amazon EC2 connector name"
-        type: textbox
-        required: true
-      -
         default:
         id: instance-id
         label: Amazon Instance ID
@@ -39,11 +32,4 @@ inputs:
           - sa-east-1
           - us-west-1
           - us-west-2
-      -
-        default: 60000
-        id: timeout
-        label: Timeout
-        placeholder: "timeout"
-        type: integer
-        required: false
 ...
