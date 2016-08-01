@@ -1,9 +1,9 @@
 ---
-title: "List DigitalOcean Regions"
+title: "DigitalOcean:List Regions"
 description: "List all DigitalOcean region"
 
 flintbit: "fb-cloud:digitalocean:operation:list_regions.rb"
-icon: "fa fa-user"
+icon: "fa fa-list"
 inputs:
   -
     section: List DigitalOcean Regions

@@ -1,9 +1,9 @@
 ---
-title: "Reboot DigitalOcean droplet"
+title: "DigitalOcean:Reboot Droplet"
 description: "Reboot droplet from DigitalOcean data center"
 
 flintbit: "fb-cloud:digitalocean:operation:reboot_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-refresh"
 inputs:
   -
     section: Reboot Droplet

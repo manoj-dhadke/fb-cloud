@@ -1,9 +1,9 @@
 ---
-title: "Start Amazon EC2 Instance"
+title: "Amazon EC2:Start Instance"
 description: "Start server instances in Amazon data centers"
 
 flintbit: "fb-cloud:aws-ec2:operation:start_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-play-circle"
 inputs:
   -
     section: Basic Fields

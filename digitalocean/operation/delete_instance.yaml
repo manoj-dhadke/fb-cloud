@@ -1,9 +1,9 @@
 ---
-title: "Delete DigitalOcean droplet"
+title: "DigitalOcean:Delete Droplet"
 description: "Delete droplet from DigitalOcean data center"
 
 flintbit: "fb-cloud:digitalocean:operation:delete_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-close (alias)"
 inputs:
   -
     section: Delete droplet

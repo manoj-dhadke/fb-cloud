@@ -1,9 +1,9 @@
 ---
-title: "Delete Security group in Amazon EC2"
+title: "Amazon EC2:Delete Security Group"
 description: "A security group is for use with instances either in the EC2-Classic platform or in a specific VPC."
 
 flintbit: "fb-cloud:aws-ec2:operation:delete_security_group.rb"
-icon: "fa fa-user"
+icon: "fa fa-close (alias)"
 inputs:
   -
     section: Delete Security Group

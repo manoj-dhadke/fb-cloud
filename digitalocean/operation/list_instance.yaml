@@ -1,9 +1,9 @@
 ---
-title: "List DigitalOcean droplets"
+title: "DigitalOcean:List Droplets"
 description: "List all DigitalOcean droplets"
 
 flintbit: "fb-cloud:digitalocean:operation:list_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-list"
 inputs:
   -
     section: List droplets

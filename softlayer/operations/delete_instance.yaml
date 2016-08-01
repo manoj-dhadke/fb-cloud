@@ -1,9 +1,9 @@
 ---
-title: "Delete IBM Softlayer Instance"
+title: "IBM Softlayer:Delete Instance"
 description: "Delete server instance from IBM Softlayer data center"
 
 flintbit: "fb-cloud:softlayer:operation:delete_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-close (alias)"
 inputs:
   -
     section: Delete Instance

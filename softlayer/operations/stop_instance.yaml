@@ -1,5 +1,5 @@
 ---
-title: "Stop IBM Softlayer Instance"
+title: "IBM Softlayer:Stop Instance"
 description: "Stop instance of IBM Softlayer"
 
 flintbit: "fb-cloud:softlayer:operation:stop_instance.rb"

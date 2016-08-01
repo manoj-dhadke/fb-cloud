@@ -1,9 +1,9 @@
 ---
-title: "Start DigitalOcean droplet"
+title: "DigitalOcean:Start Droplet"
 description: "Start droplet from DigitalOcean data center"
 
 flintbit: "fb-cloud:digitalocean:operation:start_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-play-circle"
 inputs:
   -
     section: Start Droplet

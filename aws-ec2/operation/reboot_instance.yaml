@@ -1,9 +1,9 @@
 ---
-title: "Reboot Amazon EC2 Instance"
+title: "Amazon EC2:Reboot Instance"
 description: "Reboot server instances in Amazon data centers"
 
 flintbit: "fb-cloud:aws-ec2:operation:reboot_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-refresh"
 inputs:
   -
     section: Reboot Instance

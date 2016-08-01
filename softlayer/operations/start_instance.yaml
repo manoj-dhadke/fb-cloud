@@ -1,9 +1,9 @@
 ---
-title: "Start IBM Softlayer Instance"
+title: "IBM Softlayer:Start Instance"
 description: "Start instance of IBM Softlayer"
 
 flintbit: "fb-cloud:softlayer:operation:start_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-play-circle"
 inputs:
   -
     section: Start Instance

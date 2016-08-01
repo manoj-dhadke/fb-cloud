@@ -1,9 +1,9 @@
 ---
-title: "Reboot IBM Softlayer Instance"
+title: "IBM Softlayer:Reboot Instance"
 description: "Reboot instance of IBM Softlayer"
 
 flintbit: "fb-cloud:softlayer:operation:reboot_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-refresh"
 inputs:
   -
     section: Reboot Instance

@@ -1,9 +1,9 @@
 ---
-title: "Status of action performed on DigitalOcean droplet"
+title: "DigitalOcean:Status of action"
 description: "Check status of action performed on DigitalOcean droplet"
 
 flintbit: "fb-cloud:digitalocean:operation:check_action_status.rb"
-icon: "fa fa-user"
+icon: "fa fa-check-circle"
 inputs:
   -
     section: Check Action Status

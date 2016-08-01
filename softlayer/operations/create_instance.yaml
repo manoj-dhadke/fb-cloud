@@ -1,9 +1,9 @@
 ---
-title: "Create IBM Softlayer Instance"
+title: "IBM Softlayer:Create Instance"
 description: "Launch server instances in IBM Softlayer data centers"
 
 flintbit: "fb-cloud:softlayer:operation:create_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-cloud"
 inputs:
   -
     section: Create Instance

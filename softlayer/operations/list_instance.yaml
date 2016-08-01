@@ -1,9 +1,9 @@
 ---
-title: "List All IBM Softlayer Instance"
+title: "IBM Softlayer:List Instances"
 description: "List All instance of IBM Softlayer"
 
 flintbit: "fb-cloud:softlayer:operation:list_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-list"
 inputs:
   -
     section: List Instances

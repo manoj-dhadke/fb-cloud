@@ -1,9 +1,9 @@
 ---
-title: "Stop DigitalOcean droplet"
+title: "DigitalOcean:Stop Droplet"
 description: "Stop droplet from DigitalOcean data center"
 
 flintbit: "fb-cloud:digitalocean:operation:stop_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-stop"
 inputs:
   -
     section: Stop Droplet

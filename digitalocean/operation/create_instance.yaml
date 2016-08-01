@@ -1,9 +1,9 @@
 ---
-title: "Create DigitalOcean droplet"
+title: "DigitalOcean:Create Droplet"
 description: "Launch new droplet in DigitalOcean data centers"
 
 flintbit: "fb-cloud:digitalocean:operation:create_instance.rb"
-icon: "fa fa-user"
+icon: "fa fa-cloud"
 inputs:
   -
     section: Create droplet
