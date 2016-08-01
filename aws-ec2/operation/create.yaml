@@ -1,0 +1,44 @@
+---
+title: "Amazon EC2:Create Instance (Custom)"
+description: "Launch new virtual machine with pre-define options in Amazon"
+
+flintbit: "fb-cloud:aws-ec2:operation:create.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    section: Basic Fields
+    fields:
+      -
+        default:
+        id: ami_id
+        label: Amazon Machine Image ID
+        placeholder: "Enter Amazon Machine Image ID"
+        type: select
+        required: true
+        options:
+          - windows
+          - ubuntu
+      -
+        default: "t2.micro"
+        id: instance_type
+        label: Instance Type
+        placeholder: "Amazon EC2 Instance type"
+        type: select
+        required: true
+        options:
+          - t2.micro
+          - t2.small
+          - t2.medium
+      -
+        default: "us-east-1a"
+        id: availability_zone
+        label: Availability Zone
+        placeholder: "Availability Zone"
+        type: select
+        required: true
+        options:
+          - ap-southeast-1a
+          - ap-southeast-1b
+          - us-east-1b
+...
+
