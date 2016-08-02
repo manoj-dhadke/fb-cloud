@@ -1,0 +1,63 @@
+---
+title: "Amazon EC2:Add Rule To Security Group"
+description: "Add inbound/outbound rule to security group"
+
+flintbit: "fb-cloud:aws-ec2:operation:add_rule_security_group.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    section: Add Rule To Security Group
+    fields:
+      -
+        default:
+        id: group_id
+        label: Security Group ID
+        placeholder: "Enter Security Group ID"
+        type: textbox
+        required: true
+      -
+        default:
+        id: direction
+        label: Direction
+        placeholder: "inbound/outbound"
+        type: select
+        required: true
+        options:
+          - inbound
+          - outbound
+      -
+        default: "0.0.0.0/0"
+        id: ip_range
+        label: IP Range
+        placeholder: "IP Ranges"
+        type: textbox
+        required: false
+      -
+        default:
+        id: cidr_block
+        label: CIDR Block
+        placeholder: "CIDR Block"
+        type: textbox
+        required: false
+      -
+        default:
+        id: protocol
+        label: Protocol
+        placeholder: "Protocol"
+        type: textbox
+        required: true
+      -
+        default:
+        id: from_port
+        label: From Port
+        placeholder: "From Port"
+        type: integer
+        required: true
+      -
+        default:
+        id: to_port
+        label: To Port
+        placeholder: "To Port"
+        type: integer
+        required: true
+...
