@@ -9,7 +9,7 @@ begin
     @group_name = @input.get('group-name')
 
     # Optional
-    @request_timeout = @input.get('timeout')
+    @request_timeout = 120000
     @key = @input.get('key')
     @tenant_id = @input.get('tenant-id')
     @subscription_id = @input.get('subscription-id')
