@@ -7,7 +7,7 @@ begin
     @action = 'list-region'
 
     # Optional
-    @request_timeout = @input.get('timeout')
+    @request_timeout = 180000
     @key = @input.get('key')
     @tenant_id = @input.get('tenant-id')
     @subscription_id = @input.get('subscription-id')

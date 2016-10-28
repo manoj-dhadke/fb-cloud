@@ -9,7 +9,7 @@ begin
     @name = @input.get('instance-name')
 
     # Optional
-    request_timeout = @input.get('timeout')
+    request_timeout = 180000
     @key = @input.get('key')
     @tenant_id = @input.get('tenant-id')
     @subscription_id = @input.get('subscription-id')
@@ -38,16 +38,13 @@ begin
         @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
     else
-        @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout}...")
-        response = connector_call.timeout(@request_timeout).sync
+        @log.trace("Calling #{@connector_name} with given timeout #{request_timeout}...")
+        response = connector_call.timeout(request_timeout).sync
     end
 
     # Amazon EC2 Connector Response Meta Parameters
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
-
-    # Amazon EC2 Connector Response Parameters
-    instances_set = response.get('started-instances-set')	# Set of Amazon EC2 started instances
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")

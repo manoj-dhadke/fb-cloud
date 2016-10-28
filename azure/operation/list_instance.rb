@@ -38,9 +38,10 @@ begin
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
 
+    instance_set = response.get('vm-list')
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @output.set('exit-code', 0).set('message', response_message)
+        @output.set('exit-code', 0).set('message', response_message).set('vm-list',instance_set)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
