@@ -6,7 +6,7 @@ begin
     @username = @input.get('username')  #username of vcenter
     @password=@input.get('password')    #password of vcenter
     @vmname=@input.get('vm-name')
-    @url=@input.get('url')  
+    @url=@input.get('url')
 
     @log.info("--------- >>>> #{@vmname}")
 
@@ -21,17 +21,19 @@ begin
 
      response_exitcode = response.exitcode # Exit status code
      response_message =  response.message # Execution status message
-    
-     
+
+
      @log.info("RESPONSE :: #{response}")
-     
+
       if response_exitcode==0
          @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
-         @output.set("result","#{response}")
-     
+         @output.set("result","#{response}").set('exit-code',0),set('message',"success")
+
       else
          @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
+         @output.set("result","#{response}").set('exit-code',-1),set('message',response_message)
          @output.exit(1, response_message)
+ 	 @output.set(-1,"#{response_message}")
       end
 
 rescue Exception => e
@@ -39,4 +41,4 @@ rescue Exception => e
     @output.set('exit-code', 1).set('message', e.message)
 end
 
-@log.trace("Finished execution 'flint-vmware:vc55:details_vm.rb' flintbit...") 
+@log.trace("Finished execution 'flint-vmware:vc55:details_vm.rb' flintbit...")
