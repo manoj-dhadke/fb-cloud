@@ -4,7 +4,7 @@ begin
     # Flintbit input parametes
     #Mandatory
     @connector_name = @input.get('connector_name') # vmware connector name
-    @action = @input.get('action') # Specifies the name of the operation: vm-details
+    @action = @input.get('action') # name of the operation: vm-details
     @username = @input.get('username') # username of vmware connector
     @password = @input.get('password') # password of vmware connector
     @vmname = @input.get('vm-name')	# name of virtual machine to retrieve details
@@ -18,11 +18,11 @@ begin
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
-
+    #checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to retrieve  details of virtual machines'
     end
-
+    #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to retrieve  details of virtual machines'
     else
@@ -49,7 +49,7 @@ begin
 
       else
          @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
-         @output.set("result","#{response}").set('exit-code',-1),set('message',response_message)
+         @output.set('exit-code',-1),set('message',response_message)
          @output.exit(1, response_message)
  	 @output.set(-1,"#{response_message}")
       end

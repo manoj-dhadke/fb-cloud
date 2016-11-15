@@ -3,26 +3,28 @@
 begin
     # Flintbit input parametes
     # Mandatory
-    @connector_name = @input.get('connector_name')
-    @action = @input.get('action') # Specifies the name of the operation: stop-vm
-    @username = @input.get('username') # username of vcenter
-    @password = @input.get('password') # password of vcenter
+    @connector_name = @input.get('connector_name')  # vmware connector name
+    @action = @input.get('action') #name of the operation:reboot-vm
+    @username = @input.get('username') # username of vmware connector
+    @password = @input.get('password') # password of vmware connector
     @vmname = @input.get('vm-name') # name of virtual machine which you want to reboot
-    @url = @input.get('url')
+    @url = @input.get('url') #url for the vmware connector
 
     # Optional
     request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-    connector_call = @call.connector(@connector_name)
+    connector_call = @call.connector(@connectovmware connector
                           .set('action', @action)
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
 
-    if @connector_name.nil? || @connector_name.empty?
+   #checking connector name is nil or empty
+   if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to stop virtual machines'
     end
 
+     #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to stop virtual machine'
     else

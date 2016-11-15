@@ -4,7 +4,7 @@ begin
     # Flintbit input parametes
     # Mandatory
     @connector_name = @input.get('connector_name') # vmware connector name
-    @action = @input.get('action') # Specifies the name of the operation: stop-vm
+    @action = @input.get('action') # name of the operation: stop-vm
     @username = @input.get('username') # username of vmware connector
     @password = @input.get('password') # password of vmware connector
     @vmname = @input.get('vm-name')	# name of virtual machine which you want to stop
@@ -18,11 +18,11 @@ begin
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
-
+    # checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to stop virtual machines'
     end
-
+    #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to stop virtual machine'
     else

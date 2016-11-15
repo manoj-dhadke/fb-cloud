@@ -4,11 +4,11 @@ begin
     # Flintbit input parametes
     #Mandatory
     @connector_name = @input.get('connector_name') # vmware connector name
-    @action = @input.get('action') # Specifies the name of the operation: start-vm
+    @action = @input.get('action') # name of the operation:start-vm
     @username = @input.get('username') # username of the vmware connector
     @password = @input.get('password') # password of vmware connector
-    @vmname = @input.get('vm-name') # Name of virtual machine which you want to start
-    @url = @input.get('url')
+    @vmname = @input.get('vm-name') # name of virtual machine which you want to start
+    @url = @input.get('url')#url for the vmware connector
 
     # Optional
     request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -18,11 +18,11 @@ begin
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
-
+    #checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to start virtual machines'
     end
-
+    #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to start virtual machine'
     else

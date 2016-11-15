@@ -3,11 +3,11 @@
 begin
     # Flintbit input parametes
     # Mandatory
-    @connector_name = @input.get('connector_name') # vmware connector
-    @action = @input.get('action')     # action name
-    @username = @input.get('username') # username of vcenter
-    @password = @input.get('password') # password of vcenter
-    @url = @input.get('url')
+    @connector_name = @input.get('connector_name') # vmware connector name
+    @action = @input.get('action') # name of the operation:check-credentials
+    @username = @input.get('username') # username of vmware connector
+    @password = @input.get('password') #  password of vmware connector
+    @url = @input.get('url') # url for the vmware connector
 
     # calling vmware connector
     response = @call.connector(@connector_name)
@@ -19,7 +19,6 @@ begin
 
     response_exitcode = response.exitcode # Exit status code
     response_message =  response.message # Execution status message
-
     if response_exitcode == 0
         @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
         @output.set('exit-code', 0).set('message', response_message.to_s)
