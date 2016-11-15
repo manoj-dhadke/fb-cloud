@@ -5,7 +5,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name') # vmware55 connector name
-    @action = @input.get('action') # name of action
+    @action = @input.get('action') # name of action:list-vm
     @username = @input.get('username') # username of vmware55 connector
     @password = @input.get('password') # password of vmware55 connector
     @url = @input.get('url')
@@ -18,9 +18,16 @@ begin
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
-
+    # checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to list virtual machines'
+    end
+
+    # checking virtual machine name is nil or empty
+    if @vmname.nil? || @vmname.empty?
+        raise 'Please provide "Virtual Machine name (@vmname)" to start virtual machine'
+    else
+        connector_call.set('vm-name', @vmname)
     end
 
     if request_timeout.nil? || request_timeout.is_a?(String)

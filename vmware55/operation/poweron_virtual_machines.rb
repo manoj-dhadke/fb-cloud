@@ -27,7 +27,7 @@ begin
         raise 'Please provide "Virtual Machine name (@vmname)" to start virtual machine'
     else
         connector_call.set('vm-name', @vmname)
-    ends
+    end
 
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
