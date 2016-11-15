@@ -13,7 +13,7 @@ begin
     # Optional
     request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-    connector_call = @call.connector(@connectovmware connector
+    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
                           .set('url', @url)
                           .set('username', @username)
@@ -21,12 +21,12 @@ begin
 
    #checking connector name is nil or empty
    if @connector_name.nil? || @connector_name.empty?
-        raise 'Please provide "VMWare connector name (connector_name)" to stop virtual machines'
+        raise 'Please provide "VMWare connector name (connector_name)" to reboot virtual machines'
     end
 
      #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
-        raise 'Please provide "Virtual Machine name (@vmname)" to stop virtual machine'
+        raise 'Please provide "Virtual Machine name (@vmname)" to reboot virtual machine'
     else
         connector_call.set('vm-name', @vmname)
     end

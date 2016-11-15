@@ -22,6 +22,7 @@ begin
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to retrieve  details of virtual machines'
     end
+
     #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to retrieve  details of virtual machines'
@@ -45,13 +46,13 @@ begin
 
       if response_exitcode==0
          @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
-         @output.set("result","#{response}").set('exit-code',0),set('message',"success")
+         @output.set("result","#{response}").set('exit-code',0).set('message',"success")
 
       else
          @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
-         @output.set('exit-code',-1),set('message',response_message)
+         @output.set('exit-code',-1).set('message',response_message)
          @output.exit(1, response_message)
- 	 @output.set(-1,"#{response_message}")
+
       end
 
 rescue Exception => e

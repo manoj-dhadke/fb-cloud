@@ -23,13 +23,6 @@ begin
         raise 'Please provide "VMWare connector name (connector_name)" to list virtual machines'
     end
 
-    # checking virtual machine name is nil or empty
-    if @vmname.nil? || @vmname.empty?
-        raise 'Please provide "Virtual Machine name (@vmname)" to start virtual machine'
-    else
-        connector_call.set('vm-name', @vmname)
-    end
-
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
         # calling vmware55 connector
@@ -41,7 +34,6 @@ begin
     end
 
     # VMWare  Connector Response Meta Parameters
-    response = response.to_s
     response_exitcode = response.exitcode # Exit status code
     response_message =  response.message # Execution status message
 
@@ -56,7 +48,6 @@ begin
         @output.set('message', response_message.to_s).set('exit-code', -1)
 
     end
-
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', -1).set('message', e.message)

@@ -19,11 +19,11 @@ begin
                           .set('password', @password)
     # checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
-        raise 'Please provide "VMWare connector name (connector_name)" to stop virtual machines'
+        raise 'Please provide "VMWare connector name (connector_name)" to reset virtual machines'
     end
     #checking virtual machine name is nil or empty
     if @vmname.nil? || @vmname.empty?
-        raise 'Please provide "Virtual Machine name (@vmname)" to stop virtual machine'
+        raise 'Please provide "Virtual Machine name (@vmname)" to reset virtual machine'
     else
         connector_call.set('vm-name', @vmname)
     end
