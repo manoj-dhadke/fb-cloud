@@ -11,6 +11,8 @@ begin
     @vmpath=@input.get('virtualMachine-path')
     @clonename=@input.get('clone-name')
 
+    #Optional
+    request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
     # calling vmware connector
     response = @call.connector(@connector_name)
