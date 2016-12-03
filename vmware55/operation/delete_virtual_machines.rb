@@ -60,5 +60,5 @@ rescue Exception => e
     @output.set('exit-code', 1).set('message', e.message)
 end
 
-@log.trace("Finished execution 'fb-cloud:vmware55:operation:details_virtual_machines.rb' flintbit...")
+@log.trace("Finished execution 'fb-cloud:vmware55:operation:delete_virtual_machines.rb' flintbit...")
 #end
