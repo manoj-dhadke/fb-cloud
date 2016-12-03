@@ -18,6 +18,7 @@ begin
                           .set('url', @url)
                           .set('username', @username)
                           .set('password', @password)
+
     # checking connector name is nil or empty
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "VMWare connector name (connector_name)" to stop virtual machines'

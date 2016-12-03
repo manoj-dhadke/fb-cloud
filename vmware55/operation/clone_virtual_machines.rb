@@ -12,26 +12,25 @@ begin
     @clonename=@input.get('clone-name')
 
 
-
     # calling vmware connector
     response = @call.connector(@connector_name)
                     .set('action',@action)
-		    .set('url',@url)
-		    .set('username',@username)
-		    .set('password',@password)
-		    .set('datacenter-name',@datacenter)
-		    .set('virtualMachine-path',@vmpath)
-		    .set('clone-name',@clonename)
+		                .set('url',@url)
+		                .set('username',@username)
+		                .set('password',@password)
+		                .set('datacenter-name',@datacenter)
+		                .set('virtualMachine-path',@vmpath)
+		                .set('clone-name',@clonename)
                     .sync
 
      response_exitcode = response.exitcode # Exit status code
      response_message =  response.message # Execution status message
-    
+
 
       if response_exitcode==0
          @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
          @output.set("result::", "success")
-      
+
       else
          @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
          @output.exit(1, response_message)
@@ -42,4 +41,4 @@ rescue Exception => e
     @output.set('exit-code', 1).set('message', e.message)
 end
 
-@log.trace("Finished execution 'flint-vmware:vc55:clone_vm.rb' flintbit...") 
+@log.trace("Finished execution 'flint-vmware:vc55:clone_vm.rb' flintbit...")
