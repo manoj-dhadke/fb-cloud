@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-    action = 'list'	# Specifies the name of the operation: start-instances
+    action = 'list-instances'	# Specifies the name of the operation: start-instances
     @access_key = @input.get('access-key')
     @secret_key = @input.get('security-key')
 
