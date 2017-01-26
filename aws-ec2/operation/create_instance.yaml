@@ -64,14 +64,14 @@ inputs:
           - i2.4xlarge
           - i2.8xlarge
       -
-        default: 1
+        default: 0 
         id: min_instance
         label: Minimum Instance
         placeholder: "Minimum number of instances"
         type: integer
         required: true
       -
-        default: 1
+        default: 0
         id: max_instance
         label: Maximum Instance
         placeholder: "Maximum number of instances"
@@ -131,7 +131,7 @@ inputs:
         label: Subnet ID
         placeholder: "Subnet ID"
         type: textbox
-        required: false
+        required: true
       -
         default:
         id: network

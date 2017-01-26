@@ -47,11 +47,11 @@ begin
         raise 'Please provide "Amazon EC2 instance type (instance_type)" to launch Instance'
     end
 
-    if min_instance.nil? || min_instance.is_a?(String)
+    if min_instance.nil? 
         raise 'Please provide "Minimum instance value (min_instance)" to launch Instance'
     end
 
-    if max_instance.nil? || max_instance.is_a?(String)
+    if max_instance.nil?
         raise 'Please provide "Maximum instance value (max_instance)" to launch Instance'
     end
     unless termination_protection.nil?
@@ -64,8 +64,8 @@ begin
                           .set('action', action)
                           .set('image-id', image_id)
                           .set('instance-type', instance_type)
-                          .set('min-instance', min_instance)
-                          .set('max-instance', max_instance)
+                          .set('min-instance', min_instance.to_i)
+                          .set('max-instance', max_instance.to_i)
                           .set('access-key', access_key)
                           .set('security-key', security_key)
                           .set('network', network)
