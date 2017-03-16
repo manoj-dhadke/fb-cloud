@@ -21,8 +21,8 @@ response = @call.connector(connector_name)
                 .set("direction",direction)
                 .set("ip-range",ip_range)
                 .set("cidr-block",cidr_block)
-                .set("from-port",from_port)
-                .set("to-port",to_port)
+                .set("from-port",from_port.to_i)
+                .set("to-port",to_port.to_i)
                 .set("protocol",protocol)
                 .set("region",region)
                 .set('access-key', @access_key)
@@ -33,11 +33,14 @@ response = @call.connector(connector_name)
 #Amazon EC2 Connector Response Meta Parameters
  response_exitcode = response.exitcode #Exit status code
  response_message = response.message   #Execution status messages
+ 
 if response_exitcode == 0
-   @log.info('Success in executing AWS-EC2 Connector where, exitcode :: '+ response_exitcode.to_s+' | message :: '+ response_message)
+   @log.info("#{response}")
+   @log.info("Success in executing AWS-EC2 Connector where, exitcode :: #{response_exitcode}| message :: #{response_message}")
    @output.set("exit-code",response_exitcode).set("message",response_message)
 else
-   @log.error('Failure in executing AWS-EC2 Connector where, exitcode ::'+ response_exitcode.to_s+' | message :: ' + response_message)
+   @log.error("#{response}")
+   @log.error("Failure in executing AWS-EC2 Connector where, exitcode :: #{response_exitcode} | message :: #{response_message}")
    @output.set("exit-code",response_exitcode).set("message",response_message)
 end
 rescue => e
@@ -45,3 +48,20 @@ rescue => e
     @output.set('message', e.message).set('exit-code', -1)
 end
 @log.trace("Finished execution of 'fb-cloud:aws-ec2:operation:add_rule_security_group.rb' flintbit...")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
