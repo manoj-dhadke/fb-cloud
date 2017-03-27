@@ -27,7 +27,7 @@ begin
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to retrieve  details of virtual machines'
     else
-        connector_call.set('vm-name', @vmname)
+        connector_call.set('vm-name',"CentOS_gold")
     end
 
     if request_timeout.nil? || request_timeout.is_a?(String)
@@ -46,7 +46,8 @@ begin
 
       if response_exitcode==0
          @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
-         @output.set("result","#{response}").set('exit-code',0).set('message',"success")
+         @log.info("details of the vm#{response}")
+         @output.set("result",response.to_s).set('exit-code',0).set('message',"success")
 
       else
          @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
