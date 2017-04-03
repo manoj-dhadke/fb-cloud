@@ -27,7 +27,7 @@ begin
     if @vmname.nil? || @vmname.empty?
         raise 'Please provide "Virtual Machine name (@vmname)" to retrieve  details of virtual machines'
     else
-        connector_call.set('vm-name',"CentOS_gold")
+        connector_call.set('vm-name',@vmname)
     end
 
     if request_timeout.nil? || request_timeout.is_a?(String)
