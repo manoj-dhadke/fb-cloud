@@ -14,7 +14,7 @@ request_timeout = @input.get('timeout')	      # Execution time of the Flintbit i
 
 @log.info("Flintbit input parameters are, action : #{action} | group_name : #{security_group_name}")
 
-if security_group_name.nil? && security_group_name.empty?
+if security_group_name.nil?
   raise 'Please provide "AWS  group name(security_group_name)" to describe security-group '
 end
 
