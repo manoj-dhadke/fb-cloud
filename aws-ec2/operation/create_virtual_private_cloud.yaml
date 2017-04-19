@@ -1,0 +1,17 @@
+---
+title: "Amazon EC2:Create Virtual Private Cloud (VPC)"
+description: "Amazon VPC lets you provision a logically isolated section of the Amazon Web Services (AWS) cloud"
+
+flintbit: "fb-cloud:aws-ec2:operation:create_virtual_private_cloud.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    fields:
+      -
+        default:
+        id: cidr-block
+        label: IPv4 CIDR block*
+        placeholder: "IPv4 address range as CIDR block; example:10.0.0.0/16 (Range:a/16-/28)"
+        type: textbox
+        required: true
+...
