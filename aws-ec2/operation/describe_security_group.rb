@@ -4,19 +4,25 @@
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-action = 'describe-security-group'	          # Specifies the name of the operation: describe-security-group
-group_name = @input.get('group_name')	        # Contains one or more security groups name corresponding to the
-# region that you want to describe
+action = 'describe-security-group' # Specifies the name of the operation: describe-security-group
+security_group_name = @input.get('group-name') # Contains one or more security groups name corresponding to the region that you want to describe
 # Optional
 @access_key = @input.get('access-key')
 @secret_key = @input.get('security-key')
 region = @input.get('region')	                # Amazon EC2 region (default region is 'us-east-1')
 request_timeout = @input.get('timeout')	      # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-@log.info("Flintbit input parameters are, action : #{action} | group_name : #{group_name} | region : #{region}")
+@log.info("Flintbit input parameters are, action : #{action} | group_name : #{security_group_name}")
 
-connector_call = @call.connector(connector_name).set('action', action).set('group-name', group_name)
-.set('access-key', @access_key).set('security-key', @secret_key)
+if security_group_name.nil?
+  raise 'Please provide "AWS  group name(security_group_name)" to describe security-group '
+end
+
+connector_call = @call.connector(connector_name)
+                      .set('action', action)
+                      .set('group-name', security_group_name)
+                      .set('access-key', @access_key)
+                      .set('security-key', @secret_key)
 
 if !region.nil? && !region.empty?
     connector_call.set('region', region)
