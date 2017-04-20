@@ -1,0 +1,38 @@
+---
+title: "Azure:Create Network"
+description: "Create Microsoft Azure Network"
+
+flintbit: "fb-cloud:azure:operation:create_network.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    fields:
+      -
+        default:
+        id: network-name
+        label: Name Of Network
+        placeholder: "Name Of Network"
+        type: textbox
+        required: true
+      -
+        default:
+        id: address-spaces
+        label: Address Spaces
+        placeholder : "Address spaces Example:10.0.0.0 (Range:10.0.0.0-10.0.0.255)"
+        type: textbox
+        required: true
+      -
+        default:
+        id: resource-group
+        label: Resource Group
+        placeholder: "Name Of Resource Group"
+        type: textbox
+        required: true
+      -
+        default:
+        id: region
+        label: Region
+        placeholder: "Azure Region"
+        type: textbox
+        required: true
+...
