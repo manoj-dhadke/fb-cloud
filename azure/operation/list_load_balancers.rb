@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'azure:list_load_balancers.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:list_load_balancers.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -51,5 +51,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'azure:list_load_balancers.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:list_load_balancers.rb' flintbit")
 # end

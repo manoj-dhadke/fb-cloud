@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'azure:create_network.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:operation:list_networks.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -43,7 +43,7 @@ begin
     response_message = response.message	# Execution status messages
 
     network_list=response.get('network-list')
-    @log.info("network list---------#{network_list}")
+
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
@@ -58,5 +58,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'azure:list_network.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:operation:list_networks.rb' flintbit")
 # end

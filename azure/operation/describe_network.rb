@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'azure:describe_network.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:describe_network.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -65,5 +65,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'azure:describe_network.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:describe_network.rb' flintbit")
 # end

@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'azure:describe_security_group.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:describe_security_group.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -50,7 +50,7 @@ begin
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
 
-    security_group_details=response.get('security-group-details')  
+    security_group_details=response.get('security-group-details')
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("security-group-details: #{response.to_s}")
@@ -64,5 +64,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'azure:describe_security_group.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:describe_security_group.rb' flintbit")
 # end
