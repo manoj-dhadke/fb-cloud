@@ -47,10 +47,10 @@ load_balancers_details = response.get('load-balancers-details')	# Set of Amazon 
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.setraw('load_balancers_details', load_balancers_details.to_s)
+    @output.set('exit-code', 0).set('message', response_message).setraw('load_balancers_details', load_balancers_details.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('error', response_message)
+    @output.set('error', response_message).set('exit-code', 0).set('message', response_message)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_load_balancer.rb' flintbit")

@@ -53,7 +53,7 @@ begin
 		#Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
 	if response_exitcode == 0 && !vpc_info.empty?
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-		@output.set('exit-code', 0).setraw('vpc-info', vpc_info.to_s)
+		@output.set('exit-code', 0).set('message', response_message).setraw('vpc-info', vpc_info.to_s)
 	else
 		@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message :  #{response_message}")
 		@output.set('exit-code', 1).set('message', response_message).setraw('vpc-info', vpc_info.to_s)
@@ -66,4 +66,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:describe_virtual_private_cloud.rb' flintbit")
 # end
-

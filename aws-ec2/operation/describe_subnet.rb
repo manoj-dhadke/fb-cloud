@@ -18,7 +18,7 @@ begin
 	if connector_name.nil? || connector_name.empty?
 		raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe subnet's
 	end
-	
+
 	#checking the virtual prvate cloud id is provided or not,if not then provide error messsage to user
 	if subnet_id.nil? || subnet_id.empty?
 		raise 'Please provide "Amazon EC2 subnet id (subnet_id)" to describe subnet'
@@ -28,11 +28,11 @@ begin
 	connector_call = @call.connector(connector_name)
 			  .set('action', action)
                           .set('access-key', @access_key)
-                          .set('security-key', @secret_key)			 
+                          .set('security-key', @secret_key)
 			  .set('subnet-id',subnet_id)
-		     
-	
-        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
+
+
+        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
 		response = connector_call.sync
@@ -51,7 +51,7 @@ begin
 	#Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
 	if response_exitcode == 0
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-		@output.set('exit-code', 0).set('subnet-details',subnet_details.to_s)
+		@output.set('exit-code', 0).set('message', response_message).set('subnet-details',subnet_details.to_s)
 	else
 		@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 		@output.set('exit-code', 1).set('message', response_message)
@@ -64,4 +64,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:describe_subnet.rb' flintbit")
 # end
-

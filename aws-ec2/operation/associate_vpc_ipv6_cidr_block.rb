@@ -30,7 +30,7 @@ begin
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
 
-	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
+	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
 		#calling connector
@@ -46,7 +46,7 @@ begin
 	response_message = response.message     # Execution status messages
 
 	#Cheking the response_exitcode,if it's zero then show details and response_message otherwise show error_message to user
-	if response_exitcode == 0 
+	if response_exitcode == 0
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 		@output.set('exit-code', 0).set('message',response_message.to_s).setraw('response',response.to_s)
 	else
@@ -61,4 +61,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:associate_vpc_ipv6_cidr_block.rb' flintbit")
 # end
-

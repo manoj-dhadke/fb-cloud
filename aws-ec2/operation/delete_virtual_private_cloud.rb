@@ -50,7 +50,7 @@ begin
 		@output.set('exit-code', 0).set('message',response_message.to_s)
 	else
 		@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message :  #{response_message}")
-		@output.set('exit-code', 1).set('message', response_message.to_s)       					
+		@output.set('exit-code', 1).set('message', response_message.to_s)
 	end
 
 	#if any exception occured during execution then it will catch by rescue and it will show exception message to user
@@ -60,4 +60,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:delete_virtual_private_cloud.rb' flintbit")
 # end
-

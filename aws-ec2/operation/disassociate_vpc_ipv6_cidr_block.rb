@@ -45,7 +45,7 @@ begin
 	response_message = response.message	# Execution status messages
 
 	#Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
-	if response_exitcode == 0 
+	if response_exitcode == 0
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 		@output.set('exit-code', 0).set('message',response_message.to_s).setraw('response',response.to_s)
 	else
@@ -59,4 +59,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:disassociate_vpc_ipv6_cidr_block.rb' flintbit")
 # end
-

@@ -6,7 +6,7 @@ begin
 	connector_name =@input.get('connector_name')# Name of the Amazon EC2 Connector
 	action = 'list-vpc-subnet'	# Specifies the name of the operation:list-vpc-subnet
         vpc_id = @input.get('vpc-id')	# Specifies the virtual private cloud id to list all subnets related to given virtual private cloud
-	
+
 	# Optional
 
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -31,9 +31,9 @@ begin
                           .set('access-key', @access_key)
                           .set('security-key', @secret_key)
 			  .set('vpc-id',vpc_id)
-        
 
-        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
+
+        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
 		response = connector_call.sync
@@ -66,4 +66,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_virtual_private_cloud_subnets.rb' flintbit")
 # end
-
