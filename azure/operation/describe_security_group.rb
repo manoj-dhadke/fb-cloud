@@ -50,9 +50,7 @@ begin
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
 
-    security_group_details=response.get('security-group-details')
-    @log.info("security-group-details---------#{security_group_details}")
-
+    security_group_details=response.get('security-group-details')  
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("security-group-details: #{response.to_s}")

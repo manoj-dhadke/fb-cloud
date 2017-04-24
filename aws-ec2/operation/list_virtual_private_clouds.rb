@@ -6,6 +6,7 @@ begin
 	connector_name =@input.get('connector_name') # Name of the Amazon EC2 Connector
 	action = 'list-vpcs'	                 # Specifies the name of the operation:list-vpcs
 		# Optional
+	region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	@access_key = @input.get('access-key')	#access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key of aws-ec2 account
@@ -22,6 +23,10 @@ begin
 			  .set('action', action)
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
+
+	if !region.nil? && !region.empty?
+               connector_call.set('region', region)
+	end
 
 	
 	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 

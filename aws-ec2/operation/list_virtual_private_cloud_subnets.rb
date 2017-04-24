@@ -8,6 +8,7 @@ begin
         vpc_id = @input.get('vpc-id')	# Specifies the virtual private cloud id to list all subnets related to given virtual private cloud
 	
 	# Optional
+
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	@access_key = @input.get('access-key')	#access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key aws-ec2 account
@@ -31,6 +32,7 @@ begin
                           .set('security-key', @secret_key)
 			  .set('vpc-id',vpc_id)
         
+
         #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
