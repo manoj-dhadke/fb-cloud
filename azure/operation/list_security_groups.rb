@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'azure:list_security_groups.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:list_security_groups.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -36,13 +36,13 @@ begin
     response_message = response.message	# Execution status messages
 
     security_group_list=response.get('security-group-list')
-   
+
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("security-group-list: #{response.to_s}")
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).set('security-group-list',response.to_s)
+        @output.set('exit-code', 0).set('message', response_message).set('security-group-list',security_group_list.to_s)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
@@ -51,5 +51,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'azure:list_security_groups.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:list_security_groups.rb' flintbit")
 # end
