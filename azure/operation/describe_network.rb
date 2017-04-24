@@ -51,6 +51,7 @@ begin
     response_message = response.message	# Execution status messages
 
     network_details=response.get('network-details')
+    network_details=@util.json(network_details)
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
