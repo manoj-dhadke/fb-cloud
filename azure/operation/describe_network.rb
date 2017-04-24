@@ -51,7 +51,10 @@ begin
     response_message = response.message	# Execution status messages
 
     network_details=response.get('network-details')
+    if(!network_details.nil?)
     network_details=@util.json(network_details)
+      @log.info("********************")
+    end
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
@@ -59,6 +62,7 @@ begin
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
         @output.set('exit-code', 0).set('message', response_message).set('network-details',network_details.to_s)
     else
+
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
     end
