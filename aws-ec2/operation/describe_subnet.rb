@@ -16,7 +16,7 @@ begin
 
 	#checking the connector name is provided or not,if not then provide error messsage to user
 	if connector_name.nil? || connector_name.empty?
-		raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe subnet's
+		raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe subnet'
 	end
 
 	#checking the virtual prvate cloud id is provided or not,if not then provide error messsage to user
