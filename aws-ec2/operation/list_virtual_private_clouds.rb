@@ -24,10 +24,12 @@ begin
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
 
-	if !region.nil? && !region.empty?
-               connector_call.set('region', region)
-	end
 
+if !region.nil? && !region.empty?
+	connector_call.set('region', region)
+else
+@log.trace("region is not provided so using default region 'us-east-1'")
+end
 
 	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
@@ -48,7 +50,7 @@ begin
 	#Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
 	if response_exitcode == 0
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-		@output.set('exit-code', 0).set('message', 'success').setraw('vpcs-list',vpcs_set.to_s)
+		@output.set('exit-code', 0).set('message', 'success').setraw('vpc-list',vpcs_set.to_s)
 	else
 		@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 		@output.set('exit-code', 1).set('message', response_message)

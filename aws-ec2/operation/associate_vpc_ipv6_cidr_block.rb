@@ -8,12 +8,14 @@ begin
 	vpc_id = @input.get('vpc-id')		        # Specifies the virtual private cloud ID of Amazon EC2
 
 	# Optional
+	region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
 	@access_key = @input.get('access-key')	        #access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key of aws-ec2 account
 	request_timeout = @input.get('timeout')		# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-		@log.info("Flintbit input parameters are,connector_name:#{connector_name} | action : #{action} | vpc_id: #{vpc_id}")
-		#checking the connector name is provided or not,if not then provide error messsage to user
+	@log.info("Flintbit input parameters are,connector_name:#{connector_name} | action : #{action} | vpc_id: #{vpc_id}")
+
+	#checking the connector name is provided or not,if not then provide error messsage to user
 	if connector_name.nil? || connector_name.empty?
 		raise 'Please provide "Amazon EC2 connector name (connector_name)" to associate virtual private cloud cidr block'
 	end
@@ -29,6 +31,13 @@ begin
 			  .set('vpc-id',vpc_id)
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
+
+#Checking that the region is provided or not,if not set default region i.e.us-east-1
+	if !region.nil? && !region.empty?
+		connector_call.set('region', region)
+	else
+		@log.trace("region is not provided so using default region 'us-east-1'")
+	end
 
 	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)

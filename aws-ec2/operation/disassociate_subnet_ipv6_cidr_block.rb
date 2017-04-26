@@ -31,7 +31,8 @@ begin
 			  .set('association-id',association_id)
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
-
+				
+# checking that the region is provided or not,if not then use default region us-east-1
 if !region.nil? && !region.empty?
 		connector_call.set('region', region)
 else
