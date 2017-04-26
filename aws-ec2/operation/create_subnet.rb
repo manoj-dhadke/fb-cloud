@@ -11,6 +11,7 @@ begin
 
 
 	# Optional
+	region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	@access_key = @input.get('access-key')	#access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key aws-ec2 account
@@ -23,9 +24,9 @@ begin
 	end
 
 	#checking the availability-zone is provided or not,if not then provide error messsage to user
-        if availability_zone.nil? && availability_zone.empty?
-                raise 'Please provide "Amazon EC2 availabilty (availability_zone)" to create subnet'
-        end
+  if availability_zone.nil? || availability_zone.empty?
+      raise 'Please provide "Amazon EC2 availabilty (availability_zone)" to create subnet'
+  end
 
 	#checking the cidr block is provided or not,if not then provide error messsage to user
 	if cidr_block.nil? || cidr_block.empty?
@@ -46,6 +47,11 @@ begin
 			  .set('vpc-id',vpc_id)
 		          .set('availability-zone',availability_zone)
 
+if !region.nil? && !region.empty?
+		connector_call.set('region', region)
+else
+		@log.trace("region is not provided so using default region 'us-east-1'")
+end
 
         #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
