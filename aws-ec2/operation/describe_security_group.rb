@@ -5,22 +5,22 @@ begin
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
 action = 'describe-security-group' # Specifies the name of the operation: describe-security-group
-security_group_name = @input.get('group-name') # Contains one or more security groups name corresponding to the region that you want to describe
+security_group_id = @input.get('security-group-id') # Contains one or more security group id corresponding to the region that you want to describe
 # Optional
 @access_key = @input.get('access-key')
 @secret_key = @input.get('security-key')
 region = @input.get('region')	                # Amazon EC2 region (default region is 'us-east-1')
 request_timeout = @input.get('timeout')	      # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-@log.info("Flintbit input parameters are, action : #{action} | group_name : #{security_group_name}")
+@log.info("Flintbit input parameters are, action : #{action} | group_id: #{security_group_id}")
 
-if security_group_name.nil?
-  raise 'Please provide "AWS  group name(security_group_name)" to describe security-group '
+if security_group_id.nil?
+  raise 'Please provide "AWS  security group id(security_group_id)" to describe security-group '
 end
 
 connector_call = @call.connector(connector_name)
                       .set('action', action)
-                      .set('group-name', security_group_name)
+                      .set('security-group-id', security_group_id)
                       .set('access-key', @access_key)
                       .set('security-key', @secret_key)
 
@@ -56,7 +56,7 @@ if response_exitcode == 0
     @output.set('exit-code', 0).set('message', response_message).setraw('security-group-info', security_group_info.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('error', response_message).set('exit-code', 1)
+    @output.set('message', response_message).set('exit-code', 1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 rescue Exception => e
