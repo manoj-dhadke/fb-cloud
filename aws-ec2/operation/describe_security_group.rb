@@ -12,7 +12,7 @@ security_group_id = @input.get('security-group-id') # Contains one or more secur
 region = @input.get('region')	                # Amazon EC2 region (default region is 'us-east-1')
 request_timeout = @input.get('timeout')	      # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-@log.info("Flintbit input parameters are, action : #{action} | group_id: #{security_group_id}")
+@log.info("Flintbit input parameters are, action : #{action} | group_id: #{security_group_id} | region:#{region}")
 
 if security_group_id.nil?
   raise 'Please provide "AWS  security group id(security_group_id)" to describe security-group '

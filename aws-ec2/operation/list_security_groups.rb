@@ -18,9 +18,11 @@ connector_call = @call.connector(connector_name)
                       .set('action', action)
                       .set('access-key', @access_key)
                       .set('security-key', @secret_key)
-
+#checking that the region is provided or not ,if not then use default region us-east-1
 if !region.nil? && !region.empty?
     connector_call.set('region', region)
+else
+      @log.trace("region is not provided so using default region 'us-east-1'")
 end
 
 if request_timeout.nil? || request_timeout.is_a?(String)
@@ -43,7 +45,7 @@ if response_exitcode == 0
     @output.set('exit-code', 0).set('message', response_message).setraw('security-group-list', security_group_list.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('error', response_message).set('exit-code', 1)
+    @output.set('message', response_message).set('exit-code', 1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 
