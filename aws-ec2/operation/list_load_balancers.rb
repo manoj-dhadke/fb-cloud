@@ -1,6 +1,6 @@
 # begin
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:list_load_balancers.rb' flintbit...")
-
+begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
@@ -45,8 +45,14 @@ if response_exitcode == 0
     @output.set('exit-code', 0).set('message', response_message).setraw('load-balancers-list', load_balancers_list.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('error', response_message).set('exit-code',1).set('message', response_message)
+    @output.set('message', response_message).set('exit-code',1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
+
+rescue Exception => e
+	@log.error(e.message)
+	@output.set('exit-code', 1).set('message', e.message)
+end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_load_balancers.rb' flintbit")
 # end
