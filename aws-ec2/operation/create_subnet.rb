@@ -8,14 +8,16 @@ begin
 	vpc_id = @input.get('vpc-id')	# Specifies the virtual private cloud id to associate to subnet which u are going to create
 	cidr_block = @input.get('cidr-block')	 # Specifies the cidr-block to create subnet on Amazon EC2
 	availability_zone = @input.get('availability-zone') # Specifies the availability zones for launching the required subnet availability zone element.
-       
-	
+
+
 	# Optional
+	region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	@access_key = @input.get('access-key')	#access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key aws-ec2 account
 
-	@log.info("Flintbit input parameters are, connector_name:#{connector_name}  | action : #{action}")
+	@log.info("Flintbit input parameters are, connector_name:#{connector_name}  | action : #{action}
+	 | vpc_id: #{vpc_id} | cidr_block :#{cidr_block} | availability-zone: #{availability_zone}")
 
 	#checking the connector name is provided or not,if not then provide error messsage to user
 	if connector_name.nil? || connector_name.empty?
@@ -23,9 +25,9 @@ begin
 	end
 
 	#checking the availability-zone is provided or not,if not then provide error messsage to user
-        if availability_zone.nil? && availability_zone.empty?        
-                raise 'Please provide "Amazon EC2 availabilty (availability_zone)" to create subnet'
-        end
+  if availability_zone.nil? || availability_zone.empty?
+      raise 'Please provide "Amazon EC2 availabilty (availability_zone)" to create subnet'
+  end
 
 	#checking the cidr block is provided or not,if not then provide error messsage to user
 	if cidr_block.nil? || cidr_block.empty?
@@ -45,9 +47,14 @@ begin
 			  .set('cidr-block', cidr_block)
 			  .set('vpc-id',vpc_id)
 		          .set('availability-zone',availability_zone)
-			  
-	
-        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
+
+if !region.nil? && !region.empty?
+		connector_call.set('region', region)
+else
+		@log.trace("region is not provided so using default region 'us-east-1'")
+end
+
+        #if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
 		response = connector_call.sync
@@ -78,4 +85,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_subnet.rb' flintbit")
 # end
-

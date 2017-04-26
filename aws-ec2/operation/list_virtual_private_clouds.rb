@@ -6,6 +6,7 @@ begin
 	connector_name =@input.get('connector_name') # Name of the Amazon EC2 Connector
 	action = 'list-vpcs'	                 # Specifies the name of the operation:list-vpcs
 		# Optional
+	region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	@access_key = @input.get('access-key')	#access key of aws-ec2 account
 	@secret_key = @input.get('security-key')	#secret key of aws-ec2 account
@@ -23,8 +24,14 @@ begin
 			  .set('access-key', @access_key)
 			  .set('security-key', @secret_key)
 
-	
-	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out 
+
+if !region.nil? && !region.empty?
+	connector_call.set('region', region)
+else
+@log.trace("region is not provided so using default region 'us-east-1'")
+end
+
+	#if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
 	if request_timeout.nil? || request_timeout.is_a?(String)
 		@log.trace("Calling #{connector_name} with default timeout...")
 		response = connector_call.sync
@@ -43,7 +50,7 @@ begin
 	#Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
 	if response_exitcode == 0
 		@log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-		@output.set('exit-code', 0).set('message', 'success').setraw('vpcs-list',vpcs_set.to_s)
+		@output.set('exit-code', 0).set('message', 'success').setraw('vpc-list',vpcs_set.to_s)
 	else
 		@log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
 		@output.set('exit-code', 1).set('message', response_message)
@@ -55,4 +62,3 @@ rescue Exception => e
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_virtual_private_clouds.rb' flintbit")
 # end
-
