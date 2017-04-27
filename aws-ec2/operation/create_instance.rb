@@ -116,24 +116,31 @@ begin
         instance_info.each do |instance|
             @log.info("Amazon EC2 Instance ID :	#{instance.get('instance-id')} |Instance Type :	#{instance.get('instance-type')} |
                 Instance public IP : #{instance.get('public-ip')} |	Instance private IP : #{instance.get('private-ip')} ")
-            @call.bit('flintcloud-integrations:aws:vm_provision_mail.rb').set('exit-code', 0).set('to', @email).set('owner', owner)
-                 .set('zone', zone).set('instance-id', instance.get('instance-id')).set('public-ip', instance.get('public-ip'))
-                 .set('service-request', service_request).async
+        
+     @user_message = """Service Details :
+ * Amazon EC2 Instance ID : #{instance.get('instance-id')}
+ * Instance Type : #{instance.get('instance-type')}
+ * Instance public IP : #{instance.get('public-ip')}
+ * Instance private IP : #{instance.get('private-ip')}"""
+    # @output.set('exit-code', 0).set('user_message', @user_message)
         end
-        @output.setraw('instances-info', instance_info.to_s).set('exit-code', 0)
+        @output.setraw('instances-info', instance_info.to_s).set('exit-code', 0).set('user_message', @user_message)
         @log.info('output in exitcode 0')
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @call.bit('flintcloud-integrations:aws:vm_provision_mail.rb').set('exit-code', 1).set('to', @email).set('error', response_message)
-             .set('service-request', service_request).async
-        @output.set('message', response_message).set('exit-code', -1)
+        @user_message = """## Failed to create instance !"""
+        @output.set('message', response_message).set('exit-code', -1).set('user_message', @user_message)
         @log.info('output in exitcode -1')
         # @output.exit(1,response_message)										#Use to exit from flintbit
     end
 rescue => e
     @log.error(e.message)
-    @output.set('message', e.message).set('exit-code', -1)
-    @call.bit('flintcloud-integrations:aws:vm_provision_mail.rb').set('exit-code', 1).set('to', @email).set('error', e.message).set('service-request', service_request).async
+@user_message = """Service Details :
+ * Amazon EC2 Instance ID : 665657
+ * Instance Type : 675676
+ * Instance public IP : 67756
+ * Instance private IP : 567656567"""
+    @output.set('message', e.message).set('exit-code', -1).set('user_message', @user_message)
     @log.info('output in exception')
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_instance.rb' flintbit")
