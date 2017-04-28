@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'fb-cloud:azure:list_security_groups.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:operation:list_security_groups.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -12,7 +12,6 @@ begin
    @tenant_id = @input.get('tenant-id') #Azure account tenant-id
    @subscription_id = @input.get('subscription-id') #Azure account subscription-id
    @client_id = @input.get('client-id') #Azure client-id
-
 
    #Checking that the connector name is provided or not,if not then raise the exception with error message
    if @connector_name.nil? || @connector_name.empty?
@@ -42,7 +41,7 @@ begin
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("security-group-list: #{response.to_s}")
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).set('security-group-list',security_group_list.to_s)
+        @output.set('exit-code', 0).set('message', response_message).setraw('security-group-list',security_group_list.to_s)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
@@ -51,5 +50,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'fb-cloud:azure:list_security_groups.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:operation:list_security_groups.rb' flintbit")
 # end
