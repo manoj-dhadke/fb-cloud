@@ -1,6 +1,6 @@
 # begin
 require 'json'
-@log.trace("Started executing 'fb-cloud:azure:list_load_balancers.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:operation:list_load_balancers.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
@@ -42,7 +42,7 @@ begin
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("load-balancer-list: #{response.to_s}")
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).set('load-balancer-list',load_balancer_list.to_s)
+        @output.set('exit-code', 0).set('message', response_message).set('load-balancer-list',load_balancer_list)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
@@ -51,5 +51,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'fb-cloud:azure:list_load_balancers.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:operation:list_load_balancers.rb' flintbit")
 # end

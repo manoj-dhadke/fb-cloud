@@ -14,12 +14,10 @@ begin
    @subscription_id = @input.get('subscription-id') #Azure account subscription-id
    @client_id = @input.get('client-id') #Azure client-id
 
-   @log.info("-------------#{@group_name}")
    #Checking that the connector name is provided or not,if not then raise the exception with error message
    if @connector_name.nil? || @connector_name.empty?
        raise 'Please provide "MS Azure connector name (connector_name)" to list networks'
    end
-
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
@@ -43,14 +41,13 @@ begin
     response_message = response.message	# Execution status messages
 
     network_list=response.get('network-list')
-    network_list=@util.json(network_list)
-    
+    #network_list=@util.json(network_list)
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("network-details: #{response.to_s}")
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).set('network-list',network_list.to_s)
+        @output.set('exit-code', 0).set('message', response_message).set('network-list',network_list)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)

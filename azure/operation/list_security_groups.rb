@@ -41,7 +41,7 @@ begin
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("security-group-list: #{response.to_s}")
         #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).setraw('security-group-list',security_group_list.to_s)
+        @output.set('exit-code', 0).set('message', response_message).set('security-group-list',security_group_list)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
