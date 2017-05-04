@@ -14,6 +14,11 @@ request_timeout = @input.get('timeout')	      # Execution time of the Flintbit i
 
 @log.info("Flintbit input parameters are, connector_name : #{connector_name}| action : #{action}")
 
+# checking the connector name is provided or not,if not then provide error messsage to user
+if connector_name.nil? || connector_name.empty?
+    raise 'Please provide "Amazon EC2 connector name (connector_name)" to list load balancer'
+end
+
 connector_call = @call.connector(connector_name)
                       .set('action', action)
                       .set('access-key', @access_key)

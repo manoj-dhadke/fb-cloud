@@ -1,11 +1,11 @@
 # begin
-@log.trace("Started executing 'fb-cloud:aws-ec2:operation:describe_load_balancer.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:list_application_load_balancers.rb' flintbit...")
 begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-action = 'describe-load-balancer' # Specifies the name of the operation:describe-load-balancer
-load_balancer_name = @input.get("name") #name of the load balancer which you want to describe
+action = 'list-application-load-balancer' # Specifies the name of the operation:list-application-load-balancer
+
 # Optional
 region = @input.get('region')	    # Amazon EC2 region (default region is 'us-east-1')
 @access_key = @input.get('access-key')
@@ -16,17 +16,11 @@ request_timeout = @input.get('timeout')	      # Execution time of the Flintbit i
 
 # checking the connector name is provided or not,if not then provide error messsage to user
 if connector_name.nil? || connector_name.empty?
-    raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe load balancer'
-end
-
-#checking load balancer name is provided or not,if not then provide error messsage to user
-if load_balancer_name.nil?
-  raise 'Please provide "Amazon Elastic load balancer name (load_balancer_name)" to describe load balancer'
+    raise 'Please provide "Amazon EC2 connector name (connector_name)" to list application load balancer'
 end
 
 connector_call = @call.connector(connector_name)
                       .set('action', action)
-                      .set('name',load_balancer_name)
                       .set('access-key', @access_key)
                       .set('security-key', @secret_key)
 
@@ -49,14 +43,14 @@ response_exitcode = response.exitcode	# Exit status code
 response_message = response.message	# Execution status messages
 
 # Amazon EC2 Connector Response Parameters
-load_balancers_details = response.get('load-balancers-details')	# Set of Amazon EC2 security groups details
+load_balancers_list = response.get('load-balancers')	# Set of Amazon EC2 security groups details
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('exit-code', 0).set('message', response_message).setraw('load_balancers_details', load_balancers_details.to_s)
+    @output.set('exit-code', 0).set('message', response_message).setraw('load-balancers-list', load_balancers_list.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('exit-code', 0).set('message', response_message)
+    @output.set('message', response_message).set('exit-code',1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 
@@ -65,5 +59,5 @@ rescue Exception => e
 	@output.set('exit-code', 1).set('message', e.message)
 end
 
-@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_load_balancer.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_application_load_balancers.rb' flintbit")
 # end
