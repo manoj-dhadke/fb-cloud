@@ -1,10 +1,10 @@
 # begin
-@log.trace("Started executing 'fb-cloud:aws-ec2:operation:describe_load_balancer.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:describe_application_load_balancer.rb' flintbit...")
 begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-action = 'describe-load-balancer' # Specifies the name of the operation:describe-load-balancer
+action = 'describe-application-load-balancer' # Specifies the name of the operation:list-application-load-balancer
 load_balancer_name = @input.get("name") #name of the load balancer which you want to describe
 # Optional
 region = @input.get('region')	    # Amazon EC2 region (default region is 'us-east-1')
@@ -16,13 +16,14 @@ request_timeout = @input.get('timeout')	      # Execution time of the Flintbit i
 
 # checking the connector name is provided or not,if not then provide error messsage to user
 if connector_name.nil? || connector_name.empty?
-    raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe load balancer'
+    raise 'Please provide "Amazon EC2 connector name (connector_name)" to describe application load balancer'
 end
 
 #checking load balancer name is provided or not,if not then provide error messsage to user
 if load_balancer_name.nil?
-  raise 'Please provide "Amazon Elastic load balancer name (load_balancer_name)" to describe load balancer'
+  raise 'Please provide "Amazon Elastic load balancer name (load_balancer_name)" to describe application load balancer'
 end
+
 
 connector_call = @call.connector(connector_name)
                       .set('action', action)
@@ -65,5 +66,5 @@ rescue Exception => e
 	@output.set('exit-code', 1).set('message', e.message)
 end
 
-@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_load_balancer.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:describe_application_load_balancer.rb' flintbit")
 # end
