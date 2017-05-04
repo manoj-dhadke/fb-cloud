@@ -51,12 +51,10 @@ begin
     response_message = response.message	# Execution status messages
 
     load_balancer_details=response.get('load-balancer-details')
-
+    #load_balancer_details=@util.json(load_balancer_details)
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @log.info("load-balancer-details: #{response.to_s}")
-        #@call.bit('flintcloud-integrations:services:http:http_services_helper.rb').set('action', 'sync_azure_vm').set('provide_ID', providerId).sync
-        @output.set('exit-code', 0).set('message', response_message).set('load-balancer-details',load_balancer_details.to_s)
+        @output.set('exit-code', 0).set('message', response_message).set('load-balancer-details',load_balancer_details)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
