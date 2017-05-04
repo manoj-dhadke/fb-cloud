@@ -4,8 +4,10 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     connector_name = @input.get('connector_name') # Name of the Amazon EC2 Connector
-    action = 'delete-load-balancer'	# Specifies the name of the operation:delete-subnet
     name = @input.get('name') #Specifies name of load balancer to be deleted
+    loadbalancer_type = @input.get('loadbalancer-type')
+    action = "delete-#{loadbalancer_type}-load-balancer" # Specifies the name of the operation:delete-subnet
+    load_balancer_arn = @input.get('load-balancer-arn')
     # Optional
     region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
     request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -28,7 +30,9 @@ begin
                           .set('access-key', @access_key)
                           .set('security-key', @secret_key)
                           .set('name', name)
-
+    if loadbalancer_type == 'application'
+        connector_call.set('loadbalancer-type',load_balancer_arn)
+    end
     #Cheking the region is not provided or not,if not then use default region as us-east-1
     if !region.nil? && !region.empty?
         connector_call.set('region', region)
