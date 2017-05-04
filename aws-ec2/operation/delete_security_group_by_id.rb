@@ -1,5 +1,6 @@
 # begin
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:delete_security_group_by_id.rb' flintbit...")
+begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
@@ -57,5 +58,11 @@ else
     @output.set('message', response_message).set('exit-code', 1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
+
+rescue Exception => e
+	@log.error(e.message)
+	@output.set('exit-code', 1).set('message', e.message)
+end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:delete_security_group_by_id.rb' flintbit")
 # end
