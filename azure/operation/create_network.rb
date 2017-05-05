@@ -40,7 +40,7 @@ begin
         raise 'Please provide Azure network name (@network_name) to create  virtual network'
     end
 
-    # Checking that the network name is provided or not,if not then raise the exception with error message
+    # Checking that the adderess spaces is provided or not,if not then raise the exception with error message
     if @address_spaces.nil? || @address_spaces.empty?
         raise 'Please provide Azure address spaces (@address_spaces) to create  virtual network'
     end

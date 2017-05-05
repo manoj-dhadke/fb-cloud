@@ -7,7 +7,7 @@ begin
    @connector_name = @input.get('connector_name') #name of Azure connector
    @action = 'describe-subnet' #Specifies the name of the operation:describe-subnet
    @network_id= @input.get('network-id') #ID of the netowrk in which subnet is present
-   @subnet_name = @input.get("subnet-name")
+   @subnet_name = @input.get("subnet-name")#name of the subnet which you want to describe
 
    @log.info("connector-name:#{@connector_name} | action :#{@action} | network-id:#{@network_id} | subnet-name:#{@subnet_name}")
 
