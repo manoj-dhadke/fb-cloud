@@ -1,13 +1,15 @@
 # begin
 require 'json'
-@log.trace("Started executing 'fb-cloud:azure:operation:describe_load_balancer.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:azure:operation:delete_network_by_name.rb' flintbit...")
 begin
     # Flintbit Input Parameters
    # Mandatory
    @connector_name = @input.get('connector_name') #name of Azure connector
-   @action = 'describe-load-balancer' #Specifies the name of the operation:describe-load-balancer
-   @load_balancer_name = @input.get('load-balancer-name')
-   @group_name = @input.get('group-name')
+   @action = 'delete-network' #Specifies the name of the operation:delete-network
+   @network_name= @input.get('network-name') #Name of the netowrk which you want to delete
+   @group_name=@input.get('group-name') #name of the group-name in which the network is present
+
+   @log.info("connector-name:#{@connector_name} | action :#{@action} | network-name:#{@network_name} | group-name: #{@group_name}")
 
    #optional
    @key = @input.get('key') #Azure account key
@@ -18,23 +20,22 @@ begin
 
    #Checking that the connector name is provided or not,if not then raise the exception with error message
    if @connector_name.nil? || @connector_name.empty?
-       raise 'Please provide "MS Azure connector name (connector_name)" to describe load balancer'
+       raise 'Please provide "MS Azure connector name (connector_name)" to delete network'
    end
 
-
-   #Checking that the load balancer name is provided or not,if not then raise the exception with error message
-   if @load_balancer_name.nil? || @load_balancer_name.empty?
-       raise 'Please provide "MS Azure load-balancer-name (@load_balancer_name)" to describe load balancer'
+   #Checking that the network name is provided or not,if not then raise the exception with error message
+   if @network_name.nil? || @network_name.empty?
+       raise 'Please provide "MS Azure network name(network_name)" to delete network'
    end
 
-   #Checking that the connector name is provided or not,if not then raise the exception with error message
-   if  @group_name.nil? ||  @group_name.empty?
-       raise 'Please provide "MS Azure group-name (@group_name)" to describe load balancer'
+   #Checking that the group name is provided or not,if not then raise the exception with error message
+   if @group_name.nil? ||  @group_name.empty?
+       raise 'Please provide "MS Azure group name (group_name)" to delete network'
    end
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
-                          .set('load-balancer-name',@load_balancer_name)
+                          .set('network-name',@network_name)
                           .set('group-name',@group_name)
                           .timeout(2800000)
 
@@ -50,11 +51,9 @@ begin
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
 
-    load_balancer_details=response.get('load-balancer-details')
-    #load_balancer_details=@util.json(load_balancer_details)
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @output.set('exit-code', 0).set('message', response_message).set('load-balancer-details',load_balancer_details)
+        @output.set('exit-code', 0).set('message', response_message)
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
@@ -63,5 +62,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'fb-cloud:azure:operation:describe_load_balancer.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:azure:operation:delete_network_by_name.rb' flintbit")
 # end
