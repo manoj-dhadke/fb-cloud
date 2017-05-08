@@ -28,7 +28,14 @@ begin
     response_exitcode = connector_call.exitcode   # Exit status code
     response_message = connector_call.message # Execution status messages
         @log.info("exitcode : #{response_exitcode} | message : #{response_message}")
-
+# Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
+    if response_exitcode == 0
+        @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
+        @output.set('exit-code', 0).set('message', 'success')
+    else
+        @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
+        @output.set('exit-code', 1).set('message', response_message)
+    end
 # if exception occured during execution then it will catch by rescue and it will show exception message to user
 rescue Exception => e
     @log.error(e.message)

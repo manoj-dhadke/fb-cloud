@@ -70,10 +70,10 @@ response_message = response.message	# Execution status messages
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
+    @output.set('exit-code', 0).set('message', response_message)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
+    @output.set('exit-code', 1).set('message', response_message)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_application_load_balancer.rb' flintbit")
