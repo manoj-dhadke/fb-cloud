@@ -5,7 +5,7 @@ begin
     # Mandatory
     connector_name = @input.get('connector_name') # Name of the Amazon EC2 Connector
     loadbalancer_type = @input.get('loadbalancer-type')
-    action = "delete-#{loadbalancer_type}-load-balancer-listener" # Specifies the name of the operation:delete-subnet
+    action = "delete-application-load-balancer-listener" # Specifies the name of the operation:delete-subnet
     listeners = @input.get('listeners')
     # Optional
     region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")

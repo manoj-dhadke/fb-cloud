@@ -6,7 +6,7 @@ begin
     connector_name = @input.get('connector_name') # Name of the Amazon EC2 Connector
     name = @input.get('name') #Specifies name of load balancer to be deleted
     loadbalancer_type = @input.get('loadbalancer-type')
-    action = "delete-#{loadbalancer_type}-load-balancer-listener" # Specifies the name of the operation:delete-subnet
+    action = "delete-classic-load-balancer-listener" # Specifies the name of the operation:delete-subnet
     listeners = @input.get('listeners')
     # Optional
     region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
@@ -18,11 +18,19 @@ begin
     connector_call = @call.connector(connector_name)
                           .set('action', action)
                           .set('load-balancer-name',name)
-                          .set('list-of-load-balancer-ports',listeners).sync
-    
+                          .set('access_key',@access_key)
+                          .set('secret_key',@secret_key)
+                          .set('list-of-load-balancer-ports',listeners)
+    #Cheking the region is not provided or not,if not then use default region as us-east-1
+    if !region.nil? && !region.empty?
+        connector_call.set('region', region).sync
+    else
+        @log.trace("region is not provided so using default region 'us-east-1'")
+    end
     response_exitcode = connector_call.exitcode   # Exit status code
     response_message = connector_call.message # Execution status messages
         @log.info("exitcode : #{response_exitcode} | message : #{response_message}")
+
 
 # if exception occured during execution then it will catch by rescue and it will show exception message to user
 rescue Exception => e
