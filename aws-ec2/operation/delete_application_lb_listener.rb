@@ -16,8 +16,15 @@ begin
     @log.info("Flintbit input parameters are, connector_name:#{connector_name}  | action : #{action} | name: | listener ports: #{listeners}")
     connector_call = @call.connector(connector_name)
                           .set('action', action)
-                          .set('arn-list',listeners).sync
-    
+                          .set('access_key',@access_key)
+                          .set('secret_key',@secret_key)
+                          .set('arn-list',listeners)
+    #Cheking the region is not provided or not,if not then use default region as us-east-1
+    if !region.nil? && !region.empty?
+        connector_call.set('region', region).sync
+    else
+        @log.trace("region is not provided so using default region 'us-east-1'")
+    end
     response_exitcode = connector_call.exitcode   # Exit status code
     response_message = connector_call.message # Execution status messages
         @log.info("exitcode : #{response_exitcode} | message : #{response_message}")
