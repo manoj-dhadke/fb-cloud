@@ -6,7 +6,7 @@ begin
    # Mandatory
    @connector_name = @input.get('connector_name') #name of Azure connector
    @action = 'delete-security-group' #Specifies the name of the operation:delete-security-group
-   @group_name = @input.get('group-name') #name of the resource group in which your security group is present
+   @resource_group_name = @input.get('resource-group-name') #name of the resource group in which your security group is present
    @security_group_name = @input.get('security-group-name')     #name security_group_name which you want to delete
    #optional
    @key = @input.get('key') #Azure account key
@@ -21,8 +21,8 @@ begin
    end
 
    #Checking that the connector name is provided or not,if not then raise the exception with error message
-   if @group_name.nil? ||  @group_name.empty?
-       raise 'Please provide "MS Azure group-name (@group_name)" to delete security group'
+   if @resource_group_name.nil? ||  @resource_group_name.empty?
+       raise 'Please provide "MS Azure group-name (@resource_group_name)" to delete security group'
    end
 
 
@@ -34,7 +34,7 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
-                          .set('group-name',@group_name)
+                          .set('resource-group-name',@resource_group_name)
                           .set('security-group-name',@security_group_name)
                           .timeout(2800000)
 
