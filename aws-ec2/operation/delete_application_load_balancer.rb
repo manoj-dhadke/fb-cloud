@@ -29,7 +29,7 @@ begin
                           .set('access-key', @access_key)
                           .set('security-key', @secret_key)
                           .set('name', name)
-                          .set('loadbalancer-type',load_balancer_arn)
+                          .set('load-balancer-arn',load_balancer_arn)
     #Cheking the region is not provided or not,if not then use default region as us-east-1
     if !region.nil? && !region.empty?
         connector_call.set('region', region)
