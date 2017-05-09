@@ -8,6 +8,11 @@ listener_array = @input.get('listeners')       # JSONArray of listners
 target_group_arn = @input.get('target-group-arn')
 action = 'create-listener-for-application-load-balancer'
 
+# Optional
+    region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
+    request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
+    @access_key = @input.get('access-key')	# access key of aws-ec2 account
+    @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
 @log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
@@ -17,7 +22,26 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 		                          .set('load-balancer-arn',load_balancer_name)
 			                      .set('listeners',listener_array)
 			                      .set('target-group-arn',target_group_arn)
-	    response= connector_call.sync
+			                      .set('access-key', @access_key)
+                          		  .set('security-key', @secret_key)
+	    
+
+	        #Cheking the region is not provided or not,if not then use default region as us-east-1
+    if !region.nil? && !region.empty?
+        connector_call.set('region', region)
+    else
+        @log.trace("region is not provided so using default region 'us-east-1'")
+    end
+
+    # if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
+    if request_timeout.nil? || request_timeout.is_a?(String)
+        @log.trace("Calling #{connector_name} with default timeout...")
+        response = connector_call.sync
+    else
+        @log.trace("Calling #{connector_name} with given timeout #{request_timeout}...")
+        response = connector_call.timeout(request_timeout).sync
+    end
+
 else
 	raise "Please provide load balancer name"
 end

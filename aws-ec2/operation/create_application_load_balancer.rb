@@ -41,7 +41,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 		if !request_timeout.nil? && !request_timeout.empty?
 			connector_call.timeout(request_timeout)
 		else
-			connector_call.timeout(400000)
+			@log.trace("Calling #{connector_name} with default timeout...")
 		end
 
 		if !security_groups.nil? && security_groups.empty?
