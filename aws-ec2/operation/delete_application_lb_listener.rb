@@ -19,13 +19,15 @@ begin
                           .set('access-key',@access_key)
                           .set('security-key',@secret_key)
                           .set('arn-list',listeners)
+    
+
     #Cheking the region is not provided or not,if not then use default region as us-east-1
     if !region.nil? && !region.empty?
-        response = connector_call.set('region', region).sync
+        response = connector_call.set('region', region)
     else
         @log.trace("region is not provided so using default region 'us-east-1'")
-        response = connector_call.sync
     end
+    
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
         response = connector_call.sync
@@ -33,6 +35,7 @@ begin
         @log.trace("Calling #{connector_name} with given timeout #{request_timeout}...")
         response = connector_call.timeout(request_timeout).sync
     end
+
     response_exitcode = response.exitcode   # Exit status code
     response_message = response.message # Execution status messages
         @log.info("exitcode : #{response_exitcode} | message : #{response_message}")
