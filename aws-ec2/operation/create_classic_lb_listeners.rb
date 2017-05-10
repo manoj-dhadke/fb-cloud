@@ -13,7 +13,9 @@ action = 'create-listener-for-classic-load-balancer'
     @access_key = @input.get('access-key')	# access key of aws-ec2 account
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
-@log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Listeners : #{listener_array}")
+@log.info("Flintbit input parameters are, action : #{action} 
+                                                            | Load Balancer Name : #{load_balancer_name} 
+                                                            | Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
 	
 		connector_call = @call.connector(connector_name)

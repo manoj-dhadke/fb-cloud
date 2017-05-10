@@ -13,7 +13,10 @@ begin
     @access_key = @input.get('access-key')	# access key of aws-ec2 account
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
-    @log.info("Flintbit input parameters are, connector_name:#{connector_name}  | action : #{action} | name: #{name}")
+    @log.info("Flintbit input parameters are, connector_name:#{connector_name}  
+                                                                            | Action : #{action}
+                                                                            | Name : #{name} 
+                                                                            | Load Balancer Arn: #{load_balancer_arn}")
 
     # checking the connector name is provided or not,if not then provide error messsage to user
     if connector_name.nil? || connector_name.empty?
