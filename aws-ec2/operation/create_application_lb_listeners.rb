@@ -53,10 +53,10 @@ end
 
 if response.exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message)
+    @output.set('message', response.message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message)
+    @output.set('message', response.message).set('exit-code', -1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_application_lb_listeners.rb' flintbit")
