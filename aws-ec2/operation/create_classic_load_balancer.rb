@@ -2,7 +2,7 @@ require 'json'
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:create_classic_load_balancer.rb' flintbit...")
 # Flintbit Input Parameters
 # Mandatory
-connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
+connector_name = 'amazon-ec2'	      # Name of the Amazon EC2 Connector
 action = "create-classic-load-balancer"  # Specifies the name of the operation: create-security-group
 load_balancer_name = @input.get('name')
 availability_zones_array = @input.get('availabilityzones') # Array of Availibity zones Amazon EC2
@@ -74,10 +74,10 @@ response_message = response.message	# Execution status messages
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
+    @output.set('message', response_message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
+    @output.set('message', response_message).set('exit-code', -1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_classic_load_balancer.rb' flintbit")
