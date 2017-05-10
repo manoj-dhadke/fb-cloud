@@ -13,7 +13,9 @@ begin
     @access_key = @input.get('access-key')	# access key of aws-ec2 account
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
-    @log.info("Flintbit input parameters are, connector_name:#{connector_name}  | action : #{action} | name: | listener ports: #{listeners}")
+    @log.info("Flintbit input parameters are, Connector Name:#{connector_name}  
+                                                                            | Action : #{action} 
+                                                                            | Listener Ports: #{listeners}")
     connector_call = @call.connector(connector_name)
                           .set('action', action)
                           .set('access-key',@access_key)

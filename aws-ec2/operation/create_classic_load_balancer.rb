@@ -19,7 +19,11 @@ security_groups = @input.get('security-groups')
 tags = @input.get('tags')
 
 
-@log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Availability zones : #{availability_zones_array} | Subnets : #{subnet_array} | Listeners : #{listener_array}")
+@log.info("Flintbit input parameters are, action : #{action} 
+															| Load Balancer Name : #{load_balancer_name} 
+															| Availability zones : #{availability_zones_array} 
+															| Subnets : #{subnet_array} 
+															| Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
 	
 		connector_call = @call.connector(connector_name)
