@@ -16,8 +16,8 @@ group_id=@input.get("group-id")
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
 
-@log.info("Flintbit input parameters are, action : #{action} 
-														| Direction : #{direction} 
+@log.info("Flintbit input parameters are, action : #{action}
+														| Direction : #{direction}
 														| IP Permissions : #{ip_permissions}
 														| Group Id : #{group_id}
 														| Group Name : #{group_name}")
@@ -30,12 +30,12 @@ if !ip_permissions.nil? && !ip_permissions.empty?
 									.set('direction',direction)
 									.set('access-key', @access_key)
 		                          	.set('security-key', @secret_key)
-		if !group_name.nil? && !group_name.empty?                         	
+		if !group_name.nil? && !group_name.empty?
 				connector_call.set('security-group-name',group_name)
 		else
 			raise "Please provide group name"
 		end
-		if !group_id.nil? && !group_id.empty?  
+		if !group_id.nil? && !group_id.empty?
 		connector_call.set('security-group-id',group_id)
 		else
 			raise "Please provide group id"
@@ -55,7 +55,7 @@ if !ip_permissions.nil? && !ip_permissions.empty?
 	        @log.trace("Calling #{connector_name} with given timeout #{request_timeout}...")
 	        response = connector_call.timeout(request_timeout).sync
 	    end
-						 
+
 else
 	raise "Please provide IP permissions"
 end
@@ -64,10 +64,10 @@ else
 end
 if response.exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message)
+    @output.set('message', response.message).set('exit-code',0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message)
+    @output.set('message', response.message).set('exit-code',-1)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:revoke_security_group_rule.rb' flintbit")
