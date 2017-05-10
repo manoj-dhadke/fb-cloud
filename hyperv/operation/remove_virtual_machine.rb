@@ -1,7 +1,7 @@
 require 'json'
 require 'rubygems'
 #begin
-@log.trace("Started executing 'flint-hyperv:hyperv_2012:remove_virtual_machine.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:hyperv:operation:remove_virtual_machine.rb' flintbit...")
 begin
     #Flintbit Input Parameters
     #Mandatory  
@@ -65,5 +65,5 @@ begin
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
-@log.trace("Finished executing 'flint-hyperv:hyperv_2012:remove_virtual_machine.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:remove_virtual_machine.rb' flintbit...")
 #end

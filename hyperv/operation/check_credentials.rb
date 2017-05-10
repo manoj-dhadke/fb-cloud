@@ -71,5 +71,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'flint-hyperv:hyperv_2012:check_credentials.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:check_credentials.rb' flintbit...")
 #end

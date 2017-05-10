@@ -73,5 +73,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end 
-@log.trace("Finished executing 'flint-hyperv:hyperv_2012:details_virtual_machine_host.rb' flintbit...")
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:details_virtual_machine_host.rb' flintbit...")
 #end
