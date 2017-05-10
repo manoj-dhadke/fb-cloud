@@ -1,82 +1,77 @@
 require 'json'
 require 'rubygems'
 #begin
-@log.trace("Started executing 'flint-hyperv:hyperv_2012:details_virtual_machine_host.rb' flintbit...")
-begin
-#Flintbit Input Parameters
-#Mandatory
-@connector_name= @input.get("connector_name")               			  #Name of the Connector
-@vmname = @input.get("vmname")
-@command = "powershell -Command \"&{get-vm -name #{@vmname} 2>&1 | ConvertTo-JSON}\""       #Command to execute
-@protocol = @input.get("protocol")                          			  #Protocol
-#optional
-@hostname = @input.get("hostname")                          			  #hostname
-@password = @input.get("password")                          			  #password
-@user = @input.get("user")												                  #username
-@request_timeout= @input.get("timeout")
-@action="exe"                     			                             
-@port = @input.get("port")
+@log.trace("Started executing 'fb-cloud:hyperv:operation:details_virtual_machine_host.rb' flintbit...")
+begin  
+    #Flintbit Input Parameters
+    #Mandatory  
+    @connector_name= @input.get("connector_name")                             #Name of the Connector
+    @target= @input.get("target")               			                  #Target address
+    @username = @input.get("username")               			              #Username
+    @password = @input.get("password")               			              #Password
+    @shell = "ps"                             			                      #Shell Type
+    @transport = @input.get("transport")               			              #Transport
+    @vmidentifier = @input.get("identifier")               			                  #Virtual Machine name
+    @command = "get-vm -id #{@vmidentifier} 2>&1 | convertto-json"                #Command to run
+    @operation_timeout = 80                                            		  #Operation Timeout
+    @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
+    @port = @input.get("port")                                                #Port Number
+    @request_timeout= @input.get("timeout")                                   #Timeout
 
-@log.info("Flintbit input parameters are, connector name :: #{@connector_name} |
-	                                       command ::       #{@command}|
-                                           protocol ::      #{@protocol} |
-                                           hostname ::      #{@hostname}|
-                                           user ::          #{@user}|
-                                           password ::      #{@password}|
-                                           timeout ::       #{@request_timeout}")
+    @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
+                                            target                   ::    #{@target} |
+                                            username                 ::    #{@username}|
+                                            password                 ::    #{@password} |
+                                            shell                    ::    #{@shell}|
+                                            vmidentifier             ::    #{@vmidentifier}|
+                                            transport                ::    #{@transport}|
+                                            command                  ::    #{@command}|
+                                            operation_timeout        ::    #{@operation_timeout}|
+                                            no_ssl_peer_verification ::    #{@no_ssl_peer_verification}|
+                                            port                     ::    #{@port}")
 
-connector_call = @call.connector(@connector_name)
-                      .set("command",@command)
-                      .set("protocol",@protocol)
-                      .set("action",@action)
-                      .set("hostname",@hostname)
-                      .set("user",@user)
-                      .set("password",@password)
-                      .set("port", @port)
-                      .set("timeout",10000)
+    connector_call = @call.connector(@connector_name)
+                    .set("target",@target)
+                    .set("username",@username)
+                    .set("password",@password)
+                    .set("transport",@transport)
+                    .set("command",@command)
+                    .set("port",@port)
+                    .set("shell",@shell)
+                    .set("operation_timeout",@operation_timeout)
+                    .set("timeout",@request_timeout)
 
-if @request_timeout.nil? || @request_timeout.is_a?(String)
-   @log.trace("Calling #{@connector_name} with default timeout...")
-	 response = connector_call.sync
-else
-   @log.trace("Calling #{@connector_name} with given timeout #{request_timeout.to_s}...")
-	 response = connector_call.timeout(@request_timeout).sync
-end
+              
+    if @request_timeout.nil? || @request_timeout.is_a?(String)
+    @log.trace("Calling #{@connector_name} with default timeout...")
+        response = connector_call.sync
+    else
+    @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout.to_s}...")
+        response = connector_call.timeout(@request_timeout).sync
+    end
 
-#Winrm Connector Response Meta Parameters
-response_exitcode=response.exitcode           #Exit status code
-response_message=response.message             #Execution status message
+    #Winrm Connector Response Meta Parameters
+    response_exitcode=response.exitcode           #Exit status code
+    response_message=response.message             #Execution status message
 
-#Winrm Connector Response Parameters
-result = response.get("output")               #Response Body
+    #Winrm Connector Response Parameters
+    result = response.get("result")               #Response Body
+     
 
-
-if response.exitcode == 0
-
-    @log.info("output:::"+result.to_s)
-	@log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
-    	                                                   message ::  #{response_message}")
-  @output.set('exit-code', 0).set('message', response_message).set('output',result)
-	#@res = @util.json(result.to_s)
-    #@output.set("MaximumStorageMigrations",@res.get("MaximumStorageMigrations"))
-    #@output.set("VirtualHardDiskPath",@res.get("VirtualHardDiskPath"))
-    #@output.set("ComputerName",@res.get("ComputerName"))
-    #@output.set("FullyQualifiedDomainName",@res.get("FullyQualifiedDomainName"))
-    #@output.set("LogicalProcessorCount",@res.get("LogicalProcessorCount"))
-    #@output.set("MemoryCapacity",@res.get("MemoryCapacity"))
-    #@output.set("HostNumaStatus",@res.get("HostNumaStatus"))
-    #@output.setraw("output",result.to_s)
-
-
-else
-	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
-		                                                  message ::  #{response_message}")
-    #@output.exit(1,response_message)
-    @output.set('exit-code', 1).set('message', response_message).set('output',result)
+    if response.exitcode == 0
+    
+        @log.info("output"+result.to_s)
+        @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
+                                                            message ::  #{response_message}")  
+        @output.set('exit-code', 0).set('message', 'success').setraw("output",result.to_s)	    
+    else
+        @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
+                                                            message ::  #{response_message}")
+        @output.set('exit-code', 1).set('message', response_message)
     end
 rescue Exception => e
-  @log.error(e.message)
-  @output.set('exit-code', 1).set('message', e.message)
-end    
+    @log.error(e.message)
+    @output.set('exit-code', 1).set('message', e.message)
+end 
 @log.trace("Finished executing 'flint-hyperv:hyperv_2012:details_virtual_machine_host.rb' flintbit...")
 #end

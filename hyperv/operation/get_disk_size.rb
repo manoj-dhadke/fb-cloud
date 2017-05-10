@@ -1,7 +1,7 @@
 require 'json'
 require 'rubygems'
 #begin
-@log.trace("Started executing 'flint-hyperv:hyperv_2012:stop_virtual_machine.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:hyperv:operation:get_disk_size.rb' flintbit...")
 begin
     #Flintbit Input Parameters
     #Mandatory  
@@ -9,31 +9,25 @@ begin
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
-    @shell = @input.get("shell")               			                      #Shell Type
+    @shell = "ps"                             			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @vmname = @input.get("vmname")               			                  #Virtual Machine name
-    @command = "stop-vm #{@vmname} 2>&1 | convertto-json"                    #Command to run
-    @operation_timeout = @input.get("operation_timeout")               		  #Operation Timeout
+    @vmidentifier = @input.get("identifier")               			          #Virtual Machine name
+    @command = "(get-vhd -path (get-vm -id #{@vmidentifier}).harddrives.path).size 2>&1"          #Command to run
+    @operation_timeout = 80                                            		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
 
-    @log.info("Flintbit input parameters are,  connector name           ::    #{@connector_name} |
+    @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
                                             target                   ::    #{@target} |
                                             username                 ::    #{@username}|
                                             password                 ::    #{@password} |
                                             shell                    ::    #{@shell}|
-                                            vmname                   ::    #{@vmname}|
                                             transport                ::    #{@transport}|
                                             command                  ::    #{@command}|
                                             operation_timeout        ::    #{@operation_timeout}|
                                             no_ssl_peer_verification ::    #{@no_ssl_peer_verification}|
                                             port                     ::    #{@port}")
-
-    if @vmname == nil || @vmname == ""
-            @log.error("Please provide vm name to perform stop operation")
-            @output.exit(1,"vm name is blank or not provided")
-    end
 
     connector_call = @call.connector(@connector_name)
                     .set("target",@target)
@@ -45,7 +39,7 @@ begin
                     .set("shell",@shell)
                     .set("operation_timeout",@operation_timeout)
                     .set("timeout",@request_timeout)
-                
+              
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
@@ -61,20 +55,13 @@ begin
     #Winrm Connector Response Parameters
     result = response.get("result")               #Response Body
 
-
     if response.exitcode == 0
     
-        @log.info("output"+result.to_s)
+        @log.info("output:::: "+result.to_s)
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
-        #@res = @util.json(result.to_s)  
-        if result.to_s.strip.empty? == false
-            @output.set('exit-code', 1).set('message', result)
-        else
-            @output.set("exit-code",response_exitcode).set("message",response_message)
-        end
-    
-        
+
+        @output.set('exit-code', 0).set('message', 'success').set("output",result.to_s)                                                         
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
@@ -83,6 +70,6 @@ begin
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
-end
-@log.trace("Finished executing 'flint-hyperv:hyperv_2012:stop_virtual_machine.rb' flintbit...")
+end   
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:get_disk_size.rb' flintbit...")
 #end
