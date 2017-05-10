@@ -6,27 +6,30 @@ begin
    # Mandatory
    @connector_name = @input.get('connector_name') #name of Azure connector
    @action = 'create-subnet' #Specifies the name of the operation:create-subnet
-   @network_id= @input.get('network-id') #ID of the netowrk in which you want create subnet
+   @network_name= @input.get('network-name') #ID of the netowrk in which you want create subnet
    @subnet_name= @input.get("subnet-name")#name of the subnet which you want to create
    @address_spaces = @input.get('address-spaces') # provide address space in the form  of CIDR notion for the subnet
+
 
    @log.info("connector-name:#{@connector_name} | action :#{@action} | network-id:#{@network_id} | subnet-name:#{@subnet_name} | address-spaces:#{@address_spaces}")
 
    #optional
+   @network_security_group_name=@input.get('security-group-name') #Network security group name which you want to attach to subnet
+   @route_table_name=@input.get('route-table-name') #route table name to which you want to add the subnet
    @key = @input.get('key') #Azure accountid
    @tenant_id = @input.get('tenant-id') #Azure account tenant-id
    @subscription_id = @input.get('subscription-id') #Azure account subscription-id
    @client_id = @input.get('client-id') #Azure client-id
-
+   @group_name= @input.get("group-name")#resource group name in which network is present
 
    #Checking that the connector name is provided or not,if not then raise the exception with error message
    if @connector_name.nil? || @connector_name.empty?
        raise 'Please provide "MS Azure connector name (connector_name)" to create subnet'
    end
 
-   #Checking that the network id is provided or not,if not then raise the exception with error message
-   if @network_id.nil? || @network_id.empty?
-       raise 'Please provide "MS Azure network id(network_id)" in which you are going to create subnet'
+   #Checking that the network name is provided or not,if not then raise the exception with error message
+   if @network_name.nil? || @network_name.empty?
+       raise 'Please provide "MS Azure network name(network_name)" in which you are going to create subnet'
    end
 
    # Checking that the network name is provided or not,if not then raise the exception with error message
@@ -41,9 +44,11 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
-                          .set('network-id',@network_id)
+                          .set('network-name',@network_name)
                           .set('subnet-name', @subnet_name)
                           .set('address-spaces', @address_spaces)
+                          .set('security-group-name',@network_security_group_name)
+                          .set('route-table-name',@route_table_name)
                           .timeout(2800000)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)

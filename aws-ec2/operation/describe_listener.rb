@@ -48,14 +48,14 @@ response_exitcode = response.exitcode	# Exit status code
 response_message = response.message	# Execution status messages
 
 # Amazon EC2 Connector Response Parameters
-load_balancers_details = response.get('listener-details')	# Set of Amazon EC2 security groups details
+listener_details = response.get('listener-details')	# Set of Amazon EC2 security groups details
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('exit-code', 0).set('message', response_message).setraw('load_balancers_details', load_balancers_details.to_s)
+    @output.set('exit-code', 0).set('message', response_message).setraw('listener-details', listener_details.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('exit-code', 0).set('message', response_message)
+    @output.set('exit-code', 1).set('message', response_message)
     # @output.exit(1,response_message)						#Use to exit from flintbit
 end
 
