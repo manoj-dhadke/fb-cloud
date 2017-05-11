@@ -9,16 +9,16 @@ begin
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
-    @shell = @input.get("shell")               			                      #Shell Type
+    @shell = "ps"               			                                  #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @vmname = @input.get("vmname")               			                  #Virtual Machine name
-    @command = "stop-vm #{@vmname} 2>&1 | convertto-json"                    #Command to run
-    @operation_timeout = @input.get("operation_timeout")               		  #Operation Timeout
+    @command = "stop-vm -name #{@vmname} -force 2>&1 | convertto-json"                     #Command to run
+    @operation_timeout = 80               		                              #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
 
-    @log.info("Flintbit input parameters are,  connector name           ::    #{@connector_name} |
+    @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
                                             target                   ::    #{@target} |
                                             username                 ::    #{@username}|
                                             password                 ::    #{@password} |
@@ -36,15 +36,15 @@ begin
     end
 
     connector_call = @call.connector(@connector_name)
-                    .set("target",@target)
-                    .set("username",@username)
-                    .set("password",@password)
-                    .set("transport",@transport)
-                    .set("command",@command)
-                    .set("port",@port)
-                    .set("shell",@shell)
-                    .set("operation_timeout",@operation_timeout)
-                    .set("timeout",@request_timeout)
+                          .set("target",@target)
+                          .set("username",@username)
+                          .set("password",@password)
+                          .set("transport",@transport)
+                          .set("command",@command)
+                          .set("port",@port)
+                          .set("shell",@shell)
+                          .set("operation_timeout",@operation_timeout)
+                          .set("timeout",@request_timeout)
                 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
@@ -61,7 +61,7 @@ begin
     #Winrm Connector Response Parameters
     result = response.get("result")               #Response Body
 
-
+    @log.info("------------------#{result}")
     if response.exitcode == 0
     
         @log.info("output"+result.to_s)

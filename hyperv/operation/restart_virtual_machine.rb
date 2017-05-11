@@ -12,8 +12,8 @@ begin
     @shell = @input.get("shell")               			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @vmname = @input.get("vmname")               			                  #Virtual Machine name
-    @command = "restart-vm #{@vmname} -force 2>&1 | convertto-json"                    #Command to run
-    @operation_timeout = @input.get("operation_timeout")               		  #Operation Timeout
+    @command = "restart-vm #{@vmname} -force 2>&1 | convertto-json"           #Command to run
+    @operation_timeout = 80                                           		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
