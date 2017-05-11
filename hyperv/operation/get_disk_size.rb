@@ -1,7 +1,7 @@
 require 'json'
 require 'rubygems'
 #begin
-@log.trace("Started executing 'fb-cloud:hyperv:operation:check_credentials.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:hyperv:operation:get_disk_size.rb' flintbit...")
 begin
     #Flintbit Input Parameters
     #Mandatory  
@@ -9,10 +9,11 @@ begin
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
-    @shell = "ps"               			                                  #Shell Type
+    @shell = "ps"                             			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @command = "get-vmhost 2>&1 | convertto-json"                             #Command to run
-    @operation_timeout = 80               		                              #Operation Timeout
+    @vmidentifier = @input.get("identifier")               			          #Virtual Machine name
+    @command = "(get-vhd -path (get-vm -id #{@vmidentifier}).harddrives.path).size 2>&1"          #Command to run
+    @operation_timeout = 80                                            		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
@@ -28,7 +29,6 @@ begin
                                             no_ssl_peer_verification ::    #{@no_ssl_peer_verification}|
                                             port                     ::    #{@port}")
 
-
     connector_call = @call.connector(@connector_name)
                     .set("target",@target)
                     .set("username",@username)
@@ -39,7 +39,7 @@ begin
                     .set("shell",@shell)
                     .set("operation_timeout",@operation_timeout)
                     .set("timeout",@request_timeout)
-                
+              
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
@@ -47,21 +47,21 @@ begin
     @log.trace("Calling #{@connector_name} with given timeout #{@request_timeout.to_s}...")
         response = connector_call.timeout(@request_timeout).sync
     end
+
     #Winrm Connector Response Meta Parameters
     response_exitcode=response.exitcode           #Exit status code
-    response_message=response.message            #Execution status message
+    response_message=response.message             #Execution status message
 
     #Winrm Connector Response Parameters
     result = response.get("result")               #Response Body
 
-    
     if response.exitcode == 0
     
-        @log.info("output: #{response}")
+        @log.info("output:::: "+result.to_s)
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
 
-        @output.set('exit-code', 0).set('message', 'success').setraw("data",result.to_s) 
+        @output.set('exit-code', 0).set('message', 'success').set("output",result.to_s)                                                         
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
@@ -70,6 +70,6 @@ begin
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
-end
-@log.trace("Finished executing 'fb-cloud:hyperv:operation:check_credentials.rb' flintbit...")
+end   
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:get_disk_size.rb' flintbit...")
 #end
