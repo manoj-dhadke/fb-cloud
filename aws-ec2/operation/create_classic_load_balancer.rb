@@ -2,7 +2,7 @@ require 'json'
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:create_classic_load_balancer.rb' flintbit...")
 # Flintbit Input Parameters
 # Mandatory
-connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
+connector_name = 'amazon-ec2'	      # Name of the Amazon EC2 Connector
 action = "create-classic-load-balancer"  # Specifies the name of the operation: create-security-group
 load_balancer_name = @input.get('name')
 region = @input.get('region')
@@ -71,8 +71,8 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
         subnet = @input.get('subnets')
         ab = {}
         ab['protocol'] = listener_protocol
-        ab['loadBalancerPort'] = load_balancer_port
-        ab['instancePort'] = instance_port
+        ab['loadBalancerPort'] = load_balancer_port.to_i
+        ab['instancePort'] = instance_port.to_i
         b = ab
         listener_array= []
         listener_array << b                               # JSONArray of listners

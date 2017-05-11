@@ -1,0 +1,53 @@
+---
+title: "Amazon EC2:Create Classic Load Balancer"
+description: "Elastic Load Balancing automatically distributes incoming application traffic across multiple Amazon EC2 instances."
+
+flintbit: "fb-cloud:aws-ec2:operation:create_classic_load_balancer.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    section: Create Classic Load Balancer
+    fields:
+      -
+        default:
+        id: name
+        label: Name*
+        placeholder: "Only a-z, A-Z, 0-9 and hyphens are allowed"
+        type: textbox
+        required: true
+      -
+        default:
+        id: subnets
+        label: Subnet*
+        placeholder: "eg: subnet-00a25s20"
+        type: textbox
+        required: true
+      -
+        default:
+        id: availabilityzones
+        label: Availability Zone*
+        placeholder: "eg: us-east-1b,us-west-2b"
+        type: textbox
+        required: true
+      -
+        default:
+        id: listener-protocol
+        label: Listener Protocol*
+        placeholder: "eg: HTTP, HTTPS, TCP, SSL"
+        type: textbox
+        required: true
+      -
+        default:
+        id: load-balancer-port
+        label: Load Balancer Port*
+        placeholder: "Load Balancer Port"
+        type: textbox
+        required: true
+      -
+        default:
+        id: instance-port
+        label: Instance Port*
+        placeholder: "Instance Port"
+        type: textbox
+        required: true
+...
