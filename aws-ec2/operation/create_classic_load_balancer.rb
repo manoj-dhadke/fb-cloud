@@ -18,7 +18,6 @@ tags = @input.get('tags')
 if !load_balancer_name.nil? && !load_balancer_name.empty?
       if !@input.get('listeners').nil? && !@input.get('listeners').empty?
 
-
         availability_zones_array = @input.get('availabilityzones')  # Array of Availibity zones Amazon EC2
         listener_array = @input.get('listeners')                    # JSONArray of listners
         subnet_array = @input.get('subnets')                        # Array of subnets on which we want to connect load balancer
