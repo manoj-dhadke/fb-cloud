@@ -6,7 +6,8 @@ begin
     # Mandatory
     @connector_name = @input.get('connector_name') # name of Azure connector
     @action = 'add-outbound-rule' # Specifies the name of the operation:add-outbound-rule
-    @security_group_id = @input.get('security-group-id') # please provide network id
+    @security_group_name = @input.get('security-group-name') # please provide firewall name
+    @resource_group_name = @input.get('group-name')
     @rule = @input.get('rule')
     # optional
     @from_address = @input.get('from-address')
@@ -27,17 +28,20 @@ begin
         raise 'Please provide "MS Azure connector name (connector_name)" '
     end
 
-    # Checking that the connector name is provided or not,if not then raise the exception with error message
-    if @security_group_id.nil? || @security_group_id.empty?
-        raise 'Please provide "(@security_group_id)"'
+    if @security_group_name.nil? || @security_group_name.empty?
+        raise 'Please provide "(@security_group_name)"'
     end
 
-    # Checking that the connector name is provided or not,if not then raise the exception with error message
+    if @resource_group_name.nil? || @resource_group_name.empty?
+        raise 'Please provide "(@resource_group_name)"'
+    end
+
     raise 'Please provide "(@rule)" ' if @rule.nil? || @rule.empty?
 
     connector_call = @call.connector(@connector_name)
                           .set('action', @action)
-                          .set('security-group-id', @security_group_id)
+                          .set('security-group-name', @security_group_name)
+                          .set('group-name', @resource_group_name)
                           .set('rule', @rule)
                           .set('from-address', @from_address)
                           .set('to-address', @to_address)
