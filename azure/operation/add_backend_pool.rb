@@ -7,6 +7,7 @@ begin
     @group_name = @input.get('group-name')
     @load_balancer_name = @input.get('load-balancer-name')
     @backend_pool_name = @input.get('backend-pool-name')
+    @network_interface_id = @input.get('network-interface-id')
     @action = 'add-backend-pool'
 
     # Optional
@@ -16,7 +17,8 @@ begin
     @subscription_id = @input.get('subscription-id')
     @client_id = @input.get('client-id')
 
-    @log.info("Flintbit input parameters are, action : #{@action}")
+    @log.info("Flintbit input parameters are,connector-name:#{@connector_name} | action : #{@action}
+    | group-name :#{@group_name} | load-balancer-name : #{@load_balancer_name} | backend-pool-name:#{@backend_pool_name} ")
 
 
     if @connector_name.nil? || @connector_name.empty?
@@ -38,6 +40,13 @@ begin
         raise 'Please provide "MS Azure backend pool name (@backend_pool_name)"to add backend pool to load balancer'
     end
 
+
+
+    if @network_interface_id.nil? || @network_interface_id.empty?
+        raise 'Please provide "MS Azure network interface id(@network_interface_id)"to add backend pool to load balancer'
+    end
+
+
       connector_call = @call.connector(@connector_name)
                           .set('action', @action)
                           .set('tenant-id', @tenant_id)
@@ -45,6 +54,7 @@ begin
                           .set('group-name', @group_name)
                           .set('load-balancer-name', @load_balancer_name)
                           .set('backend-pool-name', @backend_pool_name)
+                          .set('network-interface-id', @network_interface_id)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
