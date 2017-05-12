@@ -1,0 +1,32 @@
+---
+title: "Amazon EC2:Create Application Load Balancer"
+description: "Elastic Load Balancing automatically distributes incoming application traffic across multiple Amazon EC2 instances."
+
+flintbit: "fb-cloud:aws-ec2:operation:create_application_load_balancer.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    section: Create Application Load Balancer
+    fields:
+      -
+        default:
+        id: name
+        label: Name*
+        placeholder: "Only a-z, A-Z, 0-9 and hyphens are allowed"
+        type: textbox
+        required: true
+      -
+        default:
+        id: subnet1
+        label: Subnet 1*
+        placeholder: "eg: subnet-00a25s20"
+        type: textbox
+        required: true
+      -
+        default:
+        id: subnet2
+        label: Subnet 2*
+        placeholder: "eg: subnet-00a25s20"
+        type: textbox
+        required: true
+...

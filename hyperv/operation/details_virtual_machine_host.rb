@@ -11,7 +11,7 @@ begin
     @password = @input.get("password")               			              #Password
     @shell = "ps"                             			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @vmidentifier = @input.get("identifier")               			                  #Virtual Machine name
+    @vmidentifier = @input.get("identifier")               			                  #Virtual Machine id
     @command = "get-vm -id #{@vmidentifier} 2>&1 | convertto-json"                #Command to run
     @operation_timeout = 80                                            		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
