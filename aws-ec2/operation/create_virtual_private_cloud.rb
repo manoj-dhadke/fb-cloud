@@ -3,7 +3,7 @@
 begin
     # Flintbit Input Parameters
     # Mandatory
-    connector_name = @input.get('connector_name') # Name of the Amazon EC2 Connector
+    connector_name =@config.global('flintcloud-integrations.aws-ec2.name') # Name of the Amazon EC2 Connector
     action = 'create-vpc'	                 # Contains the name of the operation: create-vpc
     cidr_block = @input.get('cidr-block')	 # Specifies the cidr-block to create virtual private cloud on Amazon EC2
 
