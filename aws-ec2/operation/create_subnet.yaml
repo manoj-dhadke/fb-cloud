@@ -1,0 +1,32 @@
+---
+title: "Amazon EC2:Create Subnet"
+description: "Creates a subnet in an existing VPC."
+
+flintbit: "fb-cloud:aws-ec2:operation:create_subnet.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    section: Create Application Load Balancer
+    fields:
+      -
+        default:
+        id: vpc-id
+        label: VPC Id*
+        placeholder: "VPC Id"
+        type: textbox
+        required: true
+      -
+        default:
+        id: cidr-block
+        label: CIDR Block*
+        placeholder: "eg: 10.0.0.0/24"
+        type: textbox
+        required: true
+      -
+        default:
+        id: availability-zone
+        label: Availability Zone*
+        placeholder: "eg: us-east-1a"
+        type: textbox
+        required: true
+...
