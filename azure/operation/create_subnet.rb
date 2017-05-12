@@ -4,7 +4,7 @@ require 'json'
 begin
     # Flintbit Input Parameters
    # Mandatory
-   @connector_name = @input.get('connector_name') #name of Azure connector
+   @connector_name = 'msazure' #name of Azure connector
    @action = 'create-subnet' #Specifies the name of the operation:create-subnet
    @network_name= @input.get('network-name') #ID of the netowrk in which you want create subnet
    @subnet_name= @input.get("subnet-name")#name of the subnet which you want to create
@@ -49,6 +49,10 @@ begin
                           .set('address-spaces', @address_spaces)
                           .set('security-group-name',@network_security_group_name)
                           .set('route-table-name',@route_table_name)
+                          .set('key',@key)
+                          .set('client-id',@client_id)
+                          .set('tenant-id',@tenant_id)
+                          .set('subscription-id',@subscription_id)
                           .timeout(2800000)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)

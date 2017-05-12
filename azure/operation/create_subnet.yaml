@@ -1,0 +1,45 @@
+---
+title: "Azure:Create Subnet"
+description: "Create Microsoft Azure Subnet"
+
+flintbit: "fb-cloud:azure:operation:create_subnet.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    fields:
+      -
+        default:
+        id: subnet-name
+        label: Subnet Name
+        placeholder: "Name Of Subnet"
+        type: textbox
+        required: true
+      -
+        default:
+        id: network-name
+        label: Name Of Network
+        placeholder: "Name Of Network"
+        type: textbox
+        required: true
+      -
+        default:
+        id: route-table-name
+        label: Name Of Route Table
+        placeholder: "Name Of Route Table "
+        type: textbox
+        required: true
+      -
+        default:
+        id: address-spaces
+        label: Address Spaces
+        placeholder : "eg: 10.0.0.0/11"
+        type: textbox
+        required: true
+      -
+        default:
+        id: security-group-name
+        label: Security Group Name
+        placeholder : "Security Group Name"
+        type: textbox
+        required: true
+...
