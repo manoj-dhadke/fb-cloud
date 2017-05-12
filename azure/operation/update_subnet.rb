@@ -43,6 +43,10 @@ begin
                           .set('subnet-name', @subnet_name)
                           .set('network-id', @network_id)
                           .set('address-prefix', @address_prefix)
+                          .set('key',@key)
+                          .set('client-id',@client_id)
+                          .set('tenant-id',@tenant_id)
+                          .set('subscription-id',@subscription_id)
                           .timeout(2_800_000)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
