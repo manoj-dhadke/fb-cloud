@@ -9,16 +9,16 @@ begin
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
-    @shell = @input.get("shell")               			                      #Shell Type
+    @shell = "ps"                 			                                  #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @vmname = @input.get("vmname")               			                  #Virtual Machine name
     @command = "start-vm #{@vmname} 2>&1 | convertto-json"                    #Command to run
-    @operation_timeout = @input.get("operation_timeout")               		  #Operation Timeout
+    @operation_timeout = 80                                            		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
 
-    @log.info("Flintbit input parameters are,  connector name           ::    #{@connector_name} |
+    @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
                                             target                   ::    #{@target} |
                                             username                 ::    #{@username}|
                                             password                 ::    #{@password} |
