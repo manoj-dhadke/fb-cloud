@@ -62,7 +62,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
             	        @log.trace("region is not provided so using default region 'us-east-1'")
             	    end
 
-      else
+      elsif !@input.get('listener-protocol').nil? && !@input.get('listener-protocol').empty?
         availability_zone = @input.get('availabilityzones')
         listener_protocol = @input.get('listener-protocol')
         load_balancer_port = @input.get('load-balancer-port')
@@ -80,7 +80,11 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
         availability_zones_array =[]
         availability_zones_array << availability_zone     # Array of Availibity zones Amazon EC2
 
-        @log.info(">>>>>>>#{listener_array[0].to_s}> #{listener_array.class}>>||>> #{subnets[0].class} >>>||>>#{availability_zones_array[0].class}>")
+        @log.info("Flintbit input parameters are, action : #{action}
+        															| Load Balancer Name : #{load_balancer_name}
+        															| Availability zones : #{availability_zones_array}
+        															| Subnets : #{subnets}
+        															| Listeners : #{listener_array}")
         connector_call = @call.connector(connector_name)
         		                          .set('action', action)
         		                          .set('name',load_balancer_name)
@@ -90,6 +94,8 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 
         response = connector_call.sync
 
+      else
+        raise "Please provide listeners"
       end
 else
   @log.error("Error: At 'Load balancer name' #{load_balancer_name}. Please provide load balancer name.")

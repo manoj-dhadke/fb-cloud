@@ -46,7 +46,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 			else
 				raise "Please provide at least two subnets"
 			end
-	else
+	elsif !subnet_array.nil? && !subnet_array.empty?
 		connector_call = @call.connector(connector_name)
 		                          .set('action', action)
 		                          .set('name',load_balancer_name)
@@ -55,37 +55,37 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 			                      .set('listeners',listener_array)
 
 
-		if !subnet_array.nil? && !subnet_array.empty?
-		    connector_call.set('subnets',subnet_array)
-		else
-				raise "Subnets is not provided"
-		end
-		if !scheme.nil? && !scheme.empty?
-			connector_call.set('scheme',scheme)
-		end
+			if !subnet_array.nil? && !subnet_array.empty?
+			    connector_call.set('subnets',subnet_array)
+			else
+					raise "Subnets is not provided"
+			end
+			if !scheme.nil? && !scheme.empty?
+				connector_call.set('scheme',scheme)
+			end
 
-		if !request_timeout.nil? && !request_timeout.empty?
-			connector_call.timeout(request_timeout)
-		else
-			@log.trace("Calling #{connector_name} with default timeout...")
-		end
+			if !request_timeout.nil? && !request_timeout.empty?
+				connector_call.timeout(request_timeout)
+			else
+				@log.trace("Calling #{connector_name} with default timeout...")
+			end
 
-		if !security_groups.nil? && security_groups.empty?
-			connector_call.set('security-groups',security_groups)
-		end
+			if !security_groups.nil? && security_groups.empty?
+				connector_call.set('security-groups',security_groups)
+			end
 
-		if !tags.nil? && tags.empty?
-			connector_call.set('tags',tags)
-		end
-		if !region.nil? && !region.empty?
-	         response = connector_call.set('region', region).sync
-	    else
-	    	response = connector_call.sync
-	        @log.trace("region is not provided so using default region 'us-east-1'")
-	    end
+			if !tags.nil? && tags.empty?
+				connector_call.set('tags',tags)
+			end
+			if !region.nil? && !region.empty?
+		         response = connector_call.set('region', region).sync
+		    else
+		    	response = connector_call.sync
+		        @log.trace("region is not provided so using default region 'us-east-1'")
+		    end
+	else
+		raise "Please provide subnets"
 	end
-
-
 else
 	@log.error("Error: At 'Load balancer name' #{load_balancer_name}. Please provide load balancer name.")
 end

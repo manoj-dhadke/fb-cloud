@@ -2,7 +2,7 @@
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:create_security_group.rb' flintbit...")
 # Flintbit Input Parameters
 # Mandatory
-connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
+connector_name = @config.global('flintcloud-integrations.aws-ec2.name')	      # Name of the Amazon EC2 Connector
 action = 'create-security-group'                    # Specifies the name of the operation: create-security-group
 group_name = @input.get('group_name')	              # Contain security group name that you want to create
 group_description = @input.get('group_description')	# Contain security group description that you want to create
