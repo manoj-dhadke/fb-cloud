@@ -2,7 +2,7 @@
 title: "Amazon EC2:Add Rule To Security Group"
 description: "Add inbound/outbound rule to security group"
 
-flintbit: "fb-cloud:aws-ec2:operation:add_rule_security_group.rb"
+flintbit: "fb-cloud:aws-ec2:operation:add_security_group_rule.rb"
 icon: "fa fa-cloud"
 inputs:
   -
