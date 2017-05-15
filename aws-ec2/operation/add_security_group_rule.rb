@@ -1,4 +1,4 @@
-@log.trace("Started executing 'fb-cloud:aws-ec2:operation:add_rule_security_group.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:add_security_group_rule.rb' flintbit...")
 begin
 connector_name = @input.get("connector_name")
 direction = @input.get("direction")
@@ -47,7 +47,7 @@ rescue => e
     @log.error(e.message)
     @output.set('message', e.message).set('exit-code', -1)
 end
-@log.trace("Finished execution of 'fb-cloud:aws-ec2:operation:add_rule_security_group.rb' flintbit...")
+@log.trace("Finished execution of 'fb-cloud:aws-ec2:operation:add_security_group_rule.rb' flintbit...")
 
 
 
