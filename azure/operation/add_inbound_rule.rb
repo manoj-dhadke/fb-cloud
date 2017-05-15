@@ -61,10 +61,10 @@ begin
                           .set('rule', @rule)
                           .set('from-address', @from_address)
                           .set('to-address', @to_address)
-                          .set('from-port', @from_port)
-                          .set('to-port', @to_port)
+                          .set('from-port', @from_port.to_i)
+                          .set('to-port', @to_port.to_i)
                           .set('protocol', @protocol)
-                          .set('priority', @priority)
+                          .set('priority', @priority.to_i)
                           .set('description', @description)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
