@@ -1,0 +1,38 @@
+---
+title: "Azure:Create Network Security Group"
+description: "Create Microsoft Azure Network Security Group"
+
+flintbit: "fb-cloud:azure:operation:create_network_security_group.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    fields:
+      -
+        default:
+        id: name
+        label: Name Of Security Group
+        placeholder: "Name Of Security Group"
+        type: textbox
+        required: true
+      -
+        default:
+        id: subscription
+        label: Subscription
+        placeholder : "Subscription"
+        type: textbox
+        required: true
+      -
+        default:
+        id: resource-group
+        label: Resource Group
+        placeholder: "Name Of Resource Group"
+        type: textbox
+        required: true
+      -
+        default:
+        id: location
+        label: Location
+        placeholder: "Location"
+        type: textbox
+        required: true
+...
