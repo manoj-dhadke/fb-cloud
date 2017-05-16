@@ -9,7 +9,7 @@ begin
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
-    @shell = @input.get("shell")               			                      #Shell Type
+    @shell = "ps"               			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @vmname = @input.get("vmname")               			                  #Virtual Machine name
     @command = "restart-vm #{@vmname} -force 2>&1 | convertto-json"           #Command to run
@@ -54,7 +54,7 @@ begin
     @log.trace("Calling #{@connector_name} with given timeout #{request_timeout.to_s}...")
         response = connector_call.timeout(@request_timeout).sync
     end
-    @log.info("------------#{response}--------")
+
     #Winrm Connector Response Meta Parameters
     response_exitcode=response.exitcode           #Exit status code
     response_message=response.message             #Execution status message
