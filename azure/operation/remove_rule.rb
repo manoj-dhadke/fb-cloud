@@ -22,26 +22,30 @@ begin
        raise 'Please provide "MS Azure connector name (connector_name)" '
    end
 
- 
+
    if @security_group_name.nil? ||  @security_group_name.empty?
        raise 'Please provide "(@security_group_name)"'
    end
-  
+
    if @resource_group_name.nil? ||  @resource_group_name.empty?
        raise 'Please provide "(@resource_group_name)"'
    end
-   
+
    if @rule_name.nil? || @rule_name.empty?
        raise 'Please provide "(@rule_name)" '
    end
 
-   
+
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
                           .set('security-group-name',@security_group_name)
                           .set('group-name', @resource_group_name )
                           .set('rule-name',@rule_name)
-                          
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
+
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
@@ -54,7 +58,7 @@ begin
     # MS-azure Connector Response Meta Parameters
     response_exitcode = response.exitcode	# Exit status code
     response_message = response.message	# Execution status messages
-   
+
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("#{response}")

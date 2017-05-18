@@ -38,9 +38,9 @@ begin
   
     # Checking that the connector name is provided or not,if not then raise the exception with error message
     raise 'Please provide "(@rule)" ' if @rule.nil? || @rule.empty?
-    
+
      @log.debug("#{@log_action}
-              
+
               | from address : #{@from_address}
               | to address : #{@to_address}
               | firewall Id : #{@security_group_name}
@@ -50,12 +50,16 @@ begin
               | from port : #{@from_port}
               | protocol : #{@protocol}
               | priority : #{@priority}")
-    
 
-    
+
+
 
     connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('security-group-name', @security_group_name)
                           .set('group-name', @resource_group_name)
                           .set('rule', @rule)

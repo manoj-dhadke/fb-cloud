@@ -40,6 +40,10 @@ begin
 
     connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('security-group-name', @security_group_name)
                           .set('group-name', @resource_group_name)
                           .set('rule', @rule)

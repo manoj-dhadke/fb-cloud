@@ -34,6 +34,10 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('resource-group-name',@resource_group_name)
                           .set('security-group-name',@security_group_name)
                           .timeout(2800000)

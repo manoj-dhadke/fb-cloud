@@ -38,6 +38,10 @@ begin
                           .set('action', @action)
                           .set('network-id',@network_id)
                           .set('subnet-name',@subnet_name)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .timeout(2800000)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)

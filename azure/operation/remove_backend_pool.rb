@@ -42,6 +42,8 @@ begin
                           .set('action', @action)
                           .set('tenant-id', @tenant_id)
                           .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('group-name', @group_name)
                           .set('load-balancer-name', @load_balancer_name)
                           .set('backend-pool-name', @backend_pool_name)
