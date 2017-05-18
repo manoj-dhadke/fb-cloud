@@ -1,5 +1,5 @@
 # begin
-@log.trace("Started executing 'fb-cloud:aws:operation:stop_amazon_instance.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:aws-ec2:operation:stop_instance.rb' flintbit...")
 begin
     # Flintbit Input Parameters
     # mandatory
@@ -63,5 +63,5 @@ rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
-@log.trace("Finished executing 'fb-cloud:aws:operation:stop_amazon_instance.rb' flintbit")
+@log.trace("Finished executing 'fb-cloud:aws-ec2:operation:stop_instance.rb' flintbit")
 # end

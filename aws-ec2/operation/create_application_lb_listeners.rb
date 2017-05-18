@@ -14,12 +14,12 @@ action = 'create-listener-for-application-load-balancer'
     @access_key = @input.get('access-key')	# access key of aws-ec2 account
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
-@log.info("Flintbit input parameters are, action : #{action} 
-                                                            | Load Balancer Name : #{load_balancer_name} 
+@log.info("Flintbit input parameters are, action : #{action}
+                                                            | Load Balancer Name : #{load_balancer_name}
                                                             | Listeners : #{listener_array}
                                                             | Target Group ARN : #{target_group_arn}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
-	
+
 		connector_call = @call.connector(connector_name)
 		                          .set('action', action)
 		                          .set('load-balancer-arn',load_balancer_name)
@@ -27,7 +27,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 			                      .set('target-group-arn',target_group_arn)
 			                      .set('access-key', @access_key)
                           		  .set('security-key', @secret_key)
-	    
+
 
 	        #Cheking the region is not provided or not,if not then use default region as us-east-1
     if !region.nil? && !region.empty?
@@ -49,7 +49,7 @@ else
 	raise "Please provide load balancer name"
 end
 
-		@log.info("RESPONSE OF CREATE LOAD BALANCER>>>>#{response}")	   
+		@log.info("RESPONSE OF CREATE LOAD BALANCER>>>>#{response}")
 
 if response.exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")

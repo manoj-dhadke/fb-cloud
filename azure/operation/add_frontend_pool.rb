@@ -18,7 +18,8 @@ begin
     @client_id = @input.get('client-id')
 
     @log.info("Flintbit input parameters are,connector-name:#{@connector_name} | action : #{@action}
-    | group-name :#{@group_name} | load-balancer-name : #{@load_balancer_name} | backend-pool-name:#{@backend_pool_name} ")
+    | group-name :#{@group_name} | load-balancer-name : #{@load_balancer_name} | frontend-pool-name:#{@frontend_pool_name}
+    | public-ip-address: #{@public_ip_address_name}")
 
 
     if @connector_name.nil? || @connector_name.empty?
