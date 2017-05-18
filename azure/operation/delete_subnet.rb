@@ -36,6 +36,10 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('network-id',@network_id)
                           .set('subnet-name', @subnet_name)
                           .timeout(2800000)

@@ -20,6 +20,10 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .timeout(2800000)
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)

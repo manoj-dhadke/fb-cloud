@@ -5,32 +5,47 @@ require 'rubygems'
 begin
     #Flintbit Input Parameters
     #Mandatory  
-    @connector_name= @input.get("connector_name")                                          #Name of the Connector
-    @vmname = @input.get("vmname")														   #Name of the vm
-    @command = "powershell -Command \"&{Remove-VM #{@vmname} -f 2>&1 | ConvertTo-JSON}\""  #Command
-    @protocol = @input.get("protocol")                                                     #Protocol
-    #optional
-    @hostname = @input.get("hostname")                          						   #hostname
-    @password = @input.get("password")                              					   #password                             
-    @user = @input.get("user")															   #username
-    @request_timeout= @input.get("timeout")                     						   #timeout
+    @connector_name= @input.get("connector_name")                             #Name of the Connector
+    @target= @input.get("target")               			                  #Target address
+    @username = @input.get("username")               			              #Username
+    @password = @input.get("password")               			              #Password
+    @shell = "ps"               			                      #Shell Type
+    @transport = @input.get("transport")               			              #Transport
+    @vmname = @input.get("vmname")               			                  #Virtual Machine name
+    @command = "remove-vm #{@vmname} -force 2>&1 | convertto-json"           #Command to run
+    @operation_timeout = 80                                           		  #Operation Timeout
+    @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
+    @port = @input.get("port")                                                #Port Number
+    @request_timeout= @input.get("timeout")                                   #Timeout
 
-    @log.info("Flintbit input parameters are, connector name :: #{@connector_name} |
-                                            command ::       #{@command}|
-                                            protocol ::      #{@protocol} |
-                                            hostname ::      #{@hostname}|
-                                            user ::          #{@user}|
-                                            password ::      #{@password}|
-                                            timeout ::       #{@request_timeout}")
+    @log.info("Flintbit input parameters are,  connector name           ::    #{@connector_name} |
+                                            target                   ::    #{@target} |
+                                            username                 ::    #{@username}|
+                                            password                 ::    #{@password} |
+                                            shell                    ::    #{@shell}|
+                                            vmname                   ::    #{@vmname}|
+                                            transport                ::    #{@transport}|
+                                            command                  ::    #{@command}|
+                                            operation_timeout        ::    #{@operation_timeout}|
+                                            no_ssl_peer_verification ::    #{@no_ssl_peer_verification}|
+                                            port                     ::    #{@port}")
+
 
     if @vmname == nil || @vmname == ""
-            @log.error("Please provide vm name to perform remove vm operation")
+            @log.error("Please provide vm name to perform restart vm operation")
             @output.exit(1,"vm name is blank or not provided")
     end
 
     connector_call = @call.connector(@connector_name)
+                    .set("target",@target)
+                    .set("username",@username)
+                    .set("password",@password)
+                    .set("transport",@transport)
                     .set("command",@command)
-                    .set("protocol",@protocol)
+                    .set("port",@port)
+                    .set("shell",@shell)
+                    .set("operation_timeout",@operation_timeout)
+                    .set("timeout",@request_timeout)
                 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
@@ -45,25 +60,27 @@ begin
     response_message=response.message             #Execution status message
 
     #Winrm Connector Response Parameters
-    result = response.get("output")               #Response Body
+    result = response.get("result")               #Response Body
 
 
     if response.exitcode == 0
     
         @log.info("output"+result.to_s)
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
-                                                            message ::  #{response_message}")
-        
-        @output.setraw("output",result.to_s)	
-    
-        
+                                                            message ::  #{response_message}")	 
+        if result.to_s.strip.empty? == false
+           @output.set('exit-code', 1).set('message', result)
+        else
+           @output.set("exit-code",response_exitcode).set("message",response_message)
+        end
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
-        @output.exit(1,response_message)
+        @output.set('exit-code', 1).set('message', response_message)
     end
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
+end
 @log.trace("Finished executing 'fb-cloud:hyperv:operation:remove_virtual_machine.rb' flintbit...")
 #end

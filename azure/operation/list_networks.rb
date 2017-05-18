@@ -21,6 +21,10 @@ begin
 
    connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .timeout(2800000)
 
     #Checking that the connector name is provided or not,if not then raise the exception with error message

@@ -47,6 +47,10 @@ begin
 
     connector_call = @call.connector(@connector_name)
                           .set('action', @action)
+                          .set('tenant-id', @tenant_id)
+                          .set('subscription-id', @subscription_id)
+                          .set('key', @key)
+                          .set('client-id', @client_id)
                           .set('region', @region)
                           .set('resource-group', @resource_group)
                           .set('network-name', @network_name)
