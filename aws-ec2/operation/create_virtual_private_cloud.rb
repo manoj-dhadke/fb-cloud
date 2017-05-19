@@ -8,6 +8,8 @@ begin
     cidr_block = @input.get('cidr-block')	 # Specifies the cidr-block to create virtual private cloud on Amazon EC2
 
     # Optional
+    name = @input.get('name')
+    tenancy = @input.get('tenancy')
     region = @input.get('region') # Amazon EC2 region (default region is "us-east-1")
     @access_key = @input.get('access-key')      # access key of aws-ec2 account
     @secret_key = @input.get('security-key')    # secret key of aws-ec2 account
@@ -38,6 +40,13 @@ begin
         @log.trace("region is not provided so using default region 'us-east-1'")
     end
 
+    if !name.nil? && !name.empty?
+        connector_call.set('name', name)
+    end
+
+    if !tenancy.nil? && !tenancy.empty?
+        connector_call.set('tenancy', tenancy)
+    end
     # if the request_timeout is not provided then call connector with default time-out otherwise call connector with given request time-out
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
