@@ -56,11 +56,19 @@ connector_call = @call.connector(connector_name)
                           @log.trace("region is not provided so using default region 'us-east-1'")
                     end
                     if  !cidr_block.nil? &&  !cidr_block.empty?
+                      if  !ip_range.nil? && !ip_range.empty?
+                        raise "Please provide either CIDR block or IP ranges for security group rule. Do not provide both at same time."
+                      else
                       response = connector_call.set("cidr-block",cidr_block).sync
+                      end
                     elsif  !ip_range.nil? && !ip_range.empty?
+                      if  !cidr_block.nil? &&  !cidr_block.empty?
+                        raise "Please provide either CIDR block or IP ranges for security group rule. Do not provide both at same time."
+                      else
                       response = connector_call.set("ip-range",ip_range).sync
+                      end
                     else
-                      raise "Please provide CIDR block or IP ranges for security group rule"
+                      raise "Please provide either CIDR block or IP ranges for security group rule"
                     end
 
   #Amazon EC2 Connector Response Meta Parameters
