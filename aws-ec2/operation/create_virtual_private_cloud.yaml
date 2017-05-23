@@ -9,9 +9,26 @@ inputs:
     fields:
       -
         default:
+        id: name
+        label: Name*
+        placeholder: "Only a-z, A-Z, 0-9 and hyphens are allowed"
+        type: textbox
+        required: true
+      -
+        default:
         id: cidr-block
         label: IPv4 CIDR block*
         placeholder: "IPv4 address range as CIDR block; example:10.0.0.0/16 (Range:a/16-/28)"
         type: textbox
         required: true
+      -
+        default:
+        id: tenancy
+        label: Tenancy
+        placeholder: "Tenancy"
+        type: select
+        required: true
+        options:
+          - Default
+          - Dedicated
 ...
