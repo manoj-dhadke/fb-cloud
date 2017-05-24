@@ -3,7 +3,7 @@
 begin
 	# Flintbit Input Parameters
 	# Mandatory
-	connector_name =@config.global('flintcloud-integrations.aws-ec2.name')# Name of the Amazon EC2 Connector
+	connector_name =@input.get('connector_name')# Name of the Amazon EC2 Connector
 	action = 'create-subnet'	# Specifies the name of the operation:list-subnets
 	vpc_id = @input.get('vpc-id')	# Specifies the virtual private cloud id to associate to subnet which u are going to create
 	cidr_block = @input.get('cidr-block')	 # Specifies the cidr-block to create subnet on Amazon EC2
