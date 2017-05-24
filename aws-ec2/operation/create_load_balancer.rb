@@ -23,7 +23,7 @@ tags = @input.get('tags')
 
 @log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | #{loadbalancer_type} Availability zones : #{availability_zones_array} | Subnets : #{subnet_array} | Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
-	
+
 		connector_call = @call.connector(connector_name)
 		                          .set('action', action)
 		                          .set('name',load_balancer_name)
@@ -53,7 +53,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 		# 		end
 		# 	end
 		# else
-		# 	raise"Please provide type of load balancer"	
+		# 	raise"Please provide type of load balancer"
 		# end
 
 		if !request_timeout.nil? && !request_timeout.empty?
@@ -75,7 +75,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 	    	response = connector_call.sync
 	        @log.trace("region is not provided so using default region 'us-east-1'")
 	    end
-	
+
 else
 	@log.error("Error: At 'Load balancer name' #{load_balancer_name}. Please provide load balancer name.")
 end
@@ -88,11 +88,15 @@ response_message = response.message	# Execution status messages
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
+    @output.set('message', response_message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response_message)
-    # @output.exit(1,response_message)						#Use to exit from flintbit
+		response=response.to_s
+		if !response.empty?
+		@output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+		else
+		@output.set('message', response_message).set('exit-code', 1)
+		end
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_load_balancer.rb' flintbit")
 # end

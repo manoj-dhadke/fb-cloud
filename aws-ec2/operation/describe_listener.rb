@@ -4,7 +4,7 @@ begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	# Name of the Amazon EC2 Connector
-action = 'describe-listener' # Specifies the name of the operation:list-application-load-balancer
+action = 'describe-listener' # Specifies the name of the operation:describe-listener
 load_balancer_arn= @input.get("load-balancer-arn") #name of the load balancer  arn which you want to describe
 # Optional
 region = @input.get('region')	    # Amazon EC2 region (default region is 'us-east-1')

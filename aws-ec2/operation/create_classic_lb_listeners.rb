@@ -13,11 +13,11 @@ action = 'create-listener-for-classic-load-balancer'
     @access_key = @input.get('access-key')	# access key of aws-ec2 account
     @secret_key = @input.get('security-key')	# secret key aws-ec2 account
 
-@log.info("Flintbit input parameters are, action : #{action} 
-                                                            | Load Balancer Name : #{load_balancer_name} 
+@log.info("Flintbit input parameters are, action : #{action}
+                                                            | Load Balancer Name : #{load_balancer_name}
                                                             | Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
-	
+
 		connector_call = @call.connector(connector_name)
 		                          .set('action', action)
 		                          .set('load-balancer-name',load_balancer_name)
@@ -45,15 +45,19 @@ else
 	raise "Please provide load balancer name"
 end
 
-		@log.info("RESPONSE OF CREATE LOAD BALANCER>>>>#{response}")	   
+		@log.info("RESPONSE OF CREATE LOAD BALANCER>>>>#{response}")
 
 if response.exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
     @output.set('message', response.message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message).set('exit-code', -1)
-    # @output.exit(1,response_message)						#Use to exit from flintbit
+    response=response.to_s
+    if !response.empty?
+    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+    else
+    @output.set('message', response_message).set('exit-code', 1)
+    end
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_classic_lb_listeners.rb' flintbit")
 # end

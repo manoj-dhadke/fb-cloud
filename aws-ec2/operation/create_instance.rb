@@ -47,7 +47,7 @@ begin
         raise 'Please provide "Amazon EC2 instance type (instance_type)" to launch Instance'
     end
 
-    if min_instance.nil? 
+    if min_instance.nil?
         raise 'Please provide "Minimum instance value (min_instance)" to launch Instance'
     end
 
@@ -116,7 +116,7 @@ begin
         instance_info.each do |instance|
             @log.info("Amazon EC2 Instance ID :	#{instance.get('instance-id')} |Instance Type :	#{instance.get('instance-type')} |
                 Instance public IP : #{instance.get('public-ip')} |	Instance private IP : #{instance.get('private-ip')} ")
-        
+
      @user_message = """Service Details :
  * Amazon EC2 Instance ID : #{instance.get('instance-id')}
  * Instance Type : #{instance.get('instance-type')}
@@ -128,10 +128,12 @@ begin
         @log.info('output in exitcode 0')
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @user_message = """## Failed to create instance !"""
-        @output.set('message', response_message).set('exit-code', -1).set('user_message', @user_message)
-        @log.info('output in exitcode -1')
-        # @output.exit(1,response_message)										#Use to exit from flintbit
+        response=response.to_s
+        if !response.empty?
+        @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+        else
+        @output.set('message', response_message).set('exit-code', 1)
+        end
     end
 rescue => e
     @log.error(e.message)

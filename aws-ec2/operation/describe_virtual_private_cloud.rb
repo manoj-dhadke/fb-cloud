@@ -64,7 +64,12 @@ begin
         @output.set('exit-code', 0).set('message', response_message).setraw('vpc-info', vpc_info.to_s)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message :  #{response_message}")
-        @output.set('exit-code', 1).set('message', response_message)
+        response=response.to_s
+        if !response.empty?
+        @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+        else
+        @output.set('message', response_message).set('exit-code', 1)
+        end
     end
 
 # if any exception occured during execution then it will catch by rescue and it will show exception message to user

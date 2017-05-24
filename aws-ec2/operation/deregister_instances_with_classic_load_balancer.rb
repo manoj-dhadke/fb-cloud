@@ -17,7 +17,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 											.set('instance-id-list',instances_to_register)
 											.set('access-key', @access_key)
             		    	.set('security-key', @secret_key)
-											
+
 											if !request_timeout.nil? && !request_timeout.empty?
 					            			connector_call.timeout(request_timeout)
 			            		else
@@ -40,7 +40,12 @@ if response.exitcode == 0
     @output.set('message', response.message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message).set('exit-code', -1)
+		response=response.to_s
+		if !response.empty?
+		@output.set('message', response_message).set('exit-code', 1).setraw('error-details',response)
+		else
+		@output.set('message', response_message).set('exit-code', 1)
+		end
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:deregister_instances_with_classic_load_balancer.rb' flintbit")
 # end

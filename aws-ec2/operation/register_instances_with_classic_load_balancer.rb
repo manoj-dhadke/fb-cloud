@@ -1,5 +1,5 @@
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:register_instances_with_classic_load_balancer.rb' flintbit...")
-
+begin
 connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
 load_balancer_name = @input.get('name') # Load Balancer Name
 instances_to_register = @input.get('instances') # Instances to register to load balancer
@@ -17,7 +17,7 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 										.set('instance-id-list',instances_to_register)
 										.set('access-key', @access_key)
             		    .set('security-key', @secret_key)
-										
+
 										if !request_timeout.nil? && !request_timeout.empty?
 		            			connector_call.timeout(request_timeout)
 		            		else
@@ -41,7 +41,18 @@ if response.exitcode == 0
     @output.set('message', response.message).set('exit-code', 0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message).set('exit-code', -1)
+		response=response.to_s
+		if !response.empty?
+		@output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+		else
+		@output.set('message', response_message).set('exit-code', 1)
+		end
 end
+
+rescue Exception => e
+    @log.error(e.message)
+    @output.set('exit-code', 1).set('message', e.message)
+end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:register_instances_with_classic_load_balancer.rb' flintbit")
 # end

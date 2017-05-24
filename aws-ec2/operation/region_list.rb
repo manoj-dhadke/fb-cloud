@@ -41,12 +41,18 @@ begin
         @output.set('exit-code', 0).set('message', 'success').setraw('region', region_set.to_s)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @output.set('exit-code', 1).set('message', response.message)
-        # @output.exit(1,response_message)														#Use to exit from flintbit
+        response=response.to_s
+        if !response.empty?
+        @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+        else
+        @output.set('message', response_message).set('exit-code', 1)
+        end
     end
+
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
 end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:region_list.rb' flintbit")
 # end

@@ -1,6 +1,6 @@
 # begin
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:list_volumes.rb' flintbit...")
-
+begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = 'amazon-ec2'
@@ -19,8 +19,6 @@ request_timeout = @input.get('timeout')	      # Execution time of the Flintbit i
 if connector_name.nil? || connector_name.empty?
     raise 'Please provide "Amazon EC2 connector name (connector_name)" to list volumes'
 end
-
-
 
 connector_call = @call.connector(connector_name)
                       .set('action', action)
@@ -54,8 +52,18 @@ if response_exitcode == 0
     @output.set('exit-code', 0).set('message', response_message).setraw('volume-list',"#{volume_list}")
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
-    @output.set('exit-code',1).set('message', response_message)
-    # @output.exit(1,response_message)						#Use to exit from flintbit
+    response=response.to_s
+    if !response.empty?
+    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+    else
+    @output.set('message', response_message).set('exit-code', 1)
+    end
 end
+
+rescue Exception => e
+	@log.error(e.message)
+	@output.set('exit-code', 1).set('message', e.message)
+end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:list_volumes.rb' flintbit")
 # end

@@ -1,5 +1,5 @@
 @log.trace("Started executing 'fb-cloud:aws-ec2:operation:revoke_security_group_rule.rb' flintbit...")
-
+begin
 # Flintbit Input Parameters
 # Mandatory
 connector_name = @input.get('connector_name')	      # Name of the Amazon EC2 Connector
@@ -67,8 +67,18 @@ if response.exitcode == 0
     @output.set('message', response.message).set('exit-code',0)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
-    @output.set('message', response.message).set('exit-code',-1)
-    # @output.exit(1,response_message)						#Use to exit from flintbit
+    response=response.to_s
+    if !response.empty?
+    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+    else
+    @output.set('message', response_message).set('exit-code', 1)
+    end
 end
+
+rescue Exception => e
+	@log.error(e.message)
+	@output.set('exit-code', 1).set('message', e.message)
+end
+
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:revoke_security_group_rule.rb' flintbit")
 # end

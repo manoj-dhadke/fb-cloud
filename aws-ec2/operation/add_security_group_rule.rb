@@ -82,7 +82,12 @@ connector_call = @call.connector(connector_name)
   else
      @log.error("Response ::#{response}")
      @log.error("Failure in executing AWS-EC2 Connector where, exitcode :: #{response_exitcode} | message :: #{response_message}")
-     @output.set("exit-code",response_exitcode).set("message",response_message)
+     response=response.to_s
+     if !response.empty?
+     @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+     else
+     @output.set('message', response_message).set('exit-code', 1)
+     end
   end
 
 
