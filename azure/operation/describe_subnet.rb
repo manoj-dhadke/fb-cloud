@@ -7,9 +7,12 @@ begin
    @connector_name = @input.get('connector_name') #name of Azure connector
    @action = 'describe-subnet' #Specifies the name of the operation:describe-subnet
    @network_id= @input.get('network-id') #ID of the netowrk in which subnet is present
+   @network_name= @input.get('network-name') #Name of the netowrk in which subnet is present
+   @group_name= @input.get('group-name') #Name of the resource group in which network is present
    @subnet_name = @input.get("subnet-name")#name of the subnet which you want to describe
 
-   @log.info("connector-name:#{@connector_name} | action :#{@action} | network-id:#{@network_id} | subnet-name:#{@subnet_name}")
+   @log.info("connector-name:#{@connector_name} | action :#{@action} | network-id:#{@network_id}
+   |resource-group-name:#{@group_name}| network-name :#{@network_name} | subnet-name:#{@subnet_name}")
 
    #optional
    @key = @input.get('key') #Azure accountid
@@ -23,26 +26,33 @@ begin
        raise 'Please provide "MS Azure connector name (connector_name)" to describe subnet'
    end
 
-   #Checking that the network id is provided or not,if not then raise the exception with error message
-   if @network_id.nil? || @network_id.empty?
-       raise 'Please provide "MS Azure network id(@network_id)" to describe subnet'
-   end
-
    #Checking that the subnet id is provided or not,if not then raise the exception with error message
    if @subnet_name.nil? || @subnet_name.empty?
        raise 'Please provide "MS Azure subnet name(@subnet_id)" to describe subnet'
    end
 
-
-   connector_call = @call.connector(@connector_name)
-                          .set('action', @action)
-                          .set('network-id',@network_id)
-                          .set('subnet-name',@subnet_name)
-                          .set('tenant-id', @tenant_id)
-                          .set('subscription-id', @subscription_id)
-                          .set('key', @key)
-                          .set('client-id', @client_id)
-                          .timeout(2800000)
+   if !@network_id.nil?
+     connector_call = @call.connector(@connector_name)
+                            .set('action', @action)
+                            .set('network-id',@network_id)
+                            .set('subnet-name',@subnet_name)
+                            .set('tenant-id', @tenant_id)
+                            .set('subscription-id', @subscription_id)
+                            .set('key', @key)
+                            .set('client-id', @client_id)
+                            .timeout(2800000)
+   else
+    connector_call = @call.connector(@connector_name)
+                            .set('action', @action)
+                            .set('group-name',@group_name)
+                            .set('network-name',@network_name)
+                            .set('subnet-name',@subnet_name)
+                            .set('tenant-id', @tenant_id)
+                            .set('subscription-id', @subscription_id)
+                            .set('key', @key)
+                            .set('client-id', @client_id)
+                            .timeout(2800000)
+   end
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
