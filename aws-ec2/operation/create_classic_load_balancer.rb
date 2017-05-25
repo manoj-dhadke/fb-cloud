@@ -28,7 +28,8 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
             															| Load Balancer Name : #{load_balancer_name}
             															| Availability zones : #{availability_zones_array}
             															| Subnets : #{subnet_array}
-            															| Listeners : #{listener_array}")
+            															| Listeners : #{listener_array}
+                                          | Region : #{region}")
                     connector_call = @call.connector(connector_name)
                 		                          .set('action', action)
                 		                          .set('name',load_balancer_name)
@@ -87,12 +88,14 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
             															| Load Balancer Name : #{load_balancer_name}
             															| Availability zones : #{availability_zones_array}
             															| Subnets : #{subnets}
-            															| Listeners : #{listener_array}")
+            															| Listeners : #{listener_array}
+                                          | Region : #{region}")
             connector_call = @call.connector(connector_name)
             		                          .set('action', action)
             		                          .set('name',load_balancer_name)
                                           .set('listeners',listener_array)
                                           .set('subnets',subnets)
+                                          .set('region',region)
                                           .set('availability-zones',availability_zones_array)
 
             response = connector_call.sync

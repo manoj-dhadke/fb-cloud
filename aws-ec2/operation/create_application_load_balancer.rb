@@ -18,7 +18,6 @@ security_groups = @input.get('security-groups')
 tags = @input.get('tags')
 
 
-@log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Subnets : #{subnet_array} | Listeners : #{listener_array}")
 if !load_balancer_name.nil? && !load_balancer_name.empty?
 		name_validation = @call.connector(connector_name).set('action','describe-application-load-balancer').set('name',load_balancer_name)
 		validation_response = name_validation.sync
@@ -29,6 +28,8 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 									subnets << @input.get('subnet1')
 										if !@input.get('subnet2').nil? && !@input.get('subnet2').empty?
 											subnets << @input.get('subnet2')
+											@log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Subnets : #{subnets} | Listeners : #{listener_array} | Region : #{region}")
+
 											connector_call = @call.connector(connector_name)
 									                          .set('action', action)
 									                          .set('name',load_balancer_name)
@@ -52,6 +53,8 @@ if !load_balancer_name.nil? && !load_balancer_name.empty?
 										end
 
 							elsif !subnet_array.nil? && !subnet_array.empty?
+								@log.info("Flintbit input parameters are, action : #{action} |  Load Balancer Name : #{load_balancer_name} | Listeners : #{listener_array} | Region : #{region}")
+
 								connector_call = @call.connector(connector_name)
 								                          .set('action', action)
 								                          .set('name',load_balancer_name)
