@@ -4,14 +4,14 @@ begin
 	# Flintbit input parametes
 	#Mandatory
 	@connector_name = @input.get('connector_name') # docker connector name
-	@action = 'inspect' # name of the operation: inspect
+	@action = 'inspect-container' # name of the operation: inspect-container
 	@container_id = @input.get('container-id')	# name of container which you want inspect
 
 	# Optional
 	host_name = @input.get('hostname') # docker server hostname
 	port = @input.get('port') # port on which docker server running
 	api_version = @input.get('docker-api-version')	# docker api version used to perform operation
-	certificate_directroy_path = @input.get('certificate-dierctory-path')	# certificate directory  path to verify the user
+	certificate_directroy_path = @input.get('certificate-directory-path')	# certificate directory  path to verify the user
 	docker_registry_url = @input.get('docker-registry-url') #docker registry url to connect with docker server
 
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -19,6 +19,11 @@ begin
 
 	connector_call=@call.connector(@connector_name)
                         .set("action",@action)
+			.set("hostname",host_name)
+                        .set("certificate-directory-path",certificate_directroy_path)
+                        .set("docker-api-version",api_version)
+			.set("docker-registry-url",docker_registry_url)
+		        .set("port",port)
 
 	#checking connector name is nil or empty
 	if @connector_name.nil? || @connector_name.empty?
