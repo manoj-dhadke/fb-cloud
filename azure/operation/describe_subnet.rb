@@ -41,7 +41,8 @@ begin
                             .set('key', @key)
                             .set('client-id', @client_id)
                             .timeout(2800000)
-   else
+   elsif !@network_name.nil?
+     @log.info("network-name :#{@network_name} | subnet-name:#{@subnet_name}")
     connector_call = @call.connector(@connector_name)
                             .set('action', @action)
                             .set('group-name',@group_name)
@@ -52,6 +53,8 @@ begin
                             .set('key', @key)
                             .set('client-id', @client_id)
                             .timeout(2800000)
+   else
+     raise "Please provide either Network Name or Network Id"
    end
 
     if @request_timeout.nil? || @request_timeout.is_a?(String)
