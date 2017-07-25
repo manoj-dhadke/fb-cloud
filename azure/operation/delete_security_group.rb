@@ -4,6 +4,7 @@ require 'json'
 begin
     # Flintbit Input Parameters
    # Mandatory
+   
    @connector_name = @input.get('connector_name') #name of Azure connector
    @action = 'delete-security-group' #Specifies the name of the operation:delete-security-group
    @resource_group_name = @input.get('resource-group-name') #name of the resource group in which your security group is present
@@ -14,7 +15,7 @@ begin
    @subscription_id = @input.get('subscription-id') #Azure account subscription-id
    @client_id = @input.get('client-id') #Azure client-id
 
-
+   @log.info("--------  #{@resource_group_name} :: #{@security_group_name}")
    #Checking that the connector name is provided or not,if not then raise the exception with error message
    if @connector_name.nil? || @connector_name.empty?
        raise 'Please provide "MS Azure connector name (connector_name)" to delete security group'
@@ -38,7 +39,7 @@ begin
                           .set('subscription-id', @subscription_id)
                           .set('key', @key)
                           .set('client-id', @client_id)
-                          .set('resource-group-name',@resource_group_name)
+                          .set('group-name',@resource_group_name)
                           .set('security-group-name',@security_group_name)
                           .timeout(2800000)
 
