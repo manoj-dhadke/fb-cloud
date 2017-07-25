@@ -7,16 +7,15 @@ action = 'create-security-group'                    # Specifies the name of the 
 group_name = @input.get('group_name')	              # Contain security group name that you want to create
 group_description = @input.get('group_description')	# Contain security group description that you want to create
 # Optional
-@access_key = @input.get('access-key')
-@secret_key = @input.get('security-key')
+
 region = @input.get('region')	                      # Amazon EC2 region (default region is 'us-east-1')
 request_timeout = @input.get('timeout')	            # Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 
-@log.info("Flintbit input parameters are, action : #{action} | group_name : #{group_name} | region : #{region}")
+@log.info("Flintbit input parameters are, action : #{action} | group_name : #{group_name} | region : #{region} | access_key : #{@access_key} | secret_key : #{@secret_key} ")
 
 connector_call = @call.connector(connector_name).set('action', action).set('group-name', group_name).set('group-description', group_description)
-                      .set('access-key', @access_key).set('security-key', @secret_key)
-
+                      .set("access-key",@input.get("access-key"))
+                          .set("security-key",@input.get("security-key"))
 if !region.nil? && !region.empty?
     connector_call.set('region', region)
 else

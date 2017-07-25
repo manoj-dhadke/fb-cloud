@@ -11,14 +11,17 @@ group_id = @input.get("security_group_id")
 ip_range = @input.get("ip_range")
 cidr_block = @input.get("cidr_block")
 region = @input.get("region")
-@access_key = @input.get('access-key')
-@secret_key = @input.get('security-key')
+
 request_timeout = @input.get('timeout')
 @log.trace("Calling AWS-EC2 Connector...")
+@log.info("Flintbit input parameters are connector_name : #{connector_name} | direction : #{direction} 
+| from_port :#{from_port} | to_port : #{to_port} | protocol : #{protocol} | group_id : #{group_id}
+ | access_key : #{@access_key} | secret_key : #{@secret_key}")
+
 connector_call = @call.connector(connector_name)
                 .set("action","security-group-add-rule")
-                .set('access-key', @access_key)
-                .set('security-key', @secret_key)
+                .set("access-key",@input.get("access-key"))
+                .set("security-key",@input.get("security-key"))
 
                     if !group_id.nil? && !group_id.empty?
                       connector_call.set("security-group-id",group_id)

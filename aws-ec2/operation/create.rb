@@ -13,6 +13,8 @@ begin
     min_instance = 1                              # Specifies the minimum number of instances to launch
     max_instance = 1                              # Specifies the maximum number of instances to launch
     subnet_id = ""
+    access_key = @input.get("access-key")
+    security_key = @input.get("security-key")
     # Optional Input Parameters
     availability_zone = @input.get('availability_zone')
     region = availability_zone.chop
@@ -52,6 +54,8 @@ shutdown_behavior : #{shutdown_behavior} | termination_protection : #{terminatio
                           .set('termination-protection', termination_protection)
                           .set("subnet-id",subnet_id)
                           .set("device-name","dev/sda1")
+                          .set("access-key",access_key)
+                          .set("security-key",security_key)
 
     if !region.nil? && !region.empty?
         connector_call.set('region', region)
