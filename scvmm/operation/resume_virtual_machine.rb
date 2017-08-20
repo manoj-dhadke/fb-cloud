@@ -66,12 +66,8 @@ begin
         @log.info("output"+result.to_s)
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
+        @output.set("exit-code",response_exitcode).set("message",response_message)
         
-        if result.to_s.strip.empty? == false
-            @output.set('exit-code', 1).set('message', result)
-        else
-            @output.set("exit-code",response_exitcode).set("message",response_message)
-        end	
     
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
