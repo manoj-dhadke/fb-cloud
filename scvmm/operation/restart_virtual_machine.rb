@@ -31,7 +31,7 @@ begin
                                             port                     ::    #{@port}")
 
 
-    if @vmname == nil || @vmname == ""
+    if @vmidentifier == nil || @vmidentifier == ""
             @log.error("Please provide vm id to perform restart vm operation")
             @output.exit(1,"vm id is blank or not provided")
     end
