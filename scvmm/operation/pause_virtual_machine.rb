@@ -30,8 +30,8 @@ begin
                                             no_ssl_peer_verification ::    #{@no_ssl_peer_verification}|
                                             port                     ::    #{@port}")
 
-    if @vmname == nil || @vmname == ""
-            @log.error("Please provide vm id to perform start operation")
+    if @vmidentifier == nil || @vmidentifier == ""
+            @log.error("Please provide vm id to perform pause operation")
             @output.exit(1,"vm id is blank or not provided")
     end
 
