@@ -11,8 +11,8 @@ begin
     @password = @input.get("password")               			              #Password
     @shell = "ps"               			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @vmname = @input.get("vmname")               			                  #Virtual Machine name
-    @command = "Remove-SCVirtualMachine -VM #{@vmname} -force 2>&1 | convertto-json"           #Command to run
+    @vmidentifier = @input.get("identifier")          			                  #Virtual Machine name
+    @command = "$VM = Get-SCVirtualMachine -Id  #{@vmidentifier} -VMMServer #{@target};Stop-SCVirtualMachine -VM $VM;Remove-SCVirtualMachine -VM $VM | convertto-json"                    #Command to run
     @operation_timeout = 80                                           		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
@@ -23,7 +23,7 @@ begin
                                             username                 ::    #{@username}|
                                             password                 ::    #{@password} |
                                             shell                    ::    #{@shell}|
-                                            vmname                   ::    #{@vmname}|
+                                            vm-id                    ::     #{@vmidentifier}|
                                             transport                ::    #{@transport}|
                                             command                  ::    #{@command}|
                                             operation_timeout        ::    #{@operation_timeout}|
@@ -31,9 +31,9 @@ begin
                                             port                     ::    #{@port}")
 
 
-    if @vmname == nil || @vmname == ""
-            @log.error("Please provide vm name to perform restart vm operation")
-            @output.exit(1,"vm name is blank or not provided")
+    if @vmidentifier == nil || @vmidentifier == ""
+            @log.error("Please provide vm id to perform restart vm operation")
+            @output.exit(1,"vm id is blank or not provided")
     end
 
     connector_call = @call.connector(@connector_name)
