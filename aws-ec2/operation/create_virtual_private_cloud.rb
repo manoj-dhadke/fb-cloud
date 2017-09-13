@@ -65,6 +65,14 @@ begin
     # Cheking the response_exitcode,if it zero then show details and response_message otherwise show error_message to user
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
+        name_response = @call.bit("fb-cloud:aws-ec2:operation:create_tags.rb")
+             .set('connector_name', connector_name)
+             .set("resource_id", "#{response.get('vpc-id')}")
+             .set('tag_key','Name')
+             .set('tag_value', name)
+             .set('access-key', @access_key)
+             .set('security-key', @secret_key)
+             .sync
         @output.set('exit-code', 0).set('message', response_message.to_s).setraw('vpc-details',response.to_s)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message :  #{response_message}")
