@@ -70,9 +70,13 @@ begin
 	                   	     .sync    
                  
 		if login_azure_stack.exitcode == 0
-			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
-                                                            message ::  #{login_azure_stack.message}")	
-			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
+ 			 vm_list=login_azure_stack.get('result')
+                         vm_list=JSON.parse(vm_list)
+                         @log.info"vm-list:#{vm_list}"
+                         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
+                                                            message ::  #{login_azure_stack.message}")
+                         @output.set('exit-code', 0).set('message', login_azure_stack.message).set("vm-list",vm_list)
+			    
 
 	        else
 			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
