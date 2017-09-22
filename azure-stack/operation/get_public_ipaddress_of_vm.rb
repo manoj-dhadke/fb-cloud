@@ -19,7 +19,7 @@ begin
     @tenant_username = @input.get("tenant-username")                   #tenant-username of the tenant
     @tenant_password= @input.get("tenant-password")                   #tenant-password for the tenant user
     @resource_group_name= @input.get("resource-group-name")                   #resource group name
-    @virtual_machine_name= @input.get("vm-name")                   #virtual machine name to perform operation 
+    @public_ip_name= @input.get("public-ip-address-name")                   #public ip name to get the  
     @subscription_name= @input.get("subscription-name")                   #subscription name 
 
     @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
@@ -33,7 +33,7 @@ begin
                                             Tenant_username          ::    #{@tenant_username}|
                                             Subscription_name        ::    #{@subscription_name}|
 					    Resource_group_name	     ::    #{@resource_group_name}|
-                                            Vm_name	             ::    #{@virtual_machine_name}| 
+                                            public_ip_name	     ::    #{@public_ip_name}| 
                                             port                     ::    #{@port}")
 
     #building command to import dependency for azure stack
@@ -59,7 +59,7 @@ begin
     if import_exitcode == 0       
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{import_exitcode} | 
                                                             message ::  #{import_message}") 
-	     login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 #{@subscription_name} #{@tenant_username} #{@tenant_password} #{@aadtenant_name};.\\get_power_state.ps1 #{@resource_group_name} #{@virtual_machine_name} 2>&1|convertto-json"
+	     login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 #{@subscription_name} #{@tenant_username} #{@tenant_password} #{@aadtenant_name};.\\get_public_ip.ps1  #{@public_ip_name} #{@resource_group_name} 2>&1|convertto-json"
 	     login_azure_stack= @call.connector(@connector_name)
                     	             .set("target",@target)
 	                    	     .set("username",@username)
@@ -73,14 +73,15 @@ begin
 	                   	     .sync    
                  
 		if login_azure_stack.exitcode == 0
+			 public_ip=login_azure_stack.get('result')	
 			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")	
-			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
+			 @output.set('exit-code', 0).set('message', login_azure_stack.message).set('public-ip-address',public_ip)	    
 
 	        else
 			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")
-       			@output.set('exit-code', 1).set('message', login_azure_stack.exitcode)
+       			@output.set('exit-code', 1).set('message', login_azure_stack.message)
  
 	       end
 

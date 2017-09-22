@@ -71,11 +71,12 @@ begin
          	             	     .set("operation_timeout",@operation_timeout)
 	                             .set("timeout",@request_timeout)
 	                   	     .sync    
-                 @log.info"-------------------#{login_azure_stack}"
+                
 		if login_azure_stack.exitcode == 0
+			 private_ip_address=login_azure_stack.get('result')			 
 			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")	
-			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
+			 @output.set('exit-code', 0).set('message', login_azure_stack.message).set('private-ip-address',private_ip_address)    
 
 	        else
 			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
