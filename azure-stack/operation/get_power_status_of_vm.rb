@@ -73,9 +73,10 @@ begin
 	                   	     .sync    
                  
 		if login_azure_stack.exitcode == 0
+			power_details=login_azure_stack.get('result')			
 			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")	
-			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
+			 @output.set('exit-code', 0).set('message', login_azure_stack.message).set('power-status',power_details)	    
 
 	        else
 			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
