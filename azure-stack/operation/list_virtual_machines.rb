@@ -23,7 +23,6 @@ begin
     @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
                                             target                   ::    #{@target} |
                                             username                 ::    #{@username}|
-                                            password                 ::    #{@password} |
                                             shell                    ::    #{@shell}|
                                             transport                ::    #{@transport}|
                                             operation_timeout        ::    #{@operation_timeout}|
