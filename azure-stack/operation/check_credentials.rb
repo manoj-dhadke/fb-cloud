@@ -44,6 +44,7 @@ begin
 	                     .set("shell",@shell)
          	             .set("operation_timeout",@operation_timeout)
 	                     .set("timeout",@request_timeout)
+			     .timeout(@request_timeout)
 	                     .sync                
   
 
@@ -65,6 +66,7 @@ begin
 	                     	     .set("shell",@shell)
          	             	     .set("operation_timeout",@operation_timeout)
 	                             .set("timeout",@request_timeout)
+				     .timeout(@request_timeout)
 	                   	     .sync    
                  
 		if login_azure_stack.exitcode == 0

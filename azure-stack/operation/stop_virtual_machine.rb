@@ -48,6 +48,7 @@ begin
 	                     .set("shell",@shell)
          	             .set("operation_timeout",@operation_timeout)
 	                     .set("timeout",@request_timeout)
+			     .timeout(@request_timeout)
 	                     .sync                
   
 
@@ -69,6 +70,7 @@ begin
 	                     	     .set("shell",@shell)
          	             	     .set("operation_timeout",@operation_timeout)
 	                             .set("timeout",@request_timeout)
+			             .timeout(@request_timeout)
 	                   	     .sync    
                  
 		result=login_azure_stack.get('result')

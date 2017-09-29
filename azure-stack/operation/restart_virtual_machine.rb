@@ -48,6 +48,7 @@ begin
 	                     .set("shell",@shell)
          	             .set("operation_timeout",@operation_timeout)
 	                     .set("timeout",@request_timeout)
+			     .timeout(@request_timeout)
 	                     .sync                
   
 
@@ -69,17 +70,24 @@ begin
 	                     	     .set("shell",@shell)
          	             	     .set("operation_timeout",@operation_timeout)
 	                             .set("timeout",@request_timeout)
+				     .timeout(@request_timeout)
 	                   	     .sync    
                  
-		if login_azure_stack.exitcode == 0
+		result=login_azure_stack.get('result')
+                result=@util.json(result)
+                exception=result.get('Exception')
+
+		 if exception.nil?
 			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")	
 			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
 
 	        else
-			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
-                                                            message ::  #{login_azure_stack.message}")
-       			@output.set('exit-code', 1).set('message', login_azure_stack.exitcode)
+			exception=@util.json(exception)
+                        message=exception.get('Message')
+			@log.error("ERROR in executing #{@connector_name} where, exitcode :: 1 | 
+                                                            message ::  #{message}")
+       			@output.set('exit-code', 1).set('message',message)
  
 	       end
 
