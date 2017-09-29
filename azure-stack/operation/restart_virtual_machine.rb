@@ -59,7 +59,7 @@ begin
     if import_exitcode == 0       
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{import_exitcode} | 
                                                             message ::  #{import_message}") 
-	     login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 #{@subscription_name} #{@tenant_username} #{@tenant_password} #{@aadtenant_name};.\\restartazurestackvm.ps1 #{@resource_group_name} #{@virtual_machine_name} 2>&1|convertto-json"
+	     login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 #{@subscription_name} #{@tenant_username} #{@tenant_password} #{@aadtenant_name};.\\restartazurestackvm.ps1 #{@virtual_machine_name} #{@resource_group_name} #{@virtual_machine_name} 2>&1|convertto-json"
 	     login_azure_stack= @call.connector(@connector_name)
                     	             .set("target",@target)
 	                    	     .set("username",@username)
