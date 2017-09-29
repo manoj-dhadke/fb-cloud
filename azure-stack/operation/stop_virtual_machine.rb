@@ -11,10 +11,10 @@ begin
     @password = @input.get("password")               			              #Password
     @shell = "ps"                 			                                  #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @operation_timeout = 80                                            		  #Operation Timeout
+    @operation_timeout = 400                                            		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
-    @request_timeout=300000                                   #Timeout
+    @request_timeout=400000                                   #Timeout
     @aadtenant_name= @input.get("azure-ad-tenant-name")                   #tenant-name for the tenant
     @tenant_username = @input.get("tenant-username")                   #tenant-username of the tenant
     @tenant_password= @input.get("tenant-password")                   #tenant-password for the tenant user
@@ -71,15 +71,21 @@ begin
 	                             .set("timeout",@request_timeout)
 	                   	     .sync    
                  
-		if login_azure_stack.exitcode == 0
+		result=login_azure_stack.get('result')
+                result=@util.json(result)
+                exception=result.get('Exception')
+
+		if exception.nil?
 			 @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
                                                             message ::  #{login_azure_stack.message}")	
 			 @output.set('exit-code', 0).set('message', login_azure_stack.message)	    
 
 	        else
-			@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{login_azure_stack.exitcode} | 
-                                                            message ::  #{login_azure_stack.message}")
-       			@output.set('exit-code', 1).set('message', login_azure_stack.exitcode)
+			exception=@util.json(exception)
+                        message=exception.get('Message')
+			@log.error("ERROR in executing #{@connector_name} where, exitcode :: -1 | 
+                                                            message ::  #{message}")
+       			@output.set('exit-code', 1).set('message',message)
  
 	       end
 
