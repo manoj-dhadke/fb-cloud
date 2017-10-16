@@ -67,11 +67,11 @@ begin
     response_exitcode = response.exitcode # Exit status code
     response_message =  response.message # Execution status message
 
-    @log.info("RESPONSE :: #{response}")
-
     if response_exitcode == 0
+        vm_list=response.get('vm-list')
+	@log.info "--------vm list--------#{vm_list}"
         @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
-        @output.set('result', response.to_s).set('exit-code', 0)
+        @output.set('result',vm_list.to_s).set('exit-code', 0).set('message',response_message)
 
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
