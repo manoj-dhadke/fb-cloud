@@ -6,12 +6,12 @@ begin
     # Mandatory
     @connector_name = @input.get('connector_name') # vmware-vcd connector name
     @action ='vm-details' # name of action:vm-details
-    @hostname = @input.get('host-name') # hostname of the vCloud server
-    @organization_name = @input.get('organization-name') # name of the organization
-    @organization_admin_username = @input.get('organization-admin-username') # organization admin username
-    @organization_admin_password = @input.get('organization-admin-password') # organization admin password
+    @hostname = @input.get('host_name') # hostname of the vCloud server
+    @organization_name = @input.get('organization_name') # name of the organization
+    @organization_admin_username = @input.get('organization_admin_username') # organization admin username
+    @organization_admin_password = @input.get('organization_admin_password') # organization admin password
     @protocol = @input.get('protocol') #protocol for the server i.e http/https
-    @vm_name = @input.get('vm-name') #vm-name to get details of the virtual machine
+    @vm_name = @input.get('vm_name') #vm-name to get details of the virtual machine
 
     # Optional
     request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
