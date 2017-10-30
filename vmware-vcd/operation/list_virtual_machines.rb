@@ -71,7 +71,7 @@ begin
         vm_list=response.get('vm-list')
 	@log.info "--------vm list--------#{vm_list}"
         @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
-        @output.set('result',vm_list.to_s).set('exit-code', 0).set('message',response_message)
+        @output.set('result',vm_list).set('exit-code', 0).set('message',response_message)
 
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
