@@ -4,26 +4,26 @@ require 'rubygems'
 @log.trace("Started executing 'fb-cloud:hyperv:operation:remove_virtual_machine.rb' flintbit...")
 begin
     #Flintbit Input Parameters
-    #Mandatory  
+    #Mandatory
     @connector_name= @input.get("connector_name")                             #Name of the Connector
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
     @shell = "ps"               			                      #Shell Type
     @transport = @input.get("transport")               			              #Transport
-    @vmname = @input.get("vmname")               			                  #Virtual Machine name
-    @command = "remove-vm #{@vmname} -force 2>&1 | convertto-json"           #Command to run
+    @vmidentifier = @input.get("vm-id")               			                  #Virtual Machine name
+    @command = "$VM = Get-VM -Id #{@vmidentifier};Remove-VM -VM $VM -Force 2>&1 | convertto-json "           #Command to run
     @operation_timeout = 80                                           		  #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
     @request_timeout= @input.get("timeout")                                   #Timeout
 
-    @log.info("Flintbit input parameters are,  connector name           ::    #{@connector_name} |
+    @log.info("Flintbit input parameters are,  connector name        ::    #{@connector_name} |
                                             target                   ::    #{@target} |
                                             username                 ::    #{@username}|
                                             password                 ::    #{@password} |
                                             shell                    ::    #{@shell}|
-                                            vmname                   ::    #{@vmname}|
+                                            vm-id                    ::    #{@vmidentifier}|
                                             transport                ::    #{@transport}|
                                             command                  ::    #{@command}|
                                             operation_timeout        ::    #{@operation_timeout}|
@@ -31,9 +31,9 @@ begin
                                             port                     ::    #{@port}")
 
 
-    if @vmname == nil || @vmname == ""
-            @log.error("Please provide vm name to perform restart vm operation")
-            @output.exit(1,"vm name is blank or not provided")
+    if @vmidentifier == nil || @vmidentifier == ""
+            @log.error("Please provide vm id to perform remove vm operation")
+            @output.exit(1,"vm id is blank or not provided")
     end
 
     connector_call = @call.connector(@connector_name)
@@ -46,7 +46,7 @@ begin
                     .set("shell",@shell)
                     .set("operation_timeout",@operation_timeout)
                     .set("timeout",@request_timeout)
-                
+
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
@@ -64,17 +64,17 @@ begin
 
 
     if response.exitcode == 0
-    
+
         @log.info("output"+result.to_s)
-        @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
-                                                            message ::  #{response_message}")	 
+        @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
+                                                            message ::  #{response_message}")
         if result.to_s.strip.empty? == false
            @output.set('exit-code', 1).set('message', result)
         else
            @output.set("exit-code",response_exitcode).set("message",response_message)
         end
     else
-        @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
+        @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
                                                             message ::  #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
     end

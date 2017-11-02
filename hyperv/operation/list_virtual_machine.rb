@@ -1,10 +1,10 @@
 require 'json'
 require 'rubygems'
 #begin
-@log.trace("Started executing 'fb-cloud:hyperv:list_virtual_machine.rb' flintbit...")
+@log.trace("Started executing 'fb-cloud:hyperv:operation:list_virtual_machine.rb' flintbit...")
 begin
     #Flintbit Input Parameters
-    #Mandatory  
+    #Mandatory
     @connector_name= @input.get("connector_name")                             #Name of the Connector
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
@@ -38,7 +38,7 @@ begin
                     .set("shell",@shell)
                     .set("operation_timeout",@operation_timeout)
                     .set("timeout",@request_timeout)
-              
+
     if @request_timeout.nil? || @request_timeout.is_a?(String)
     @log.trace("Calling #{@connector_name} with default timeout...")
         response = connector_call.sync
@@ -55,19 +55,19 @@ begin
     result = response.get("result")               #Response Body
 
     if response.exitcode == 0
-    
+
         @log.info("output"+result.to_s)
-        @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
+        @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
                                                             message ::  #{response_message}")
-        @output.set('exit-code', 0).set('message', 'success').setraw("virtual-machine",result.to_s)                                                         
+        @output.set('exit-code', 0).set('message', 'success').setraw("virtual-machine",result.to_s)
     else
-        @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
+        @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
                                                             message ::  #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
     end
 rescue Exception => e
     @log.error(e.message)
     @output.set('exit-code', 1).set('message', e.message)
-end   
-@log.trace("Finished executing 'fb-cloud:hyperv:list_virtual_machine.rb' flintbit...")
+end
+@log.trace("Finished executing 'fb-cloud:hyperv:operation:list_virtual_machine.rb' flintbit...")
 #end
