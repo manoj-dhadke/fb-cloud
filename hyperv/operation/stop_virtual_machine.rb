@@ -12,7 +12,7 @@ begin
     @shell = "ps"               			                                  #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @vmidentifier = @input.get("vm-id")               			                  #Virtual Machine name
-    @command = "$VM = Get-VM -Id #{@vmidentifier};Stop-VM -VM $VM  2>&1 | convertto-json"                    #Command to run
+    @command = "$VM = Get-VM -Id #{@vmidentifier};Stop-VM -VM $VM -Force 2>&1 | convertto-json"                    #Command to run
     @operation_timeout = 80               		                              #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
