@@ -56,9 +56,9 @@ begin
                           .set('host-name', @hostname)
                           .set('organization-name', @organization_name)
                           .set('organization-admin-username', @organization_admin_username)
-			  .set('organization-admin-password', @organization_admin_password)
-			  .set('protocol',@protocol)
-			  .set('vm-name',@vm_name)
+			              .set('organization-admin-password', @organization_admin_password)
+			              .set('protocol',@protocol)
+			              .set('vm-name',@vm_name)
 
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{@connector_name} with default timeout...")
