@@ -10,6 +10,7 @@ begin
 	request_timeout = @input.get('timeout')	# Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
 	access_key = @input.get("access-key") #aws account access key
 	security_key = @input.get("security-key") #aws account security key
+	region = @input.get("region") #region to create the bucket
 
 	@log.info(" Connector Name: #{@connector_name} 
                    | Action : #{action} 
@@ -19,8 +20,9 @@ begin
 	connector_call = @call.connector(@connector_name)
                         .set('action', action)
                         .set('bucket-name', @bucket_name)
-			.set("access-key",access_key)
-                        .set("security-key",security_key)
+						.set("access-key",access_key)
+						.set("security-key",security_key)
+						.set("region",region)
 
 	# checking that connector name is provided or not
 	if @connector_name.nil? || @connector_name.empty?
