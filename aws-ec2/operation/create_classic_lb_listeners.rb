@@ -54,9 +54,9 @@ else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response.exitcode} | message : #{response.message}")
     response=response.to_s
     if !response.empty?
-    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+    @output.set('message', response.message).set('exit-code', 1).setraw('error-details',response.to_s)
     else
-    @output.set('message', response_message).set('exit-code', 1)
+    @output.set('message', response.message).set('exit-code', 1)
     end
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_classic_lb_listeners.rb' flintbit")
