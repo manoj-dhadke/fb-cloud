@@ -18,11 +18,11 @@ begin
 
 
 		connector_call = @call.connector(connector_name)
-		                          .set('host_name', host_name)
+		                          .set('host-name', host_name)
 		                          .set('username', user_name)
-		                          .set('virtual_host', virtual_host)
+		                          .set('virtual-host', virtual_host)
 		                          .set('password', password)
-		                          .set('port_number', port_number)
+		                          .set('port-number', port_number)
 		                          .set('action',action)
 
 		if connector_name.nil? || connector_name.empty?
@@ -31,7 +31,7 @@ begin
 			                          
 		#checking queue name is nil or empty
 		    if !queue_name.nil? && !queue_name.empty?
-				connector_call.set('queue_name', queue_name)
+				connector_call.set('queue-name', queue_name)
 			else
 				@log.error("Please provide queue name")
 			end
