@@ -66,7 +66,9 @@ begin
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @output.set('exit-code', 0).set('message', response_message)
+        output = @call.bit('fb-cloud:azure:operation:describe_security_group.rb').set('connector_name',@connector_name).set('region', @region).set('group-name',@group_name).set('security-group-name',@security_group_name).set('key',@key).set('tenant-id',@tenant_id).set('subscription-id',@subscription_id).set('client-id',@client_id).sync
+
+        @output.set('exit-code', 0).set('message', response_message).set('security-group-details',output.get('security-group-details'))
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)

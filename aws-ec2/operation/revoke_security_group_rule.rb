@@ -30,17 +30,18 @@ if !ip_permissions.nil? && !ip_permissions.empty?
 									.set('direction',direction)
 									.set('access-key', @access_key)
 		                          	.set('security-key', @secret_key)
+		                          	.set('type',"ipv6")
 		if !group_name.nil? && !group_name.empty?
 				connector_call.set('security-group-name',group_name)
 		else
-			raise "Please provide group name"
+			#raise "Please provide group name"
 		end
 		if !group_id.nil? && !group_id.empty?
 		connector_call.set('security-group-id',group_id)
 		else
 			raise "Please provide group id"
 		end
-						    #Cheking the region is not provided or not,if not then use default region as us-east-1
+		#Cheking the region is not provided or not,if not then use default region as us-east-1
 	    if !region.nil? && !region.empty?
 	        connector_call.set('region', region)
 	    else
