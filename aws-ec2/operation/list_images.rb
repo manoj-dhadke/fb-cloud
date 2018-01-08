@@ -17,7 +17,6 @@ begin
         raise 'Please provide "Amazon EC2 connector name (connector_name)" to list Images'
     end
 
-  
     connector_call = @call.connector(connector_name).set('action', action).set('account-id', @account_id).set('access-key', @access_key).set('security-key', @secret_key)
 
     if !region.nil? && !region.empty?
@@ -42,7 +41,7 @@ begin
         @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @log.info("Amazon EC2 image list : #{response}")
 
-        @output.set('exit-code', 0).set('message', response_message).set('image-list', response)
+        @output.set('exit-code', 0).set('message', response_message)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         response=response.to_s
