@@ -24,7 +24,7 @@ begin
 			  .set('target', @target)
 			  .set('password', @password)
 			  .set('domain-id', @domain_id)
-			  .set('port', @port)
+			  .set('port', @port.to_i)
 			  .set('version', @version)
 			  .set('username', @username)
 			  .set('project-id', @project_id)
