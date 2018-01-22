@@ -53,14 +53,16 @@ begin
             @log.info("Amazon EC2 Instance current state : #{instance_id.get('current-state')} | previous state : #{instance_id.get('previous-state')} |
         		Instance ID : #{instance_id.get('instance-id')}")
         end
-        @output.set('exit-code', 0).setraw('stopped-instances', instances_set.to_s)
+        @user_message = "Successfully stopped AWS instance: #{instance_id.get('instance-id')} "
+        @output.set('exit-code', 0).setraw('stopped-instances', instances_set.to_s).set('user_message',@user_message)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         response=response.to_s
+        @user_message = "Failed to stop AWS instance: #{instance_id.get('instance-id')} "
         if !response.empty?
-        @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+        @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s).set('user_message',@user_message)
         else
-        @output.set('message', response_message).set('exit-code', 1)
+        @output.set('message', response_message).set('exit-code', 1).set('user_message',@user_message)
         end
     end
 rescue Exception => e
