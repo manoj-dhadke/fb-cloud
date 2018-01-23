@@ -26,7 +26,7 @@ begin
                           .set('password', @password)
                           .set('domain-id', @domain_id)
                           .set('target', @target)
-                          .set('port', @port)
+                          .set('port', @port.to_i)
                           .set('version', @version)
 
     if connector_name.nil? || connector_name.empty?

@@ -36,14 +36,16 @@ response_message = response.message	# Execution status messages
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-    @output.set('message', response.message).set('exit-code',0)
+    @user_message = "Successfully created AWS Security Group"
+     @output.set('message', response.message).set('exit-code',0).set('user_message',@user_message)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
     response=response.to_s
+    @user_message = "Failed to create AWS Security Group"
     if !response.empty?
-    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s)
+    @output.set('message', response_message).set('exit-code', 1).setraw('error-details',response.to_s).set('user_message',@user_message)
     else
-    @output.set('message', response_message).set('exit-code', 1)
+    @output.set('message', response_message).set('exit-code', 1).set('user_message',@user_message)
     end
 end
 @log.trace("Finished executing 'fb-cloud:aws-ec2:operation:create_security_group.rb' flintbit")

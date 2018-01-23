@@ -17,7 +17,8 @@ begin
     @project_id = @input.get('project-id')
     request_timeout = @input.get('timeout')
 
-    @log.info("Flintbit input parameters are, action : #{action} | serverId : #{@server_id} | target : #{@target}")
+    @log.info("Flintbit input parameters are, action : #{action} | serverId : #{@server_id} | target : #{@target} | username : #{@username} | password: #{@password}
+ | #{@domain_id} | port: #{@port} | version : #{@version}")
     connector_call = @call.connector(connector_name)
                           .set('action', action)
                           .set('protocol', @protocol)
@@ -25,7 +26,7 @@ begin
                           .set('password', @password)
                           .set('domain-id', @domain_id)
                           .set('target', @target)
-                          .set('port', @port)
+                          .set('port', @port.to_i)
                           .set('version', @version)
 
     if connector_name.nil? || connector_name.empty?
