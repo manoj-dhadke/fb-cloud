@@ -14,9 +14,9 @@ begin
     @domain_id = @input.get('domain-id')
     @username = @input.get('username')
     @password = @input.get('password')
-    # optional
-    request_timeout = @input.get('timeout')
     @project_id = @input.get('project-id')
+    request_timeout = @input.get('timeout')
+   
 
     @log.info("Flintbit input parameters are, action : #{action} | serverId : #{@serverId} | snapshotname : #{@snapshotname}")
     connector_call = @call.connector(connector_name)
@@ -31,19 +31,40 @@ begin
                           .set('project-id',@project_id)
 
     if connector_name.nil? || connector_name.empty?
-        raise 'Please provide "openstack connector name (connector_name)" to create snapshot of the user'
+        raise 'Please provide "openstack connector name (connector_name)" to create snapshot of the vm'
+    end
+  
+    if @domain_id.nil? || @domain_id.empty?
+        raise 'Please provide "openstack domain id (@domain_id)"  create snapshot of the vm'
     end
 
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "project id (@project_id)"  to create snapshot of the vm'
+    else
+        connector_call.set('project-id', @project_id)
+    end
+
+     if @target.nil? || @target.empty?
+        raise 'Please provide "openstack target (@target)"  to create snapshot of the vm'
+    end
+
+     if @username.nil? || @username.empty?
+        raise 'Please provide "openstack username (@username)" to create snapshot of the vm'
+    end
+
+    if @password.nil? || @password.empty?
+        raise 'Please provide "openstack password (@password)"  to create snapshot of the vm'
+    end
     if @serverId.nil? || @serverId.empty?
-        raise 'Please provide "openstack server ID (server-id)" to create snapshot of the user'
+        raise 'Please provide "openstack server ID (server-id)" to create snapshot of the vm'
     else
         connector_call.set('server-id', @serverId)
     end
 
     if @snapshotname.nil? || @snapshotname.empty?
-        raise 'Please provide "openstack snapshot name (snapshot-name)" to create snapshot of the user'
+        raise 'Please provide "openstack snapshot name (snapshot-name)" to create snapshot of the vm'
     else
-        connector_call.set('name', @snapshotname)
+        connector_call.set('snapshot-name', @snapshotname)
     end
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
@@ -61,9 +82,7 @@ begin
 
     if response_exitcode == 0
         @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
-        @output.set('exit-code', 0).set('imageid', image_id.to_s)
-        @log.info('imageid: ' + image_id.to_s)
-
+        @output.set('exit-code', 0).set('message',response_message)
     else
         @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message}")
         @output.set('exit-code', 1).set('message', response_message)
