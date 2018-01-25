@@ -22,10 +22,9 @@ begin
     if response_exitcode == 0
         @log.info("Success in executing #{@connector_name} Connector, where exitcode :: #{response_exitcode} | message :: #{response_message}")
         @output.set('exit-code', 0).set('message', response_message.to_s)
-
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | message :: #{response_message}")
-        @output.exit(1, response_message)
+        #@output.exit(1, response_message)
         @output.set('exit-code', -1).set('message', response_message.to_s)
     end
 
