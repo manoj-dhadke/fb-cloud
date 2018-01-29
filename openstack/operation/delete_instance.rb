@@ -13,8 +13,9 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
-    #optional
     @project_id = @input.get('project-id')
+
+    #optional   
     request_timeout = @input.get('timeout')
 
     @log.info("Flintbit input parameters are, action : #{action} | server_id : #{@server_id}")
@@ -30,23 +31,27 @@ begin
 
     if connector_name.nil? || connector_name.empty?
         raise 'Please provide "openstack connector name (connector_name)" to delete server'
-        end
+    end
+
     if @domain_id.nil? || @domain_id.empty?
-       raise 'Please provide "openstack domain id (@domain_id)" to  delete credentials'
-       end
-     if @target.nil? || @target.empty?
-        raise 'Please provide "openstack target (@target)" to  delete credentials'
-     end
+       raise 'Please provide "openstack domain id (@domain_id)" to  delete server'
+    end
 
-     if @username.nil? || @username.empty?
-         raise 'Please provide "openstack username (@username)" to  delete credentials'
-     end
+    if @target.nil? || @target.empty?
+        raise 'Please provide "openstack target (@target)" to  delete server'
+    end
 
-     if @password.nil? || @password.empty?
-         raise 'Please provide "openstack password (@password)" to  delete credentials'
-     end
+    if @username.nil? || @username.empty?
+         raise 'Please provide "openstack username (@username)" to  delete server'
+    end
 
-    if !@project_id.nil?
+    if @password.nil? || @password.empty?
+         raise 'Please provide "openstack password (@password)" to  delete server'
+    end
+
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "project id (@project_id)" to delete server'
+    else
       connector_call.set('project-id', @project_id)
     end
 
@@ -54,14 +59,16 @@ begin
         raise 'Please provide "openstack server ID (serverid)" to delete server'
     else
         connector_call.set('server-id', @server_id)
-        end
+    end
+
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
         response = connector_call.sync
     else
         @log.trace("Calling #{connector_name} with given timeout #{request_timeout}...")
         response = connector_call.timeout(request_timeout).sync
-        end
+    end
+    
     response_exitcode = response.exitcode
     response_message = response.message
 

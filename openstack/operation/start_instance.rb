@@ -13,9 +13,9 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
- 
-    #optional 
     @project_id = @input.get('project-id')
+ 
+    #optional   
     request_timeout = @input.get('timeout')
 
     connector_call = @call.connector(connector_name)
@@ -27,7 +27,6 @@ begin
 			  .set('port', @port.to_i)
 			  .set('version', @version)
 			  .set('username', @username)
-			  .set('project-id', @project_id)
 			  .set('server-id',@serverId)
 
     if connector_name.nil? || connector_name.empty?
@@ -38,7 +37,13 @@ begin
         raise 'Please provide "openstack domain id (@domain_id)"  to start instance'
     end
 
-     if @target.nil? || @target.empty?
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack Project ID (@project_id)" to start instance'
+    else
+        connector_call.set('project-id', @project_id)
+    end  
+
+    if @target.nil? || @target.empty?
         raise 'Please provide "openstack target (@target)"  to start instance'
     end
 

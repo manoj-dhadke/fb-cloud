@@ -18,10 +18,11 @@ begin
     @flavorId = @input.get('flavor-id')
     @imageId = @input.get('image-id')
     @networkId = @input.get('network-id')
+    @project_id = @input.get('project-id')
 
     # optional
     request_timeout = @input.get('timeout')
-    @project_id = @input.get('project-id')
+    
 
     @log.info("Flintbit input parameters are, action : #{action} | servername : #{@servername} | flavorid : #{@flavorId} | imageid : #{@imageId} | networkid : #{@networkId}")
 
@@ -34,7 +35,7 @@ begin
                           .set('port', @port)
                           .set('protocol', @protocol)
                           .set('version', @version)                         
-			  .set('domain-id', @domain_id)
+			              
 
     if connector_name.nil? || connector_name.empty?
         raise 'Please provide "openstack connector name (connector_name)" to create server'
@@ -48,6 +49,8 @@ begin
 
     if @domain_id.nil? || @domain_id.empty?
         raise 'Please provide "openstack domain id (@domain_id)" to create server'
+    else
+        connector_call.set('domain-id', @domain_id)
     end
 
     if @servername.nil? || @servername.empty?

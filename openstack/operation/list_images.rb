@@ -12,9 +12,9 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
- 
-    #optional 
     @project_id = @input.get('project-id')
+ 
+    #optional     
     request_timeout = @input.get('timeout')
 
     connector_call = @call.connector(connector_name)
@@ -38,6 +38,10 @@ begin
 
      if @target.nil? || @target.empty?
         raise 'Please provide "openstack target (@target)" to list images'
+    end
+
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack project id (@project_id)" to list images'
     end
 
      if @username.nil? || @username.empty?

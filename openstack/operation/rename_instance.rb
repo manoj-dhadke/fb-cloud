@@ -14,8 +14,9 @@ begin
     @password = @input.get('password')
     @new_vm_name = @input.get('new-vm-name')
     @domain_id = @input.get('domain-id')
-    # optional
     @project_id = @input.get('project-id')
+
+    # optional  
     request_timeout = @input.get('timeout')
 
     @log.info("Flintbit input parameters are, action : #{action} | serverId : #{@serverId}")
@@ -32,35 +33,41 @@ begin
     if connector_name.nil? || connector_name.empty?
         raise 'Please provide "openstack connector name (connector_name)" to rename server'
         end
+
     if @domain_id.nil? || @domain_id.empty?
-        raise 'Please provide "openstack domain ID (domain_id)" to start server'
-        end
+        raise 'Please provide "openstack domain ID (domain_id)" to rename server'
+    end
+
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack Project ID (@project_id)" to rename server'
+    else
+        connector_call.set('project-id', @project_id)
+    end      
+
     if @target.nil? || @target.empty?
-        raise 'Please provide "openstack target (@target)" to  rename credentials'
+        raise 'Please provide "openstack target (@target)" to  rename server'
     end
 
     if @username.nil? || @username.empty?
-        raise 'Please provide "openstack username (@username)" to  rename credentials'
+        raise 'Please provide "openstack username (@username)" to  rename server'
     end
 
     if @password.nil? || @password.empty?
-        raise 'Please provide "openstack password (@password)" to  rename credentials'
+        raise 'Please provide "openstack password (@password)" to  rename server'
     end
 
-    if !@project_id.nil?
-      connector_call.set('project-id', @project_id)
-    end
-    
     if @server_id.nil? || @server_id.empty?
         raise 'Please provide "openstack server ID (server-id)" to rename server'
     else
         connector_call.set('server-id', @server_id)
-        end
+    end
+
     if @new_vm_name.nil? || @new_vm_name.empty?
         raise 'Please provide "new-vm-name" to rename server'
     else
         connector_call.set('new-vm-name', @new_vm_name)
-        end
+    end
+
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
         response = connector_call.sync

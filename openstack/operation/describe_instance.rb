@@ -13,9 +13,9 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
- 
-    #optional 
     @project_id = @input.get('project-id')
+
+    #optional    
     request_timeout = @input.get('timeout')
 
     connector_call = @call.connector(connector_name)
@@ -23,12 +23,10 @@ begin
  			  .set('protocol', @protocol)
 			  .set('target', @target)
 			  .set('password', @password)
-			  .set('domain-id', @domain_id)
 			  .set('port', @port.to_i)
 			  .set('version', @version)
 			  .set('username', @username)
-			  .set('project-id', @project_id)
-			  .set('server-id',@serverId)
+			  
 
     if connector_name.nil? || connector_name.empty?
         raise 'Please provide "openstack connector name (connector_name)" to describe instance'
@@ -36,6 +34,14 @@ begin
 
     if @domain_id.nil? || @domain_id.empty?
         raise 'Please provide "openstack domain id (@domain_id)"  to describe instance'
+    else
+        connector_call.set('domain-id', @domain_id)
+    end
+
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack project id (@project_id)"  to describe instance'
+    else
+        connector_call.set('project-id', @project_id)
     end
 
      if @target.nil? || @target.empty?
@@ -50,8 +56,10 @@ begin
         raise 'Please provide "openstack password (@password)"  to describe instance'
     end
 
-     if @serverId.nil? || @serverId.empty?
+    if @serverId.nil? || @serverId.empty?
         raise 'Please provide "openstack server-id (@@serverId)"  to describe instance'
+    else
+        connector_call.set('server-id',@serverId)
     end
 
     if request_timeout.nil? || request_timeout.is_a?(String)

@@ -68,12 +68,6 @@ begin
     else
         connector_call.set('floating-ip', @floating_ip)
     end
- 
-    if @project_id.nil? || @project_id.empty?
-        raise 'Please provide "openstack project id (project-id)" to disassociate floating ip to the server'
-    else
-        connector_call.set('project-id',@project_id)
-    end
 
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")

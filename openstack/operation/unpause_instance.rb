@@ -13,9 +13,9 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
- 
-    #optional 
     @project_id = @input.get('project-id')
+ 
+    #optional    
     request_timeout = @input.get('timeout')
 
     connector_call = @call.connector(connector_name)
@@ -27,7 +27,6 @@ begin
 			  .set('port', @port.to_i)
 			  .set('version', @version)
 			  .set('username', @username)
-			  .set('project-id', @project_id)
 			  .set('server-id',@serverId)
 
     if connector_name.nil? || connector_name.empty?
@@ -35,23 +34,30 @@ begin
     end
 
     if @domain_id.nil? || @domain_id.empty?
-        raise 'Please provide "openstack domain id (@domain_id)"  to unpause_instance instance'
+        raise 'Please provide "openstack domain id (@domain_id)"  to unpause instance'
     end
 
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack Project ID (@project_id)" to unpause instance'
+    else
+        connector_call.set('project-id', @project_id)
+    end 
+
+
      if @target.nil? || @target.empty?
-        raise 'Please provide "openstack target (@target)"  to unpause_instance instance'
+        raise 'Please provide "openstack target (@target)"  to unpause instance'
     end
 
      if @username.nil? || @username.empty?
-        raise 'Please provide "openstack username (@username)" to unpause_instance instance'
+        raise 'Please provide "openstack username (@username)" to unpause instance'
     end
 
     if @password.nil? || @password.empty?
-        raise 'Please provide "openstack password (@password)"  to unpause_instance instance'
+        raise 'Please provide "openstack password (@password)"  to unpause instance'
     end
 
      if @serverId.nil? || @serverId.empty?
-        raise 'Please provide "openstack server-id (@@serverId)"  to unpause_instance instance'
+        raise 'Please provide "openstack server-id (@@serverId)" to unpause instance'
     end
 
     if request_timeout.nil? || request_timeout.is_a?(String)

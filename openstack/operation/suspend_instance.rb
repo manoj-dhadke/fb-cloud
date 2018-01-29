@@ -13,12 +13,14 @@ begin
     @username = @input.get('username')
     @password = @input.get('password')
     @domain_id = @input.get('domain-id')
-    #optional
     @project_id = @input.get('project-id')
+
+    #optional
     request_timeout = @input.get('timeout')
 
     @log.info("Flintbit input parameters are, action : #{action} | serverId : #{@server_id} | target : #{@target} | username : #{@username} | password: #{@password}
  | #{@domain_id} | port: #{@port} | version : #{@version}")
+
     connector_call = @call.connector(connector_name)
                           .set('action', action)
                           .set('protocol', @protocol)
@@ -31,27 +33,36 @@ begin
 
     if connector_name.nil? || connector_name.empty?
         raise 'Please provide "openstack connector name (connector_name)" to suspend server'
-        end
+    end
+
     if @domain_id.nil? || @domain_id.empty?
-        raise 'Please provide "openstack domain ID (domain_id)" to start server'
-        end
+        raise 'Please provide "openstack domain ID (@domain_id)" to suspend server'
+    end
+
+    if @project_id.nil? || @project_id.empty?
+        raise 'Please provide "openstack Project ID (@project_id)" to suspend instance'
+    else
+        connector_call.set('project-id', @project_id)
+    end 
+
     if @target.nil? || @target.empty?
-        raise 'Please provide "openstack target (@target)" to  rename credentials'
+        raise 'Please provide "openstack target (@target)" to suspend server'
     end
 
     if @username.nil? || @username.empty?
-        raise 'Please provide "openstack username (@username)" to  rename credentials'
+        raise 'Please provide "openstack username (@username)" to suspend server'
     end
 
     if @password.nil? || @password.empty?
-        raise 'Please provide "openstack password (@password)" to  rename credentials'
+        raise 'Please provide "openstack password (@password)" to suspend server'
     end
 
     if @server_id.nil? || @server_id.empty?
-        raise 'Please provide "openstack domain ID (domain_id)" to suspend server'
+        raise 'Please provide "openstack Server ID (@server_id)" to suspend server'
     else
         connector_call.set('server-id', @server_id)
-        end
+    end
+
     if request_timeout.nil? || request_timeout.is_a?(String)
         @log.trace("Calling #{connector_name} with default timeout...")
         response = connector_call.sync
