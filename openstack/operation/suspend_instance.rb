@@ -32,11 +32,11 @@ begin
                           .set('version', @version)
 
     if connector_name.nil? || connector_name.empty?
-        raise 'Please provide "openstack connector name (connector_name)" to suspend server'
+        raise 'Please provide "openstack connector name (connector_name)" to suspend instance'
     end
 
     if @domain_id.nil? || @domain_id.empty?
-        raise 'Please provide "openstack domain ID (@domain_id)" to suspend server'
+        raise 'Please provide "openstack domain ID (@domain_id)" to suspend instance'
     end
 
     if @project_id.nil? || @project_id.empty?
@@ -46,19 +46,19 @@ begin
     end 
 
     if @target.nil? || @target.empty?
-        raise 'Please provide "openstack target (@target)" to suspend server'
+        raise 'Please provide "openstack target (@target)" to suspend instance'
     end
 
     if @username.nil? || @username.empty?
-        raise 'Please provide "openstack username (@username)" to suspend server'
+        raise 'Please provide "openstack username (@username)" to suspend instance'
     end
 
     if @password.nil? || @password.empty?
-        raise 'Please provide "openstack password (@password)" to suspend server'
+        raise 'Please provide "openstack password (@password)" to suspend instance'
     end
 
     if @server_id.nil? || @server_id.empty?
-        raise 'Please provide "openstack Server ID (@server_id)" to suspend server'
+        raise 'Please provide "openstack Server ID (@server_id)" to suspend instance'
     else
         connector_call.set('server-id', @server_id)
     end
