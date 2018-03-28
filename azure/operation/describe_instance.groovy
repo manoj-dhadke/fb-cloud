@@ -15,7 +15,7 @@ try{
     subscription_id = input.get('subscription-id')
     client_id = input.get('client-id')
 
-    log.info("Flintbit input parameters are, action : ${action} | Group name : ${group_name} | Name : ${instance_name}")
+    log.info("Flintbit input parameters are,connector_name: ${connector_name}| action : ${action} | Group name : ${group_name} | Name : ${instance_name} | tenant_id : ${tenant_id} | subscription_id : ${subscription_id} | key : ${key} | client_id : ${client_id}")
 
     connector_call = call.connector(connector_name)
                           .set('action', action)
@@ -27,7 +27,7 @@ try{
                           .set('group-name',group_name)
 
     if (connector_name == null || connector_name == ""){
-        raise 'Please provide "MS Azure connector name (connector_name)" to reboot Instance'
+        throw new Exception ('Please provide "MS Azure connector name (connector_name)" to reboot Instance')
     }
 
     if (request_timeout == null || request_timeout instanceof String){
