@@ -15,7 +15,7 @@ begin
 @user = @input.get("user")																#username
 @request_timeout= @input.get("timeout")
 @action="exe"
-@port = @input.get("port")                   							
+@port = @input.get("port")
 
 @log.info("Flintbit input parameters are, connector name :: #{@connector_name} |
 	                                         command ::       #{@command}|
@@ -61,19 +61,21 @@ if response.exitcode == 0
     @log.info("output"+result.to_s)
 	@log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
     	                                                   message ::  #{response_message}")
+user_message=("HyperV Virtual Machine deleted successfully")
 	#@res = @util.json(result.to_s)
     #@output.setraw("output",result.to_s)
-@output.set('exit-code', 0).set('message', response_message).set('output',result)
+@output.set('exit-code', 0).set('user_message', user_message).set('output',result)
 
 else
 	@log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} |
 		                                                  message ::  #{response_message}")
+		user_message=("Error in deleting HyperV Virtual Machine")
     #@output.exit(1,response_message)
-    @output.set('exit-code', 1).set('message', response_message).set('output',result)
+    @output.set('exit-code', 1).set('user_message', user_message).set('output',result)
     end
 rescue Exception => e
   @log.error(e.message)
   @output.set('exit-code', 1).set('message', e.message)
-end    
+end
 @log.trace("Finished executing 'fb-cloud:hyperv:operation:delete_virtual_machine.rb' flintbit...")
 #end
