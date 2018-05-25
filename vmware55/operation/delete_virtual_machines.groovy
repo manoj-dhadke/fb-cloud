@@ -4,7 +4,7 @@ try{
     // Flintbit input parametes
    //Mandatory
     connector_name = input.get('connector_name') // vmware connector name
-    action = input.get('action') // name of the operation: vm-details
+    action = 'delete-vm' // name of the operation: vm-details
     username = input.get('username') // username of vmware connector
     password = input.get('password') // password of vmware connector
     vmname = input.get('vm-name')	// name of virtual machine to delete
