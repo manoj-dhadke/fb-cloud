@@ -51,11 +51,13 @@ try{
 
     if (response_exitcode == 0){
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
-        output.set('exit-code', 0).set('message', response_message)
+        user_message=("Azure Virtual Machine deleted successfully")
+        output.set('exit-code', 0).set('user_message', user_message)
     }
     else{
         log.error("ERROR in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
-        output.set('exit-code', 1).set('message', response_message)
+        user_message=("Error in deleting Virtual Machine")
+        output.set('exit-code', 1).set('user_message', user_message)
     }
 }
 catch(Exception e){
