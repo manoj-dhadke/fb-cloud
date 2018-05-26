@@ -7,7 +7,7 @@ try{
     //Mandatory
     connector_name= config.global("winrm.connector_name")                //Name of the Connector
     provider_details = util.json(input.get('provider_details'))
-    log.info(provider_details)
+    
     target= provider_details.get('credentials').get("target")               			       //Target address
     username = provider_details.get('credentials').get("username")               			   //Username
     password = provider_details.get('credentials').get("password")               			   //Password
