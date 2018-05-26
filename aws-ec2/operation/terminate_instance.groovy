@@ -47,7 +47,7 @@ try{
         log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
         response = connector_call.timeout(request_timeout).sync()
     }
-
+    log.info(response.toString())
     // Amazon EC2 Connector Response Meta Parameters
     response_exitcode = response.exitcode()              	          // Exit status code
     response_message = response.message()                           // Execution status messages
