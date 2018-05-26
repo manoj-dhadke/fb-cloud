@@ -3,17 +3,18 @@ log.trace("Started executing 'fb-cloud:azure:operation:delete_instance.groovy' f
 try{
     // Flintbit Input Parameters
     // Mandatory
-    connector_name = input.get('connector_name')
+    connector_name = config.global('flintcloud-integrations.azure.name')
     action = 'delete-instance'
     group_name = input.get('group-name')
     name = input.get('instance-name')
 
     // Optional
     request_timeout = 240000
-    key = input.get('key')
-    tenant_id = input.get('tenant-id')
-    subscription_id = input.get('subscription-id')
-    client_id = input.get('client-id')
+    clientId=provider_details.get('credentials').get('client_id')
+    key=provider_details.get('credentials').get('key')
+    subscriptionId=provider_details.get('credentials').get('subscription_id')
+    tenantId = provider_details.get('credentials').get('tenant_id')
+    subtype=provider_details.get('subtype')
 
     log.info("Flintbit input parameters are, action : ${action} | Group name : ${group_name} | Name : ${name}")
 
