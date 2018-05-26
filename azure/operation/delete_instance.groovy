@@ -21,10 +21,10 @@ try{
     connector_call = call.connector(connector_name)
                           .set('action', action)
                           .set('tenant-id', tenantId)
-                          .set('subscription-id', subscription_id)
+                          .set('subscription-id', subscriptionId)
                           .set('key', key)
                           .set('group-name',group_name)
-                          .set('client-id', client_id)
+                          .set('client-id', clientId)
 
     if (connector_name == null || connector_name ==""){
         throw new Exception( 'Please provide "MS Azure connector name (connector_name)" to reboot Instance')
