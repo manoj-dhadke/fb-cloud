@@ -10,8 +10,8 @@ try{
         // optional
     region = input.get('region')	// Amazon EC2 region (default region is 'us-east-1')
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds
-    accessKey=provider_details.get('credentials').get('access_key')
-    secretKey=provider_details.get('credentials').get('secret_key')   
+    access_Key=provider_details.get('credentials').get('access_key')
+    secret_Key=provider_details.get('credentials').get('secret_key')   
     subtype=provider_details.get('subtype')
     prov_name = provider_details.get('name') 
 
