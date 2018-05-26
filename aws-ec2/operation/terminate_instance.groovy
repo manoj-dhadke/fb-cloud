@@ -57,18 +57,20 @@ try{
 
     if (response_exitcode == 0){
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message :  ${response_message}")
+        user_message("AWS VM deleted successfully")
         instances_set.each { instance_id ->
             log.info("Amazon EC2 Instance current state :  ${instance_id.get('current-state')} | previous state : ${instance_id.get('previous-state')} | Instance ID :    ${instance_id.get('instance-id')}")
         }
-        output.set('exit-code', 0).set('terminated-instances', instances_set)
+        output.set('exit-code', 0).set('terminated-instances', instances_set).set('user_message',user_message)
     }else{
         log.error("ERROR in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
+        user_message("Error in AWS instance deletion")
         response=response.toString()
         if (response !=""){
-        output.set('message', response_message).set('exit-code', 1).set('error-details',response.toString())
+        output.set('message', response_message).set('exit-code', 1).set('user_message',user_message).set('error-details',response.toString())
         }
         else{
-        output.set('message', response_message).set('exit-code', 1)
+        output.set('message', response_message).set('exit-code', 1).set('user_message',user_message)
         }
     }
 }
