@@ -4,7 +4,7 @@ try{
     // Flintbit Input Parameters
     // mandatory
     provider_details = util.json(input.get('provider_details'))
-    log.info(provider_details)
+    
     connector_name = config.global('flintcloud-integrations.aws-ec2.name')	// Name of the Amazon EC2 Connector
     action = 'terminate-instances'	// Terminate Amazon EC2 instance action
     instance_id = input.get('instance-id')	// Amazon Instance ID to terminate one or more Instances
