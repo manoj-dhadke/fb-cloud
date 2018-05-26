@@ -19,7 +19,7 @@ try{
 
     log.info("Flintbit input parameters are, action : ${action} | instance_id : ${instance_id} | region : ${region}")
 
-    connector_call = call.connector(connector_name).set('action', action).set('access-key', access_key).set('security-key', secret_key)
+    connector_call = call.connector(connector_name).set('action', action).set('access-key', access_Key).set('security-key', secret_Key)
 
     if (connector_name ==null || connector_name ==""){
         throw new Exception('Please provide "Amazon EC2 connector name (connector_name)" to terminate Instance')
