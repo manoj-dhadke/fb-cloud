@@ -5,7 +5,9 @@ log.trace("Started executing 'fb-cloud:hyperv:operation:remove_virtual_machine.g
 try{
     //Flintbit Input Parameters
     //Mandatory
-    connector_name= input.get("connector_name")                //Name of the Connector
+    connector_name= config.global("winrm.connector_name")                //Name of the Connector
+    provider_details = util.json(input.get('provider_details'))
+    log.info(provider_details)
     target= input.get("target")               			       //Target address
     username = input.get("username")               			   //Username
     password = input.get("password")               			   //Password
