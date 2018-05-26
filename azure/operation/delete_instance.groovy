@@ -20,7 +20,7 @@ try{
 
     connector_call = call.connector(connector_name)
                           .set('action', action)
-                          .set('tenant-id', tenant_id)
+                          .set('tenant-id', tenantId)
                           .set('subscription-id', subscription_id)
                           .set('key', key)
                           .set('group-name',group_name)
