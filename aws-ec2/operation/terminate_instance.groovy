@@ -3,19 +3,17 @@ log.trace("Started executing 'fb-cloud:aws-ec2:operation:terminate_amazon_instan
 try{
     // Flintbit Input Parameters
     // mandatory
-provider_details = util.json(input.get('provider_details'))
+    provider_details = util.json(input.get('provider_details'))
     connector_name = config.global('flintcloud-integrations.aws-ec2.name')	// Name of the Amazon EC2 Connector
     action = 'terminate-instances'	// Terminate Amazon EC2 instance action
     instance_id = input.get('instance-id')	// Amazon Instance ID to terminate one or more Instances
-    access_key = input.get('access-key')
-    secret_key = input.get('security-key')
-    // optional
+        // optional
     region = input.get('region')	// Amazon EC2 region (default region is 'us-east-1')
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds
-accessKey=provider_details.get('credentials').get('access_key')
-	secretKey=provider_details.get('credentials').get('secret_key')   
+    accessKey=provider_details.get('credentials').get('access_key')
+    secretKey=provider_details.get('credentials').get('secret_key')   
     subtype=provider_details.get('subtype')
-	prov_name = provider_details.get('name') 
+    prov_name = provider_details.get('name') 
 
     log.info("Flintbit input parameters are, action : ${action} | instance_id : ${instance_id} | region : ${region}")
 
