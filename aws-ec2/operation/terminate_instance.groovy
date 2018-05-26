@@ -4,13 +4,15 @@ try{
     // Flintbit Input Parameters
     // mandatory
     provider_details = util.json(input.get('provider_details'))
+    log.info(provider_details)
     connector_name = config.global('flintcloud-integrations.aws-ec2.name')	// Name of the Amazon EC2 Connector
     action = 'terminate-instances'	// Terminate Amazon EC2 instance action
     instance_id = input.get('instance-id')	// Amazon Instance ID to terminate one or more Instances
         // optional
     region = input.get('region')	// Amazon EC2 region (default region is 'us-east-1')
-    request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds
+    request_timeout = 60000	// Execution time of the Flintbit in milliseconds
     access_Key=provider_details.get('credentials').get('access_key')
+    log.info(access_Key)
     secret_Key=provider_details.get('credentials').get('secret_key')   
     subtype=provider_details.get('subtype')
     prov_name = provider_details.get('name') 
