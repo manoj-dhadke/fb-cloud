@@ -7,7 +7,7 @@ try{
     action = 'delete-instance'
     group_name = input.get('group-name')
     name = input.get('instance-name')
-
+    provider_details = util.json(input.get('provider_details'))
     // Optional
     request_timeout = 240000
     clientId=provider_details.get('credentials').get('client_id')
