@@ -66,7 +66,13 @@ try{
 
     if (response_exitcode == 0){
         log.info("Success in executing ${connector_name} Connector, where exitcode :: ${response_exitcode} | message :: ${response_message}")
-        output.set('exit-code', 0).set('message', 'success').set('instance-list',instance_list)
+        
+        if(response_message == "No virtual machines present in the give zone for the given project id"){
+            output.set('exit-code', 0).set('message', 'success')
+        }else{
+            output.set('exit-code', 0).set('message', 'success').set('instance-list',instance_list)
+        } 
+
     }
     else{
         log.error("ERROR in executing ${connector_name} where, exitcode :: ${response_exitcode} | message :: ${response_message}")
