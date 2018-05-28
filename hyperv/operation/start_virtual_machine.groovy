@@ -34,7 +34,7 @@ try{
                     .set("port",port)
                     .set("shell",shell)
                     .set("operation_timeout",operation_timeout)
-                    
+
 
     if (request_timeout ==null || request_timeout instanceof String){
         log.trace("Calling ${connector_name} with default timeout...")
@@ -48,6 +48,8 @@ try{
     //Winrm Connector Response Meta Parameters
     response_exitcode=response.exitcode()           //Exit status code
     response_message=response.message()            //Execution status message
+
+    log.info("Message::>>>>>>>>>>>>" +response_message )
 
     //Winrm Connector Response Parameters
     result = response.get("result")               //Response Body

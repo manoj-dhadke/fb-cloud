@@ -3,8 +3,14 @@ log.trace("Started execution 'fb-cloud:vmware55:operation:delete_virtual_machine
 try{
     // Flintbit input parametes
    //Mandatory
+   provider_details = util.json(input.get('provider_details'))
+   url=provider_details.get('credentials').get('url')
+ 	username=provider_details.get('credentials').get('username')
+ 	password=provider_details.get('credentials').get('password')
+     subtype=provider_details.get('subtype')
+     prov_name = provider_details.get('name')
     connector_name = input.get('connector_name') // vmware connector name
-    action = input.get('action') // name of the operation: vm-details
+    action = 'delete-vm' // name of the operation: vm-details
     username = input.get('username') // username of vmware connector
     password = input.get('password') // password of vmware connector
     vmname = input.get('vm-name')	// name of virtual machine to delete
