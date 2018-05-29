@@ -35,11 +35,11 @@ try{
         response = connector_call.sync()
     }
     else{
-        log.trace("Calling ==================== ${connector_name} with given timeout ${request_timeout}...")
+        log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
         response = connector_call.timeout(request_timeout).sync()
     }
     // Amazon EC2 Connector Response Meta Parameters
-    log.error("AAAAAAAAAAAAAAAAAAAAAAAAA   ::   ${response}")
+    log.error(" Response  ::   ${response}")
     response_exitcode = response.exitcode()	// Exit status code
     response_message = response.message()	// Execution status messages
 
@@ -54,7 +54,7 @@ try{
 }
 catch(java.lang.NullPointerException ne){ 
     log.error(ne.message)
-    output.set('exit-code', -2).set('message', ne.message)
+    output.set('exit-code', -2).set('message', "nullPointer exception catched, no response from connector")
 }
 catch(Exception e){ 
     log.error(e.message)
