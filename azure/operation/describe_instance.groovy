@@ -1,5 +1,5 @@
 // begin
-log.trace("Started executing 'fb-cloud:azure:operation:describe_instance.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:azure:operation:describe_instance.groovy' flintbit... ${input.raw()}")
 try{
     // Flintbit Input Parameters
     // Mandatory
@@ -35,13 +35,14 @@ try{
         response = connector_call.sync()
     }
     else{
-        log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
+        log.trace("Calling ==================== ${connector_name} with given timeout ${request_timeout}...")
         response = connector_call.timeout(request_timeout).sync()
     }
-
     // Amazon EC2 Connector Response Meta Parameters
+    log.error("AAAAAAAAAAAAAAAAAAAAAAAAA   ::   ${response}")
     response_exitcode = response.exitcode()	// Exit status code
     response_message = response.message()	// Execution status messages
+
 
     if (response_exitcode == 0){
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
@@ -51,9 +52,13 @@ try{
         output.set('exit-code', 1).set('message', response_message)
     }
 }
+catch(java.lang.NullPointerException ne){ 
+    log.error(ne.message)
+    output.set('exit-code', -2).set('message', ne.message)
+}
 catch(Exception e){ 
     log.error(e.message)
-    output.set('exit-code', 1).set('message', e.message)
+    output.set('exit-code', -1).set('message', e.message)
 }
 log.trace("Finished executing 'fb-cloud:azure:operation:describe_instance.groovy' flintbit")
 // end
