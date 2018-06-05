@@ -5,12 +5,12 @@ try{
     // Mandatory
     connector_name = input.get('connector_name') // google-cloud connector name
     action = "create-instance" // name of the operation: create-instance
-    project_id = input.get('project-id') // project-id of the google cloud-platform 
+    project_id = input.get('project-id') // project-id of the google cloud-platform
     zone_name = input.get('zone-name') // zone-name of the project id
     service_account_credenetials = input.get('service-account-credentials') //service account credentials as json for the given project-id
     instance_name = input.get('instance-name') //instance name to start instance
     disk_type = input.get('disk-type') // type of the disk to create instance
-    image_name = input.get('image-name') //name of the image to create instace  
+    image_name = input.get('image-name') //name of the image to create instace
     machine_type = input.get('machine-type') //type of the machine for creating virtual machine
     image_project_id = input.get('image-project-id') //project id of the image where image is present
 
@@ -19,8 +19,8 @@ try{
     deletion_protection= input.get('deletion-protection') //deletion protection for the created instance
     //initialize the connector with the action and other parameters
     connector_call = call.connector(connector_name)
-                         .set('action', action)                         
-                         
+                         .set('action', action)
+
     // checking connector name is nil or empty
     if (connector_name == null || connector_name == ""){
        throw new Exception ( 'Please provide "google-cloud connector name (connector_name)" to create instance')
@@ -114,7 +114,7 @@ try{
         response = connector_call.timeout(request_timeout).sync()
     }
 
-    // google-cloud  Connector Response Meta Parameters	
+    // google-cloud  Connector Response Meta Parameters
     response_exitcode = response.exitcode() // Exit status code
     response_message =  response.message() // Execution status message
 
@@ -123,11 +123,14 @@ try{
 
     if (response_exitcode == 0){
         log.info("Success in executing ${connector_name} Connector, where exitcode :: ${response_exitcode} | message :: ${response_message}")
-        output.set('exit-code', 0).set('message', 'success').set('operation-details',operation_details)
+        user_message= "Successfully created instance: ${instance_name} in Google Cloud Provider"
+        output.set('exit-code', 0).set('message', 'success').set('operation-details',operation_details).set('user_message',user_message)
+
     }
     else{
         log.error("ERROR in executing ${connector_name} where, exitcode :: ${response_exitcode} | message :: ${response_message}")
-        output.set('exit-code', -1).set('message', response_message)
+        user_message= "Failed to create instance: ${instance_name} in Google Cloud Provider"
+        output.set('exit-code', -1).set('message', response_message).set('user_message',user_message)
        }
 }
 catch (Exception  e){
