@@ -1,0 +1,123 @@
+---
+title: "Create Azure Stack VM"
+description: "Launch Virtual Machines in Azure Stack data centers"
+
+flintbit: "fb-cloud:azure-stack:operation:create_vm.rb"
+icon: "fa fa-cloud"
+inputs:
+  -
+    fields:
+      -
+        default:
+        id: vmname
+        label: Name
+        placeholder: "Ex: dev02"
+        type: textbox
+        required: true
+      -
+        default:
+        id: vmsize
+        label: Virtual Machine Size
+        placeholder: "Ex: Standard_A1"
+        type: select
+        required: true
+        options:
+          - Standard_A1
+          - Standard_D1
+
+      -
+        default:
+        id: offer
+        label: Operating System
+        placeholder: "Ex: Windows/Linux"
+        type: select
+        required: true
+        options:
+          - WindowsServer
+          - UbuntuServer
+
+      -
+        default:
+        id: skus
+        label: Skus
+        type: select
+        required: true
+        options:
+          - 2016-Datacenter
+          - 16.04-LTS
+
+      -
+        default:
+        id: publishername
+        label: Publisher Name
+        type: select
+        required: true
+        options:
+          - MicrosoftWindowsServer
+          - Canonical
+      -
+        default:
+        id: vmusername
+        label: Virtual Machine Username
+        placeholder: "Except admin/root. Ex: devuser"
+        type: textbox
+        required: true
+
+      -
+        default: "Infiverve@123"
+        id: vmpassword
+        label: Virtual Machine Password
+        placeholder: "Ex: P@ssw0rd@123"
+        type: password
+        required: true
+      -
+        default:
+        id: resourcegroup
+        label: Resource Group
+        placeholder: "Ex: resourcegroup"
+        type: select
+        required: true
+        options:
+          - Flint
+      -
+        default:
+        id: storagename
+        label: Storage
+        placeholder: "Ex: flintstorage1"
+        type: textbox
+        required: true
+
+
+      -
+        default:
+        id: subnetname
+        label: Subnet
+        placeholder: "Ex: subnet1"
+        type: textbox
+        required: true
+
+      -
+        default:
+        id: vnetname
+        label: Vnet
+        placeholder: "Ex: vnet1"
+        type: textbox
+        required: true
+      -
+        default:
+        id: networksecuritygroup
+        label: Network Security Group
+        placeholder: "Ex: nsg1"
+        type: textbox
+        required: true
+      -
+        default:
+        id: nicname
+        label: Network Interface Card
+        placeholder: "Ex: nic1"
+        type: textbox
+        required: true
+
+
+title: "Create Azure Stack VM"
+...
