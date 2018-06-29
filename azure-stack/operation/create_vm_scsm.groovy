@@ -51,7 +51,7 @@ import_message=import_dependency.message()          //Execution status message
 if (import_exitcode == 0){
 log.info("SUCCESS in executing ${connector_name} where, exitcode :: ${import_exitcode} |message ::  ${import_message}")
   if (offer == "WindowsServer"){
-  login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 ${subscription_name} ${tenant_username} ${tenant_password};.\\create_windows_vm.ps1 ${resourcegroup} ${storagename} ${subnetname} ${vnetname} ${networksecuritygroup} ${nicname} ${vmusername} ${vmpassword} ${vmname} ${vmsize} ${publishername} ${offer} ${skus} 2>&1 |convertto-json"
+  login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2_adfs.ps1 ${subscription_name} ${tenant_username} ${tenant_password};.\\create_windows_vm.ps1 ${resourcegroup} ${vmsize} ${publishername} ${offer} ${skus} 2>&1 |convertto-json"
   login_azure_stack=  call.connector(connector_name)
                                  .set("target",target)
                                  .set("username",username)
@@ -66,7 +66,7 @@ log.info("SUCCESS in executing ${connector_name} where, exitcode :: ${import_exi
                                  .sync()
   }
   else if (offer == "UbuntuServer" || offer== "CentOS"){
-  login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2.ps1 ${subscription_name} ${tenant_username} ${tenant_password};.\\create_linux_vm_scsm.ps1 ${resourcegroup} ${vmsize} ${publishername} ${offer} ${skus} 2>&1 |convertto-json"
+  login_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script2_adfs.ps1 ${subscription_name} ${tenant_username} ${tenant_password};.\\create_linux_vm_scsm.ps1 ${resourcegroup} ${vmsize} ${publishername} ${offer} ${skus} 2>&1 |convertto-json"
   login_azure_stack=  call.connector(connector_name)
                                  .set("target",target)
                                  .set("username",username)
