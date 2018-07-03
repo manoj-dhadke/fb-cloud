@@ -35,7 +35,7 @@ create_vm = call.bit("fb-cloud:azure-stack:operation:create_vm_scsm_oldasdk.groo
                 .set("tenant-username",tenant_username)
                 .set("tenant-password",tenant_password)
                 .set("subscription-name",subscription_name)
-                .set("azure-ad-tenant-name",azure-ad-tenant-name)
+                .set("azure-ad-tenant-name",azure_ad_tenant_name)
                 .set("resourcegroup",resourcegroup)
                 .set("vmsize",vmsize)
                 .set("publishername",publishername)
