@@ -49,7 +49,7 @@ volume_list = response	# Set of Amazon EC2 security groups details
 
 if response_exitcode == 0
     @log.info("SUCCESS in executing #{connector_name} where, exitcode : #{response_exitcode} | message : #{response_message} | volume list : #{volume_list}")
-    @output.set('exit-code', 0).set('message', response_message).setraw('volume-list',"#{volume_list}")
+    @output.set('exit-code', 0).set('message', response_message).setraw('volume-list',volume_list.to_s)
 else
     @log.error("ERROR in executing #{connector_name} where, exitcode : #{response_exitcode} |message : #{response_message}")
     response=response.to_s
