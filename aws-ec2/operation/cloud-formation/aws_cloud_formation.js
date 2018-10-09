@@ -18,7 +18,7 @@ try {
                     log.trace("LAMP case -> create-cloud-formation-stack sub-case.")
 
                     // From Service form    
-                    stack_name = input.get('stack-name')
+                    stack_name = input.get('stack_name')
                     region = input.get('region')
                     stack_formation_timeout = input.get('timeout')
                     keyname = input.get('key_name')
