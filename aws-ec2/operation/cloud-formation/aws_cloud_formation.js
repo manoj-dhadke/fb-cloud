@@ -5,9 +5,9 @@ try {
 
     log.trace("All Inputs to this flintbits are : " + input)
     // From service config
-    stack_type = input.get('stack-type')
-    action = input.get('action')
-    connector_name = input.get('connector-name')
+    stack_type = input.get('lamp-stack-config').get('stack-type')
+    action = input.get('lamp-stack-config').get('action')
+    connector_name = input.get('lamp-stack-config').get('connector-name')
 
     switch (stack_type) {
         case "LAMP":
