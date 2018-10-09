@@ -8,6 +8,7 @@ try {
     stack_type = input.get('lamp-stack-config').get('stack-type')
     action = input.get('lamp-stack-config').get('action')
     connector_name = input.get('lamp-stack-config').get('connector-name')
+    template_body = input.get('lamp-stack-config').get('stack-template-body')
 
     switch (stack_type) {
         case "LAMP":
@@ -22,7 +23,8 @@ try {
                     region = input.get('region')
                     stack_formation_timeout = input.get('timeout')
                     keyname = input.get('key_name')
-                    template_body = input.get('stack-template-body')
+                    // TOD input for template body
+                    // template_body = input.get('stack-template-body')
                     db_name = input.get('db_name')
                     db_user = input.get('db_user')
                     db_password = input.get('db_password')
