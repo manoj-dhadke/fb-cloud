@@ -20,8 +20,8 @@ try {
 
                     // From Service form    
                     stack_name = input.get('stack_name')
-                    region = input.get('region')
-                    stack_formation_timeout = input.get('timeout')
+                    region = input.get('Region')
+                    stack_formation_timeout = input.get('Timeout')
                     keyname = input.get('key_name')
                     // TOD input for template body
                     // template_body = input.get('stack-template-body')
