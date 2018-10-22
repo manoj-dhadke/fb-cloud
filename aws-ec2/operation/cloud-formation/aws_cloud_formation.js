@@ -5,6 +5,11 @@ try {
 
     stack_type = ""
     connector_name = ""
+    access_key = ""
+    security_key = ""
+
+    
+
     // TOD input
     //connector_name = input.get('connector-name')
     //log.trace("CONNECTOR NAME :: " +connector_name)
@@ -17,9 +22,13 @@ try {
     // LAMP stack service config
     if ('lamp-stack-config' in input) {
         stack_type = input.get('lamp-stack-config').get('stack-type')
+        access_key = input.get('lamp-stack-config').get('access-key')
+        security_key = input.get('lamp-stack-config').get('security-key')
     }
     else if ('moderate-teir-config' in input) {
         stack_type = input.get('moderate-teir-config').get('stack-type')
+        access_key = input.get('moderate-teir-config').get('access-key')
+        security_key = input.get('moderate-teir-config').get('security-key')
     }
     
     // TOD inputs
@@ -68,6 +77,8 @@ try {
                         // Newly set variables
                         .set('stack-type', stack_type)
                         .set('instance-type', instance_type)
+                        .set('security-key', security_key)
+                        .set('access-key', access_key)
 
                         .timeout(stack_formation_timeout)
                         .sync()
@@ -100,6 +111,8 @@ try {
                         .set('action', action)
                         .set('KeyName', keyname)
                         .set('stack-name', stack_name)
+                        .set('security-key', security_key)
+                        .set('access-key', access_key)
                         .sync()
 
                     // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
@@ -148,7 +161,8 @@ try {
                         .set('stack-type',stack_type)
                         .set('DBAllocatedStorage', db_allocated_storage)
                         .set('DBClass', db_class)
-                        // DB ALLOCATED STORAGE, DB CLASS --- ARE TO BE DEFINED IN CONNECTORS STATIC CLASS, AND PASSED AS PARAMETERS IN CONNECTOR CREATE STACK REQUEST 
+                        .set('security-key', security_key)
+                        .set('access-key', access_key)
                         .timeout(stack_formation_timeout)
                         .sync()
 
@@ -167,7 +181,7 @@ try {
 
                 // Delete Stack case
                 case "delete-cloud-formation-stack":
-                    log.trace("LAMP case -> delete-cloud-formation-stack sub-case.")
+                    log.trace("Moderate tier case -> delete-cloud-formation-stack sub-case.")
 
                     // From Service form    
                     stack_name = input.get('stack_name')
@@ -180,6 +194,8 @@ try {
                         .set('action', action)
                         .set('KeyName', keyname)
                         .set('stack-name', stack_name)
+                        .set('security-key', security_key)
+                        .set('access-key', access_key)
                         .sync()
 
                     // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
