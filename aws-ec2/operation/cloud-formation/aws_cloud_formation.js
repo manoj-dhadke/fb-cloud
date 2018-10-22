@@ -5,14 +5,14 @@ try {
 
     stack_type = ""
     connector_name = ""
-    connector_name = input.get('connector-name')
-    log.trace("CONNECTOR NAME :: " +connector_name)
-
-
+    // TOD input
+    //connector_name = input.get('connector-name')
+    //log.trace("CONNECTOR NAME :: " +connector_name)
     log.trace("All Inputs to this flintbits are : " + input)
 
     // TOD stack type
    // stack_type = input.get('stack-type')
+
     // From service config for all stack types
     // LAMP stack service config
     if ('lamp-stack-config' in input) {
@@ -21,7 +21,7 @@ try {
     else if ('moderate-teir-config' in input) {
         stack_type = input.get('moderate-teir-config').get('stack-type')
     }
-    // 
+    
     // TOD inputs
     // action = input.get('action')
     // template_body = input.get('stack-template-body')
@@ -31,9 +31,9 @@ try {
         case "LAMP":
             log.trace("In LAMP case")
            
-            //action = input.get('lamp-stack-config').get('action')   // Service config LAMP stack action
-            //connector_name = input.get('lamp-stack-config').get('connector-name')   // Service config LAMP connector name
-            //template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
+            action = input.get('lamp-stack-config').get('action')   // Service config LAMP stack action
+            connector_name = input.get('lamp-stack-config').get('connector-name')   // Service config LAMP connector name
+            template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
             switch (action) {
                 case "create-cloud-formation-stack":
                     // Create Stack case
