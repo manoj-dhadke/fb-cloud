@@ -21,19 +21,19 @@ try {
     // From service config for all stack types
     // LAMP stack service config
     log.trace("About to check if condition")
-    if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
-    if ('lamp-stack-config' in input) {
+    // if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
+    // if ('lamp-stack-config' in input) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
         access_key = input.get('lamp-stack-config').get('access-key')
         security_key = input.get('lamp-stack-config').get('security-key')
-    }
-    else if ('moderate-teir-config' in input) {
-        log.trace("Inside moderate tier configuration")
-        stack_type = input.get('moderate-teir-config').get('stack-type')
-        access_key = input.get('moderate-teir-config').get('access-key')
-        security_key = input.get('moderate-teir-config').get('security-key')
-    }
+    // }
+    // else if ('moderate-teir-config' in input) {
+    //     log.trace("Inside moderate tier configuration")
+    //     stack_type = input.get('moderate-teir-config').get('stack-type')
+    //     access_key = input.get('moderate-teir-config').get('access-key')
+    //     security_key = input.get('moderate-teir-config').get('security-key')
+    // }
     
     // TOD inputs
     // action = input.get('action')
