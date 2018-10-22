@@ -45,8 +45,12 @@ try {
             log.trace("In LAMP case")
            
             action = input.get('lamp-stack-config').get('action')   // Service config LAMP stack action
+            log.trace(action)
             connector_name = input.get('lamp-stack-config').get('connector-name')   // Service config LAMP connector name
+            log.trace(connector_name)
             template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
+            log.trace("TEMPLATE BODY :: "+template_body)
+
             switch (action) {
                 case "create-cloud-formation-stack":
                     // Create Stack case
