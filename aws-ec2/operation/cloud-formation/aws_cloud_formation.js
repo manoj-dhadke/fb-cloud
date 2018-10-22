@@ -3,16 +3,37 @@
 log.trace("Started executing example:aws_cloud_formation.js flintbit")
 try {
 
+    stack_type = ""
+    connector_name = ""
+    connector_name = input.get('connector-name')
+    log.trace("CONNECTOR NAME :: " +connector_name)
+
+
     log.trace("All Inputs to this flintbits are : " + input)
-    // From service config
-    stack_type = input.get('lamp-stack-config').get('stack-type')
-    action = input.get('lamp-stack-config').get('action')
-    connector_name = input.get('lamp-stack-config').get('connector-name')
-    template_body = input.get('lamp-stack-config').get('stack-template-body')
+
+    // TOD stack type
+    stack_type = input.get('stack-type')
+    // From service config for all stack types
+    // LAMP stack service config
+    if ('lamp-stack-config' in input) {
+        stack_type = input.get('lamp-stack-config').get('stack-type')
+    }
+    else if ('moderate-teir-config' in input) {
+        stack_type = input.get('moderate-teir-config').get('stack-type')
+    }
+    // 
+    // TOD inputs
+    action = input.get('action')
+    template_body = input.get('stack-template-body')
 
     switch (stack_type) {
+        // LAMP case
         case "LAMP":
             log.trace("In LAMP case")
+           
+            //action = input.get('lamp-stack-config').get('action')   // Service config LAMP stack action
+            //connector_name = input.get('lamp-stack-config').get('connector-name')   // Service config LAMP connector name
+            //template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
             switch (action) {
                 case "create-cloud-formation-stack":
                     // Create Stack case
@@ -20,15 +41,18 @@ try {
 
                     // From Service form    
                     stack_name = input.get('stack_name')
-                    region = input.get('Region')
-                    stack_formation_timeout = input.get('Timeout')
+                    region = input.get('region')
+                    stack_formation_timeout = input.get('timeout')
                     keyname = input.get('key_name')
-                    // TOD input for template body
-                    // template_body = input.get('stack-template-body')
+                    
                     db_name = input.get('db_name')
                     db_user = input.get('db_user')
                     db_password = input.get('db_password')
                     db_root_password = input.get('db_root_password')
+                    instance_type = input.get('instance_type')
+
+                    // INSTANCE SIZE AND REGION ARE TO BE SET BE SENT AS PARAMETERS IN THE CONNECTOR. 
+                    // SWITCH CASE FOR STACK-TYPE IS TO BE ADDED TO THE CONNECTOR
 
                     connector_response = call.connector(connector_name)
                         .set('action', action)
@@ -41,6 +65,10 @@ try {
                         .set('DBPassword', db_password)
                         .set('DBRootPassword', db_root_password)
                         .set('KeyName', keyname)
+                        // Newly set variables
+                        .set('stack-type', stack_type)
+                        .set('instance-type', instance_type)
+
                         .timeout(stack_formation_timeout)
                         .sync()
 
@@ -68,17 +96,98 @@ try {
 
                     // AWS EC2 connector call
                     connector_response = call.connector(connector_name)
-                                             .set('region', region)
-                                             .set('action', action)
-                                             .set('KeyName', keyname)
-                                             .set('stack-name', stack_name)
-                                             .sync()
-                    
+                        .set('region', region)
+                        .set('action', action)
+                        .set('KeyName', keyname)
+                        .set('stack-name', stack_name)
+                        .sync()
+
+                    // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
                     log.trace(connector_response)
-
-
+                    output.set(connector_response)
                     break;
             }
+            break;
+        // Moderate stack
+        case "Moderate":
+            log.trace("In Moderate stack case")
+            // Inputs from Service Config
+            //action = input.get('moderate-teir-config').get('action')   // Service config Moderate teir stack action
+            //connector_name = input.get('moderate-teir-config').get('connector-name')   // Service config Moderate teir connector name
+            //template_body = input.get('moderate-teir-config').get('stack-template-body')   // Service config Moderate teir template body
+            switch (action) {
+                // Create stack cases
+                case "create-cloud-formation-stack":
+                    log.trace("Moderate case -> create-cloud-formation-stack sub-case")
+
+                    // From Service form    
+                    stack_name = input.get('stack_name')                    // Name of the stack to be created
+                    region = input.get('region')                            // Region eg. us-east-1
+                    stack_formation_timeout = input.get('timeout')          // Timeout for the stack creation
+                    keyname = input.get('key_name')                         // AWS Keypair -> Keyname
+                    instance_type = input.get('instance_type')              // Size of instance to be created eg. t1.micro
+
+                    db_name = input.get('db_name')                          // Name of the database to be created
+                    db_user = input.get('db_user')                          // Username for the database 
+                    db_password = input.get('db_password')                  // Password for the database
+                    db_root_password = input.get('db_root_password')        // Root password for the database
+                    db_allocated_storage = input.get('db_allocated_storage')// Database size allocation. Minimum accepted is 5GB
+                    db_class = input.get('db_class')                        // Database class eg.db-t2.micro
+
+                    connector_response = call.connector(connector_name)
+                        .set('action', action)
+                        .set('region', region)
+                        .set('stack-template-body', template_body)
+                        .set('stack-name', stack_name)
+                        .set('stack-formation-timeout', stack_formation_timeout)
+                        .set('DBName', db_name)
+                        .set('DBUser', db_user)
+                        .set('DBPassword', db_password)
+                        .set('DBRootPassword', db_root_password)
+                        .set('KeyName', keyname)
+                        .set('stack-type',stack_type)
+                        .set('DBAllocatedStorage', db_allocated_storage)
+                        .set('DBClass', db_class)
+                        // DB ALLOCATED STORAGE, DB CLASS --- ARE TO BE DEFINED IN CONNECTORS STATIC CLASS, AND PASSED AS PARAMETERS IN CONNECTOR CREATE STACK REQUEST 
+                        .timeout(stack_formation_timeout)
+                        .sync()
+
+                    log.trace("Moderate Stack Response : " + connector_response)
+                    exit_code = connector_response.get('exit-code')
+                    message = connector_response.get('message')
+
+                    if (exit_code == 0) {
+                        log.trace("Connector call successful")
+                        output.set(connector_response)
+                    } else {
+                        log.trace("Connector call failed with exit-code: " + exit_code + " and message : " + message)
+                        output.set(connector_response)
+                    }
+                    break;
+
+                // Delete Stack case
+                case "delete-cloud-formation-stack":
+                    log.trace("LAMP case -> delete-cloud-formation-stack sub-case.")
+
+                    // From Service form    
+                    stack_name = input.get('stack_name')
+                    region = input.get('region')
+                    keyname = input.get('key_name')
+
+                    // AWS EC2 connector call
+                    connector_response = call.connector(connector_name)
+                        .set('region', region)
+                        .set('action', action)
+                        .set('KeyName', keyname)
+                        .set('stack-name', stack_name)
+                        .sync()
+
+                    // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
+                    log.trace(connector_response)
+                    output.set(connector_response)
+                    break;
+            }
+            break;
     }
 } catch (error) {
     log.error(error)
