@@ -12,7 +12,7 @@ try {
     log.trace("All Inputs to this flintbits are : " + input)
 
     // TOD stack type
-    stack_type = input.get('stack-type')
+   // stack_type = input.get('stack-type')
     // From service config for all stack types
     // LAMP stack service config
     if ('lamp-stack-config' in input) {
@@ -23,8 +23,8 @@ try {
     }
     // 
     // TOD inputs
-    action = input.get('action')
-    template_body = input.get('stack-template-body')
+    // action = input.get('action')
+    // template_body = input.get('stack-template-body')
 
     switch (stack_type) {
         // LAMP case
