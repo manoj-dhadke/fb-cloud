@@ -20,7 +20,8 @@ try {
 
     // From service config for all stack types
     // LAMP stack service config
-    if('lamp-stack-config' in input){log.trace("True. lamp-stack-config exists in input")}
+    log.trace("About to check if condition")
+    if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
     if ('lamp-stack-config' in input) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
