@@ -60,6 +60,8 @@ try {
                     stack_name = input.get('stack_name')
                     region = input.get('region')
                     stack_formation_timeout = input.get('timeout')
+                    // Convert to integer since service form is giving it as a string
+                    stack_formation_timeout = parseInt(stack_formation_timeout)
                     keyname = input.get('key_name')
                     
                     db_name = input.get('db_name')
@@ -145,6 +147,9 @@ try {
                     stack_name = input.get('stack_name')                    // Name of the stack to be created
                     region = input.get('region')                            // Region eg. us-east-1
                     stack_formation_timeout = input.get('timeout')          // Timeout for the stack creation
+                    // Convert to integer since service form is giving it as a string
+                    stack_formation_timeout = parseInt(stack_formation_timeout)
+                    
                     keyname = input.get('key_name')                         // AWS Keypair -> Keyname
                     instance_type = input.get('instance_type')              // Size of instance to be created eg. t1.micro
 
