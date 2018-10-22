@@ -21,19 +21,19 @@ try {
     // From service config for all stack types
     // LAMP stack service config
     log.trace("About to check if condition")
-    // if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
-    // if ('lamp-stack-config' in input) {
+     if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
+     if ('lamp-stack-config' in input) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
         access_key = input.get('lamp-stack-config').get('access-key')
         security_key = input.get('lamp-stack-config').get('security-key')
-    // }
-    // else if ('moderate-teir-config' in input) {
-    //     log.trace("Inside moderate tier configuration")
-    //     stack_type = input.get('moderate-teir-config').get('stack-type')
-    //     access_key = input.get('moderate-teir-config').get('access-key')
-    //     security_key = input.get('moderate-teir-config').get('security-key')
-    // }
+    }
+    else if ('moderate-tier-config' in input) {
+        log.trace("Inside moderate tier configuration")
+        stack_type = input.get('moderate-tier-config').get('stack-type')
+        access_key = input.get('moderate-tier-config').get('access-key')
+        security_key = input.get('moderate-tier-config').get('security-key')
+    }
     
     // TOD inputs
     // action = input.get('action')
@@ -103,6 +103,7 @@ try {
                     }
                     else {
                         log.trace("Connector call failed with exit-code : " + exit_code)
+                        output.set("Request failed: \n"+connector_response)
                     }
                     break;
 
@@ -149,7 +150,7 @@ try {
                     stack_formation_timeout = input.get('timeout')          // Timeout for the stack creation
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
-                    
+
                     keyname = input.get('key_name')                         // AWS Keypair -> Keyname
                     instance_type = input.get('instance_type')              // Size of instance to be created eg. t1.micro
 
