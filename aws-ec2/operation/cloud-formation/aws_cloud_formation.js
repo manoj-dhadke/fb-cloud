@@ -8,7 +8,8 @@ try {
     access_key = ""
     security_key = ""
 
-    
+    // Prase input to JSON
+    new_input = JSON.parse(input)
 
     // TOD input
     //connector_name = input.get('connector-name')
@@ -21,14 +22,15 @@ try {
     // From service config for all stack types
     // LAMP stack service config
     log.trace("About to check if condition")
-     if('lamp-stack-config' in input){log.trace("True. lamp-stack-config key exists in input")}
-     if ('lamp-stack-config' in input) {
+
+
+     if (new_input.hasOwnProperty('lamp-stack-config')) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
         access_key = input.get('lamp-stack-config').get('access-key')
         security_key = input.get('lamp-stack-config').get('security-key')
     }
-    else if ('moderate-tier-config' in input) {
+    else if (new_input.hasOwnProperty('moderate-tier-config')) {
         log.trace("Inside moderate tier configuration")
         stack_type = input.get('moderate-tier-config').get('stack-type')
         access_key = input.get('moderate-tier-config').get('access-key')
