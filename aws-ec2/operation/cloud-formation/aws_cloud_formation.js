@@ -95,17 +95,20 @@ try {
                     // Connector exit code
                     exit_code = connector_response.exitcode()
 
-                    // Setting user message
-                    stack_id = connector_response.get('stack-id')
-                    output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
 
-                    user_message_region = output_ar[3]
-                    user_message_stack_name = output_ar[6]
-                    user_message_stack_id = output_ar[7]
-                    user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
 
 
                     if (exit_code == 0) {
+
+                        // Setting user message
+                        stack_id = connector_response.get('stack-id')
+                        output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
+
+                        user_message_region = output_ar[3]
+                        user_message_stack_name = output_ar[6]
+                        user_message_stack_id = output_ar[7]
+                        user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
                         output.set('user_message', user_message)
@@ -191,17 +194,18 @@ try {
                     log.trace("Moderate Stack Response : " + connector_response)
                     exit_code = connector_response.exitcode()
 
-                    // Setting user message
-                    stack_id = connector_response.get('stack-id')
-                    output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
-
-                    user_message_region = output_ar[3]
-                    user_message_stack_name = output_ar[6]
-                    user_message_stack_id = output_ar[7]
-                    user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
-
 
                     if (exit_code == 0) {
+                        // Setting user message
+                        stack_id = connector_response.get('stack-id')
+                        output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
+
+                        user_message_region = output_ar[3]
+                        user_message_stack_name = output_ar[6]
+                        user_message_stack_id = output_ar[7]
+                        user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+
+
                         log.trace("Connector call successful")
                         output.set('user_message', user_message)
                     } else {
