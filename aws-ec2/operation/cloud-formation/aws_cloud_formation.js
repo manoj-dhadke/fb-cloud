@@ -107,7 +107,7 @@ try {
                         user_message_region = output_ar[3]
                         user_message_stack_name = output_ar[6]
                         user_message_stack_id = output_ar[7]
-                        user_message = "<b>Stack Name:</b> " + user_message_stack_name + " <br><b>Stack ID:</b> " + user_message_stack_id + "<br><b>Region:</b> " + user_message_region
+                        user_message = "The requested single instance LAMP stack has been created. Here are the details. <br><b>Stack Name:</b> " + user_message_stack_name + " <br><b>Stack ID:</b> " + user_message_stack_id + "<br><b>Region:</b> " + user_message_region
 
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
@@ -203,7 +203,7 @@ try {
                         user_message_region = output_ar[3]
                         user_message_stack_name = output_ar[6]
                         user_message_stack_id = output_ar[7]
-                        user_message = "<b>Stack Name:</b> " + user_message_stack_name + " <br><b>Stack ID:</b> " + user_message_stack_id + "<br><b>Region:</b> " + user_message_region
+                        user_message = "The requested stack with two virtual machines and a database server has been created. Here are the details. <br><b>Stack Name:</b> " + user_message_stack_name + " <br><b>Stack ID:</b> " + user_message_stack_id + "<br><b>Region:</b> " + user_message_region
 
 
                         log.trace("Connector call successful")
