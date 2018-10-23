@@ -93,7 +93,7 @@ try {
 
                     log.trace(connector_response)
 
-                    exit_code = connector_response.get("exit-code")
+                    exit_code = connector_response.exitcode()
                     if (exit_code == 0) {
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
@@ -178,7 +178,7 @@ try {
                         .sync()
 
                     log.trace("Moderate Stack Response : " + connector_response)
-                    exit_code = connector_response.get('exit-code')
+                    exit_code = connector_response.exitcode()
                     //message = connector_response.get('message')
 
                     if (exit_code == 0) {
@@ -211,7 +211,7 @@ try {
 
                     // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
                     log.trace(connector_response)
-                    output.set('message',connector_response)
+                    output.set('user_message',connector_response)
                     break;
             }
             break;
