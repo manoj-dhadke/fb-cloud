@@ -13,7 +13,6 @@ try {
 
     // TOD input
     //connector_name = input.get('connector-name')
-    //log.trace("CONNECTOR NAME :: " +connector_name)
     log.trace("All Inputs to this flintbits are : " + input)
 
     // TOD stack type
@@ -72,9 +71,6 @@ try {
                     db_root_password = input.get('db_root_password')
                     instance_type = input.get('instance_type')
 
-                    // INSTANCE SIZE AND REGION ARE TO BE SET BE SENT AS PARAMETERS IN THE CONNECTOR. 
-                    // SWITCH CASE FOR STACK-TYPE IS TO BE ADDED TO THE CONNECTOR
-
                     connector_response = call.connector(connector_name)
                         .set('action', action)
                         .set('region', region)
@@ -101,7 +97,7 @@ try {
                     if (exit_code == 0) {
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
-                        output.set('user_message',connector_response)
+                        output.set('user_message',connector_response.get('stack-id'))
                     }
                     else {
                         log.trace("Connector call failed with exit-code : " + exit_code)
@@ -129,7 +125,7 @@ try {
                         .sync()
 
                     log.trace(connector_response)
-                    output.set('result',connector_response)
+                    output.set('user_message',connector_response)
                     break;
             }
             break;
@@ -187,7 +183,7 @@ try {
 
                     if (exit_code == 0) {
                         log.trace("Connector call successful")
-                        output.set('user_message',connector_response)
+                        output.set('user_message',connector_response.get('stack-id'))
                     } else {
                         log.trace("Connector call failed with exit-code: " + exit_code)// + " and message : " + message)
                         output.set('error_message',connector_response)
