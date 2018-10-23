@@ -101,11 +101,11 @@ try {
                     if (exit_code == 0) {
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
-                        output.set(connector_response)
+                        output.set('user_message',connector_response)
                     }
                     else {
                         log.trace("Connector call failed with exit-code : " + exit_code)
-                        output.set("Request failed: \n"+connector_response)
+                        output.set("error",connector_response)
                     }
                     break;
 
@@ -128,9 +128,8 @@ try {
                         .set('access-key', access_key)
                         .sync()
 
-                    // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
                     log.trace(connector_response)
-                    output.set(connector_response)
+                    output.set('result',connector_response)
                     break;
             }
             break;
@@ -138,9 +137,9 @@ try {
         case "Moderate":
             log.trace("In Moderate stack case")
             // Inputs from Service Config
-            //action = input.get('moderate-teir-config').get('action')   // Service config Moderate teir stack action
-            //connector_name = input.get('moderate-teir-config').get('connector-name')   // Service config Moderate teir connector name
-            //template_body = input.get('moderate-teir-config').get('stack-template-body')   // Service config Moderate teir template body
+            action = input.get('moderate-teir-config').get('action')   // Service config Moderate teir stack action
+            connector_name = input.get('moderate-teir-config').get('connector-name')   // Service config Moderate teir connector name
+            template_body = input.get('moderate-teir-config').get('stack-template-body')   // Service config Moderate teir template body
             switch (action) {
                 // Create stack cases
                 case "create-cloud-formation-stack":
@@ -184,14 +183,14 @@ try {
 
                     log.trace("Moderate Stack Response : " + connector_response)
                     exit_code = connector_response.get('exit-code')
-                    message = connector_response.get('message')
+                    //message = connector_response.get('message')
 
                     if (exit_code == 0) {
                         log.trace("Connector call successful")
-                        output.set(connector_response)
+                        output.set('user_message',connector_response)
                     } else {
-                        log.trace("Connector call failed with exit-code: " + exit_code + " and message : " + message)
-                        output.set(connector_response)
+                        log.trace("Connector call failed with exit-code: " + exit_code)// + " and message : " + message)
+                        output.set('error_message',connector_response)
                     }
                     break;
 
@@ -216,7 +215,7 @@ try {
 
                     // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
                     log.trace(connector_response)
-                    output.set(connector_response)
+                    output.set('message',connector_response)
                     break;
             }
             break;
