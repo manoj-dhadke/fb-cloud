@@ -97,11 +97,11 @@ try {
 
                     // Setting user message
                     stack_id = connector_response.get('stack-id')
-                    output = stack_id.replace(/[/:]/g, ' ').split(' ')
+                    output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
 
-                    user_message_region = output[3]
-                    user_message_stack_name = output[6]
-                    user_message_stack_id = output[7]
+                    user_message_region = output_ar[3]
+                    user_message_stack_name = output_ar[6]
+                    user_message_stack_id = output_ar[7]
                     user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
 
 
@@ -193,11 +193,11 @@ try {
 
                     // Setting user message
                     stack_id = connector_response.get('stack-id')
-                    output = stack_id.replace(/[/:]/g, ' ').split(' ')
+                    output_ar = stack_id.replace(/[/:]/g, ' ').split(' ')
 
-                    user_message_region = output[3]
-                    user_message_stack_name = output[6]
-                    user_message_stack_id = output[7]
+                    user_message_region = output_ar[3]
+                    user_message_stack_name = output_ar[6]
+                    user_message_stack_id = output_ar[7]
                     user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
 
 
