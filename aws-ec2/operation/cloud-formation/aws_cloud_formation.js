@@ -137,9 +137,9 @@ try {
         case "Moderate":
             log.trace("In Moderate stack case")
             // Inputs from Service Config
-            action = input.get('moderate-teir-config').get('action')   // Service config Moderate teir stack action
-            connector_name = input.get('moderate-teir-config').get('connector-name')   // Service config Moderate teir connector name
-            template_body = input.get('moderate-teir-config').get('stack-template-body')   // Service config Moderate teir template body
+            action = input.get('moderate-tier-config').get('action')   // Service config Moderate teir stack action
+            connector_name = input.get('moderate-tier-config').get('connector-name')   // Service config Moderate teir connector name
+            template_body = input.get('moderate-tier-config').get('stack-template-body')   // Service config Moderate teir template body
             switch (action) {
                 // Create stack cases
                 case "create-cloud-formation-stack":
