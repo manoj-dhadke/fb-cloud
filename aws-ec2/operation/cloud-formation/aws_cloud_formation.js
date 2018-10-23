@@ -107,7 +107,7 @@ try {
                         user_message_region = output_ar[3]
                         user_message_stack_name = output_ar[6]
                         user_message_stack_id = output_ar[7]
-                        user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+                        user_message = "Stack Name: " + user_message_stack_name + " <br>Stack ID: " + user_message_stack_id + "<br>Region: " + user_message_region
 
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
@@ -203,7 +203,7 @@ try {
                         user_message_region = output_ar[3]
                         user_message_stack_name = output_ar[6]
                         user_message_stack_id = output_ar[7]
-                        user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+                        user_message = "Stack Name: " + user_message_stack_name + " <br>Stack ID: " + user_message_stack_id + "<br>Region: " + user_message_region
 
 
                         log.trace("Connector call successful")
