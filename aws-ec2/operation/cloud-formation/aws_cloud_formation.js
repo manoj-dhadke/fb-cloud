@@ -16,14 +16,14 @@ try {
     log.trace("All Inputs to this flintbits are : " + input)
 
     // TOD stack type
-   // stack_type = input.get('stack-type')
+    // stack_type = input.get('stack-type')
 
     // From service config for all stack types
     // LAMP stack service config
     log.trace("About to check if condition")
 
 
-     if (new_input.hasOwnProperty('lamp-stack-config')) {
+    if (new_input.hasOwnProperty('lamp-stack-config')) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
         access_key = input.get('lamp-stack-config').get('access-key')
@@ -35,7 +35,7 @@ try {
         access_key = input.get('moderate-tier-config').get('access-key')
         security_key = input.get('moderate-tier-config').get('security-key')
     }
-    
+
     // TOD inputs
     // action = input.get('action')
     // template_body = input.get('stack-template-body')
@@ -44,13 +44,13 @@ try {
         // LAMP case
         case "LAMP":
             log.trace("In LAMP case")
-           
+
             action = input.get('lamp-stack-config').get('action')   // Service config LAMP stack action
             log.trace(action)
             connector_name = input.get('lamp-stack-config').get('connector-name')   // Service config LAMP connector name
             log.trace(connector_name)
             template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
-            log.trace("TEMPLATE BODY :: "+template_body)
+            log.trace("TEMPLATE BODY :: " + template_body)
 
             switch (action) {
                 case "create-cloud-formation-stack":
@@ -64,7 +64,7 @@ try {
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
                     keyname = input.get('key_name')
-                    
+
                     db_name = input.get('db_name')
                     db_user = input.get('db_user')
                     db_password = input.get('db_password')
@@ -92,16 +92,27 @@ try {
                         .sync()
 
                     log.trace(connector_response)
-
+                    // Connector exit code
                     exit_code = connector_response.exitcode()
+
+                    // Setting user message
+                    stack_id = connector_response.get('stack-id')
+                    output = stack_id.replace(/[/:]/g, ' ').split(' ')
+
+                    user_message_region = output[3]
+                    user_message_stack_name = output[6]
+                    user_message_stack_id = output[7]
+                    user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+
+
                     if (exit_code == 0) {
                         log.trace("Connector call done")
                         log.trace("Response is :" + connector_response)
-                        output.set('user_message',connector_response.get('stack-id'))
+                        output.set('user_message', user_message)
                     }
                     else {
                         log.trace("Connector call failed with exit-code : " + exit_code)
-                        output.set("error",connector_response)
+                        output.set("error", connector_response)
                     }
                     break;
 
@@ -125,7 +136,7 @@ try {
                         .sync()
 
                     log.trace(connector_response)
-                    output.set('user_message',connector_response)
+                    output.set('user_message', connector_response)
                     break;
             }
             break;
@@ -169,7 +180,7 @@ try {
                         .set('DBPassword', db_password)
                         .set('DBRootPassword', db_root_password)
                         .set('KeyName', keyname)
-                        .set('stack-type',stack_type)
+                        .set('stack-type', stack_type)
                         .set('DBAllocatedStorage', db_allocated_storage)
                         .set('DBClass', db_class)
                         .set('security-key', security_key)
@@ -179,14 +190,23 @@ try {
 
                     log.trace("Moderate Stack Response : " + connector_response)
                     exit_code = connector_response.exitcode()
-                    //message = connector_response.get('message')
+
+                    // Setting user message
+                    stack_id = connector_response.get('stack-id')
+                    output = stack_id.replace(/[/:]/g, ' ').split(' ')
+
+                    user_message_region = output[3]
+                    user_message_stack_name = output[6]
+                    user_message_stack_id = output[7]
+                    user_message = "Stack Name: " + user_message_stack_name + " \nStack ID: " + user_message_stack_id + "Region: " + user_message_region
+
 
                     if (exit_code == 0) {
                         log.trace("Connector call successful")
-                        output.set('user_message',connector_response.get('stack-id'))
+                        output.set('user_message', user_message)
                     } else {
                         log.trace("Connector call failed with exit-code: " + exit_code)// + " and message : " + message)
-                        output.set('error_message',connector_response)
+                        output.set('error_message', connector_response)
                     }
                     break;
 
@@ -211,7 +231,7 @@ try {
 
                     // RESPONSE IS TO BE ADDED TO THE CONNECTOR FOR DELETE STACK ACTION
                     log.trace(connector_response)
-                    output.set('user_message',connector_response)
+                    output.set('user_message', connector_response)
                     break;
             }
             break;
