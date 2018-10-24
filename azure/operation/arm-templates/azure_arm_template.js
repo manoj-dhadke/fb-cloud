@@ -100,7 +100,7 @@ try {
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
-            template_parameters = JSON.parse(template_parameters)
+            //template_parameters = JSON.parse(template_parameters)
 
             for (key in user_parameters) {
                 if (template_parameters.hasOwnProperty(key)) {
