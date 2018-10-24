@@ -22,7 +22,7 @@ try {
 
     // Azure Credentials
     client_id = input.get('azure-arm-vm-config').get('client-id')
-    key = input.get('azure-arm-vm-config').get('key')
+    azure_key = input.get('azure-arm-vm-config').get('key')
     subscription_id = input.get('azure-arm-vm-config').get('subscription-id')
     tenant_id = input.get('azure-arm-vm-config').get('tenant-id')
 
@@ -116,7 +116,7 @@ try {
                 .set('action', action)
                 .set('template-parameters', template_parameters)
                 .set('client-id',client_id)
-                .set('key',key)
+                .set('key',azure_key)
                 .set('subscription-id',subscription_id)
                 .set('tenant-id',tenant_id)
                 .timeout(300000)
