@@ -18,8 +18,7 @@ try {
     action = input.get('azure-arm-vm-config').get('action')
     log.trace(connector_name)
     template = input.get('azure-arm-vm-config').get('template')
-    template_param = input.get('azure-arm-vm-config').get('parameters')
-    log.trace("TYPEOF TEMPLATE_PARAMS :::: "+typeof template_param)
+   
     template_parameters = util.json(input.get('azure-arm-vm-config').get('parameters'))
 
     // Azure Credentials
@@ -34,17 +33,17 @@ try {
     resource_group_name = input.get('resource_group_name')
 
     // Getting keys from parameter template
-    keys = []
-    for (key in template_parameters) {
-        keys.push(key)
-        log.trace(key)
-    }
+    // keys = []
+    // for (key in template_parameters) {
+    //     keys.push(key)
+    //     log.trace(key)
+    // }
 
     // user_parameters_array = []
 
     switch (stack_name) {
         case 'Ubuntu VM':
-            log.trace("JSON parsed template parameters :: " + template_parameters)
+            log.trace("util.json parsed template parameters :: " + template_parameters)
 
             // Service form parameter inputs?
             // location = input.get('location')
@@ -72,13 +71,13 @@ try {
             // adminPassword = input.get('adminPassword')
 
             virtualMachineSize = input.get('virtual_machine_size')
-            log.trace(virtualMachineSize)
+            //log.trace(virtualMachineSize)
             adminUsername = input.get('admin_username')
-            log.trace(adminUsername)
+            //log.trace(adminUsername)
             adminPassword = input.get('admin_password')
-            log.trace(adminPassword)
+            //log.trace(adminPassword)
 
-            log.trace("VMSize :: "+virtualMachineSize+"\nAdminUser ::"+adminUsername+"\nAdminPassword :: "+adminPassword)
+            //log.trace("VMSize :: "+virtualMachineSize+"\nAdminUser ::"+adminUsername+"\nAdminPassword :: "+adminPassword)
 
             // Getting all parameters from service form in an array, by using keys from parameters json
             // for (x in keys) {
@@ -105,7 +104,8 @@ try {
             for (key in user_parameters) {
                 if (template_parameters.hasOwnProperty(key)) {
                     log.trace("True dat!")
-                    template_parameters[key]["value"].value = user_parameters[key]
+                    log.trace(template_parameters[key]["value"])
+                    template_parameters[key]["value"] = user_parameters[key]
                 }
             }
             // log.trace("Replaced values of template parameters :: "+template_parameters)
