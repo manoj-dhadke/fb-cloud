@@ -101,12 +101,12 @@ try {
                 }
             }
             log.trace("Replaced values of template parameters :: "+template_parameters)
+            template_parameters = JSON.stringify(template_parameters)
+            log.trace("Stringified json parameters :: "+template_parameters)
+            
 
             // Test code ends here
 
-
-
-            log.trace("Template Modified Values :: " + template_parameters)
 
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
