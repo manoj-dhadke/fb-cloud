@@ -64,8 +64,13 @@ try {
             // adminPassword = input.get('adminPassword')
 
             virtualMachineSize = input.get('virtual_machine_size')
+            log.trace(virtualMachineSize)
             adminUsername = input.get('admin_username')
+            log.trace(adminUsername)
             adminPassword = input.get('admin_password')
+            log.trace(adminPassword)
+
+            log.trace("VMSize :: "+virtualMachineSize+"\nAdminUser ::"+adminUsername+"\nAdminPassword :: "+adminPassword)
 
             // Getting all parameters from service form in an array, by using keys from parameters json
             // for (x in keys) {
