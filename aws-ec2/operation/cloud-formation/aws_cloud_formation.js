@@ -1,5 +1,3 @@
-
-
 log.trace("Started executing example:aws_cloud_formation.js flintbit")
 try {
 
@@ -95,9 +93,6 @@ try {
                     // Connector exit code
                     exit_code = connector_response.exitcode()
 
-
-
-
                     if (exit_code == 0) {
 
                         // Setting user message
@@ -115,7 +110,7 @@ try {
                     }
                     else {
                         log.trace("Connector call failed with exit-code : " + exit_code)
-                        output.set("error", connector_response)
+                        output.set("user_message", connector_response)
                     }
                     break;
 
