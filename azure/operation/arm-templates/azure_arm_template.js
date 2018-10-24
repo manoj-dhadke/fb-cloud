@@ -100,11 +100,12 @@ try {
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
-            //template_parameters = JSON.parse(template_parameters)
+            template_parameters = JSON.parse(template_parameters)
 
             for (key in user_parameters) {
                 if (template_parameters.hasOwnProperty(key)) {
-                    template_parameters[key]["value"] = user_parameters[key]
+                    log.trace("True dat!")
+                    template_parameters[key]["value"].value = user_parameters[key]
                 }
             }
             // log.trace("Replaced values of template parameters :: "+template_parameters)
