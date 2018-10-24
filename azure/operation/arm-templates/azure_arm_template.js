@@ -21,10 +21,10 @@ try {
     template_parameters = util.json(input.get('azure-arm-vm-config').get('parameters'))
 
     // Azure Credentials
-    client_id = input.get('client-id')
-    key = input.get('key')
-    subscription_id = input.get('subscription-id')
-    tenant_id = input.get('tenant-id')
+    client_id = input.get('azure-arm-vm-config').get('client-id')
+    key = input.get('azure-arm-vm-config').get('key')
+    subscription_id = input.get('azure-arm-vm-config').get('subscription-id')
+    tenant_id = input.get('azure-arm-vm-config').get('tenant-id')
 
 
     // Service form
@@ -118,7 +118,7 @@ try {
                 .set('client-id',client_id)
                 .set('key',key)
                 .set('subscription-id',subscription_id)
-                .set('tenan-id',tenant_id)
+                .set('tenant-id',tenant_id)
                 .timeout(300000)
                 .sync()
 
