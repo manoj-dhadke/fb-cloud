@@ -18,6 +18,8 @@ try {
     action = input.get('azure-arm-vm-config').get('action')
     log.trace(connector_name)
     template = input.get('azure-arm-vm-config').get('template')
+    template_param = input.get('azure-arm-vm-config').get('parameters')
+    log.trace("TYPEOF TEMPLATE_PARAMS :::: "+typeof template_param)
     template_parameters = util.json(input.get('azure-arm-vm-config').get('parameters'))
 
     // Azure Credentials
@@ -91,8 +93,13 @@ try {
             // }
 
             // Test code
-            user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
-            user_parameters = JSON.parse(user_parameters)
+            user_parameters = {}
+            user_parameters["virtualMachineSize"] = virtualMachineSize
+            user_parameters["adminUsername"] = adminUsername
+            user_parameters["adminPassword"] = adminPassword
+
+            // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
+            
             template_parameters = JSON.parse(template_parameters)
 
             for (key in user_parameters) {
@@ -100,14 +107,13 @@ try {
                     template_parameters[key].value = user_parameters[key]
                 }
             }
-            log.trace("Replaced values of template parameters :: "+template_parameters)
-            template_parameters = JSON.stringify(template_parameters)
-            log.trace("Stringified json parameters :: "+template_parameters)
+            // log.trace("Replaced values of template parameters :: "+template_parameters)
+
+            for(x in template_parameters){
+                log.trace("Template Replaced "+x+" :: "+template_parameters[x][value])
+            }
             
-
             // Test code ends here
-
-
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
                 .set('template', template)
