@@ -96,6 +96,7 @@ try {
             user_parameters["virtualMachineSize"] = virtualMachineSize
             user_parameters["adminUsername"] = adminUsername
             user_parameters["adminPassword"] = adminPassword
+            user_parameters = util.json(user_parameters)
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
