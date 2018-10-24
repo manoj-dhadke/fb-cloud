@@ -18,7 +18,13 @@ try {
     action = input.get('azure-arm-vm-config').get('action')
     log.trace(connector_name)
     template = input.get('azure-arm-vm-config').get('template')
-    template_parameters = input.get('azure-arm-vm-config').get('parameters')
+    template_parameters = util.json(input.get('azure-arm-vm-config').get('parameters'))
+
+    // Azure Credentials
+    client_id = input.get('client-id')
+    key = input.get('key')
+    subscription_id = input.get('subscription-id')
+    tenant_id = input.get('tenant-id')
 
 
     // Service form
@@ -36,7 +42,7 @@ try {
 
     switch (stack_name) {
         case 'Ubuntu VM':
-            log.trace("Template value :: " + template_parameters)
+            log.trace("JSON parsed template parameters :: " + template_parameters)
 
             // Service form parameter inputs?
             // location = input.get('location')
@@ -87,10 +93,10 @@ try {
             // Test code
             user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             user_parameters = JSON.parse(user_parameters)
-            template_parameters = JSON.parse(template_parameters)
+            //template_parameters = JSON.parse(template_parameters)
 
             for (key in user_parameters) {
-                if (template_parameters.hasOwnproperty(key)) {
+                if (template_parameters.hasOwnProperty(key)) {
                     template_parameters[key].value = user_parameters[key]
                 }
             }
@@ -109,6 +115,10 @@ try {
                 .set('resource-group-name', resource_group_name)
                 .set('action', action)
                 .set('template-parameters', template_parameters)
+                .set('client-id',client_id)
+                .set('key',key)
+                .set('subscription-id',subscription_id)
+                .set('tenan-id',tenant_id)
                 .timeout(300000)
                 .sync()
 
@@ -117,9 +127,10 @@ try {
             exit_code = connector_response.get('exit-code')
             message = connector_response.get('message')
             if (exit_code == 0) {
+                user_message = "The request for a Ubuntu VM is completed. Here are the details. \n Deployment ID: "+connector_response.get('message')
                 log.trace("Exit code is " + exit_code)
                 log.trace("Response is :: " + connector_response)
-                output.set(connector_response)
+                output.set('user_message',user_message)
             }
             else {
                 log.trace("Exit-Code :: " + exit_code + "\nMessage :: " + message)
