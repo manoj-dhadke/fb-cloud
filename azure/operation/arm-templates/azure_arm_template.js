@@ -104,7 +104,7 @@ try {
 
             for (key in user_parameters) {
                 if (template_parameters.hasOwnProperty(key)) {
-                    template_parameters[key].value = user_parameters[key]
+                    template_parameters[key]["value"] = user_parameters[key]
                 }
             }
             // log.trace("Replaced values of template parameters :: "+template_parameters)
