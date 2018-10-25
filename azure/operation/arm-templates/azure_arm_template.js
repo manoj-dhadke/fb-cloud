@@ -96,25 +96,30 @@ try {
             user_parameters["virtualMachineSize"] = virtualMachineSize
             user_parameters["adminUsername"] = adminUsername
             user_parameters["adminPassword"] = adminPassword
-            user_parameters = util.json(user_parameters)
+            //user_parameters = util.json(user_parameters)
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
-            template_parameters = JSON.parse(template_parameters)
+            template_parameters["virtualMachineSize"]["value"] = virtualMachineSize
+            template_parameters["adminUsername"]["value"] = adminUsername
+            template_parameters["adminPassword"]["value"] = adminPassword
 
-            for (key in user_parameters) {
-                if (template_parameters.hasOwnProperty(key)) {
-                    log.trace("True dat!")
-                    log.trace(template_parameters[key]["value"])
-                    template_parameters[key]["value"] = user_parameters[key]
-                }
-            }
-            // log.trace("Replaced values of template parameters :: "+template_parameters)
+
+            // template_parameters = JSON.parse(template_parameters)
+
+            // for (key in user_parameters) {
+            //     if (template_parameters.hasOwnProperty(key)) {
+            //         log.trace(template_parameters[key]["value"])
+            //         template_parameters[key]["value"] = user_parameters[key]
+            //     }
+            // }
+            log.trace("Replaced values of template parameters :: "+template_parameters)
 
             for(x in template_parameters){
-                log.trace("Template Replaced "+x+" :: "+template_parameters[x][value])
+                log.trace("Template Replaced "+x+" :: "+template_parameters[x]["value"])
             }
             
+             
             // Test code ends here
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
