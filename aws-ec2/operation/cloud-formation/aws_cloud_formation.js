@@ -20,7 +20,6 @@ try {
     // LAMP stack service config
     log.trace("About to check if condition")
 
-
     if (new_input.hasOwnProperty('lamp-stack-config')) {
         log.trace("Inside lamp stack config if condition")
         stack_type = input.get('lamp-stack-config').get('stack-type')
@@ -61,7 +60,9 @@ try {
                     stack_formation_timeout = input.get('timeout')
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
-                    keyname = input.get('key_name')
+                    //keyname = input.get('key_name')
+                    keyname = input.get('lamp-stack-config').get('key_name')
+
 
                     db_name = input.get('db_name')
                     db_user = input.get('db_user')
@@ -157,7 +158,8 @@ try {
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
 
-                    keyname = input.get('key_name')                         // AWS Keypair -> Keyname
+                    //keyname = input.get('key_name')                         // AWS Keypair -> Keyname
+                    keyname = input.get('moderate-tier-config').get('key_name')
                     instance_type = input.get('instance_type')              // Size of instance to be created eg. t1.micro
 
                     db_name = input.get('db_name')                          // Name of the database to be created
@@ -224,6 +226,8 @@ try {
                         .set('action', action)
                         .set('KeyName', keyname)
                         .set('stack-name', stack_name)
+                        .set('security-key', security_key)
+                        .set('access-key', access_key)
                         .set('security-key', security_key)
                         .set('access-key', access_key)
                         .sync()
