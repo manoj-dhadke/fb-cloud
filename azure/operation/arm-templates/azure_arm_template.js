@@ -67,12 +67,14 @@ try {
             virtualMachineSize = input.get('virtual_machine_size')
             adminUsername = input.get('admin_username')
             adminPassword = input.get('admin_password')
+            netSecRules = template_parameters.get("networkSecurityGroupRules").get("value")
+            log.trace("type of netSecRules :: "+typeof netSecRules)
 
             template_parameters = JSON.parse(template_parameters)
             template_parameters["virtualMachineSize"]["value"] = virtualMachineSize
             template_parameters["adminUsername"]["value"] = adminUsername
             template_parameters["adminPassword"]["value"] = adminPassword
-
+            template_parameters["networkSecurityGroupRules"]["value"] = netSecRules
             template_parameters = util.json(template_parameters)
 
             log.trace("Second util.json "+template_parameters)
