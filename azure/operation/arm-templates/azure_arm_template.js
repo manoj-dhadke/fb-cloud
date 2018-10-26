@@ -73,9 +73,9 @@ try {
             template_parameters["adminUsername"]["value"] = adminUsername
             template_parameters["adminPassword"]["value"] = adminPassword
 
-            template_parameters = util.json("second util.json"+template_parameters)
+            template_parameters = util.json(template_parameters)
 
-            log.trace(template_parameters)
+            log.trace("Second util.json "+template_parameters)
             
             // Test code ends here
             log.trace("Before connector call")
