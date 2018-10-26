@@ -124,7 +124,7 @@ try {
             connector_response = call.connector(connector_name)
                 .set('template', template)
                 //.set('deployment-name', deployment_name)
-                //.set('resource-group-name', resource_group_name)
+                .set('resource-group-name', resource_group_name)
                 .set('action', action)
                 .set('template-parameters', template_parameters)
                 .set('client-id', client_id)
