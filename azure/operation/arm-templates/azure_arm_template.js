@@ -36,7 +36,7 @@ try {
 
     switch (stack_name) {
         case 'Ubuntu VM':
-            log.trace("util.json parsed template parameters :: " + template_parameters)
+            log.trace("util.json first :: " + template_parameters)
 
 
             // Service form parameter inputs?
@@ -68,12 +68,15 @@ try {
             adminUsername = input.get('admin_username')
             adminPassword = input.get('admin_password')
 
-            template_parameters.set('virtualMachineSize',virtualMachineSize)
-            template_parameters.set('adminUsername',adminUsername)
-            template_parameters.set('adminPassword',adminPassword)
+            template_parameters = JSON.parse(template_parameters)
+            template_parameters["virtualMachineSize"]["value"] = virtualMachineSize
+            template_parameters["adminUsername"]["value"] = adminUsername
+            template_parameters["adminPassword"]["value"] = adminPassword
+
+            template_parameters = util.json("second util.json"+template_parameters)
 
             log.trace(template_parameters)
-             
+            
             // Test code ends here
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
