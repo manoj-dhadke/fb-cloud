@@ -26,6 +26,7 @@ try {
     azure_key = input.get('azure-arm-vm-config').get('key')
     subscription_id = input.get('azure-arm-vm-config').get('subscription-id')
     tenant_id = input.get('azure-arm-vm-config').get('tenant-id')
+    //
 
 
     // Service form
