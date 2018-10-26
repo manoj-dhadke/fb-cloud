@@ -19,6 +19,9 @@ try {
     else if (new_input.hasOwnProperty('azure-arm-lbs-vm-config')) {
         stack_name = input.get('azure-arm-lbs-vm-config').get('stack-name')
     }
+    else if (new_input.hasOwnProperty('azure-arm-lamp')) {
+        stack_name = input.get('azure-arm-lamp').get('stack-name')
+    }
 
     switch (stack_name) {
         case 'Ubuntu VM':
@@ -156,6 +159,56 @@ try {
                 output.set('user_message', user_message + connector_response)
             }
             break;
+        // Third case
+        case "LAMP":
+            log.trace("Inside Azure ARM LAMP case")
+
+            // Azure credentials
+            client_id = input.get('azure-arm-lamp').get('client-id')
+            azure_key = input.get('azure-arm-lamp').get('key')
+            subscription_id = input.get('azure-arm-lamp').get('subscription-id')
+            tenant_id = input.get('azure-arm-lamp').get('tenant-id')
+
+            // Service config
+            connector_name = input.get('azure-arm-lamp').get('connector-name')
+            action = input.get('azure-arm-lamp').get('action')
+            log.trace(connector_name)
+            resource_group_name = input.get('azure-arm-lamp').get('resource_group_name')
+            deployment_name = input.get('azure-arm-lamp').get('deployment_name')
+
+            template = input.get('azure-arm-lamp').get('template')
+            template_parameters = util.json(input.get('azure-arm-lamp').get('parameters'))
+
+            log.trace("Before connector call")
+            connector_response = call.connector(connector_name)
+                .set('template', template)
+                .set('deployment-name', deployment_name)
+                .set('resource-group-name', resource_group_name)
+                .set('action', action)
+                .set('template-parameters', template_parameters)
+                .set('client-id', client_id)
+                .set('key', azure_key)
+                .set('subscription-id', subscription_id)
+                .set('tenant-id', tenant_id)
+                .timeout(300000)
+                .sync()
+
+            log.info("Connector call successfull")
+
+            exit_code = connector_response.get('exit-code')
+            message = connector_response.get('message')
+            if (exit_code == 0) {
+                user_message = "The request for deployment of a single instance LAMP stack via an ARM template is completed. Here are the details for the request: \n <br><b>Deployment ID:</b> " + connector_response.get('message')
+                log.trace("Exit code is " + exit_code)
+                log.trace("Response is :: " + connector_response)
+                output.set('user_message', user_message)
+            }
+            else {
+                user_message = "Oops! The request failed with error:\n"
+                log.trace("Exit-Code :: " + exit_code + "\nMessage :: " + message)
+                output.set('user_message', user_message + connector_response)
+            }
+
     }
 } catch (error) {
     output.set('user_message', error)
