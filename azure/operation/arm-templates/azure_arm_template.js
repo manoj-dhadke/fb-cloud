@@ -11,6 +11,8 @@ try {
     // resource_group_name = input.get('resource-group-name')
     // action = input.get('action')
     // template_parameters = input.get('parameters')
+
+    value = "value"
     new_input = JSON.parse(input)
     // Service configuration Inputs
     if (new_input.hasOwnProperty('azure-arm-vm-config')) {
@@ -24,6 +26,7 @@ try {
     }
 
     switch (stack_name) {
+        // Single linux instance
         case 'Ubuntu VM':
             log.trace("Inside Ubuntu VM switch case")
             // Service config
@@ -65,14 +68,15 @@ try {
             virtualMachineSize = input.get('virtual_machine_size')
             adminUsername = input.get('admin_username')
             adminPassword = input.get('admin_password')
-            netSecRules = template_parameters.get("networkSecurityGroupRules").get("value")
+            netSecRules = template_parameters.get("networkSecurityGroupRules").get(value)
             log.trace("type of netSecRules :: " + typeof netSecRules)
 
             template_parameters = JSON.parse(template_parameters)
-            template_parameters["virtualMachineSize"]["value"] = virtualMachineSize
-            template_parameters["adminUsername"]["value"] = adminUsername
-            template_parameters["adminPassword"]["value"] = adminPassword
-            template_parameters["networkSecurityGroupRules"]["value"] = netSecRules
+            template_parameters["virtualMachineSize"][value] = virtualMachineSize
+            template_parameters["adminUsername"][value] = adminUsername
+            template_parameters["adminPassword"][value] = adminPassword
+            template_parameters["networkSecurityGroupRules"][value] = netSecRules
+            // Converting again so that "networkSecurityGroupRules" can be passed as a blank array object, JSON.parse cannot do that 
             template_parameters = util.json(template_parameters)
 
             log.trace("Second util.json " + template_parameters)
@@ -110,6 +114,7 @@ try {
             }
             break;
 
+        // Complex tier case: Two instances and a load balancer
         case "Complex":
             log.trace("Inside complex ARM template switch case")
             // Azure credentials
@@ -122,12 +127,22 @@ try {
             connector_name = input.get('azure-arm-lbs-vm-config').get('connector-name')
             action = input.get('azure-arm-lbs-vm-config').get('action')
             log.trace(connector_name)
-            resource_group_name = input.get('azure-arm-lbs-vm-config').get('resource_group_name')
-            deployment_name = input.get('azure-arm-lbs-vm-config').get('deployment_name')
-
+            
 
             template = input.get('azure-arm-lbs-vm-config').get('template')
             template_parameters = util.json(input.get('azure-arm-lbs-vm-config').get('parameters'))
+
+            // Service form
+            resource_group_name = input.get('resource_group_name')
+            deployment_name = input.get('deployment_name')
+            adminUsername = input.get('admin_username')
+            adminPassword = input.get('admin_password')
+
+            template_parameters = JSON.parse(template_parameters)
+            template_parameters['adminUsername'][value] = adminUsername
+            template_parameters['adminPassword'][value] = adminPassword
+
+            template_parameters = util.json(template_parameters)
 
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
@@ -140,7 +155,7 @@ try {
                 .set('key', azure_key)
                 .set('subscription-id', subscription_id)
                 .set('tenant-id', tenant_id)
-                .timeout(300000)
+                .timeout(600000)
                 .sync()
 
             log.info("Connector call successfull")
@@ -159,7 +174,8 @@ try {
                 output.set('user_message', user_message + connector_response)
             }
             break;
-        // Third case
+
+        // Third case: ARM LAMP stack
         case "LAMP":
             log.trace("Inside Azure ARM LAMP case")
 
@@ -190,7 +206,7 @@ try {
                 .set('key', azure_key)
                 .set('subscription-id', subscription_id)
                 .set('tenant-id', tenant_id)
-                .timeout(300000)
+                .timeout(500000)
                 .sync()
 
             log.info("Connector call successfull")
