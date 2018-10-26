@@ -13,10 +13,10 @@ try {
     // template_parameters = input.get('parameters')
     new_input = JSON.parse(input)
     // Service configuration Inputs
-    if (new_input.hasOwnProperty('azure-arm-vm-config')){
+    if (new_input.hasOwnProperty('azure-arm-vm-config')) {
         stack_name = input.get('azure-arm-vm-config').get('stack-name')
     }
-    else if(new_input.hasOwnProperty('azure-arm-lbs-vm-config')){
+    else if (new_input.hasOwnProperty('azure-arm-lbs-vm-config')) {
         stack_name = input.get('azure-arm-lbs-vm-config').get('stack-name')
     }
 
@@ -94,14 +94,16 @@ try {
             exit_code = connector_response.get('exit-code')
             message = connector_response.get('message')
             if (exit_code == 0) {
-                user_message = "The request for a Ubuntu VM is completed. Here are the details. \n Deployment ID: " + connector_response.get('message')
+                user_message = "The request to deploy an Ubuntu VM with ARM template is completed. Here are the details. \n <br><b>Deployment ID:</b> " + connector_response.get('message')
                 log.trace("Exit code is " + exit_code)
                 log.trace("Response is :: " + connector_response)
                 output.set('user_message', user_message)
             }
             else {
+                user_message = "Oops! The request failed with error:\n"
+
                 log.trace("Exit-Code :: " + exit_code + "\nMessage :: " + message)
-                output.set(connector_response)
+                output.set('user_message', user_message + connector_response)
             }
             break;
 
@@ -143,14 +145,15 @@ try {
             exit_code = connector_response.get('exit-code')
             message = connector_response.get('message')
             if (exit_code == 0) {
-                user_message = "The request for deployment of two virtual machines and a load balancer is completed. Here are the details for the request: \n Deployment ID: " + connector_response.get('message')
+                user_message = "The request for deployment of two virtual machines and a load balancer via an ARM template is completed. Here are the details for the request: \n <br><b>Deployment ID:</b> " + connector_response.get('message')
                 log.trace("Exit code is " + exit_code)
                 log.trace("Response is :: " + connector_response)
                 output.set('user_message', user_message)
             }
             else {
+                user_message = "Oops! The request failed with error:\n"
                 log.trace("Exit-Code :: " + exit_code + "\nMessage :: " + message)
-                output.set('user_message', connector_response)
+                output.set('user_message', user_message + connector_response)
             }
             break;
     }
