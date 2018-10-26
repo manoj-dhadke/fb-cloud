@@ -13,10 +13,10 @@ try {
     // template_parameters = input.get('parameters')
     new_input = JSON.parse(input)
     // Service configuration Inputs
-    if (input.hasOwnProperty('azure-arm-vm-config')){
+    if (new_input.hasOwnProperty('azure-arm-vm-config')){
         stack_name = input.get('azure-arm-vm-config').get('stack-name')
     }
-    else if(input.hasOwnProperty('azure-arm-lbs-vm-config')){
+    else if(new_input.hasOwnProperty('azure-arm-lbs-vm-config')){
         stack_name = input.get('azure-arm-lbs-vm-config').get('stack-name')
     }
 
