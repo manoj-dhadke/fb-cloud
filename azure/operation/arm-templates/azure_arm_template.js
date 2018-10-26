@@ -92,16 +92,16 @@ try {
             // }
 
             // Test code
-            user_parameters = {}
-            user_parameters["virtualMachineSize"] = virtualMachineSize
-            user_parameters["adminUsername"] = adminUsername
-            user_parameters["adminPassword"] = adminPassword
+            // user_parameters = {}
+            // user_parameters["virtualMachineSize"] = virtualMachineSize
+            // user_parameters["adminUsername"] = adminUsername
+            // user_parameters["adminPassword"] = adminPassword
             //user_parameters = util.json(user_parameters)
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
             template_parameters["virtualMachineSize"].value = virtualMachineSize
-            log.trace("Current ::: "+template_parameters["virtualMachineSize"].value)
+            log.trace("New virtual Machine size ::: "+template_parameters["virtualMachineSize"].value)
             template_parameters["adminUsername"].value = adminUsername
             template_parameters["adminPassword"].value = adminPassword
 
@@ -117,7 +117,7 @@ try {
             log.trace("Replaced values of template parameters :: "+template_parameters)
 
             for(x in template_parameters){
-                log.trace("Template Replaced "+x+" :: "+template_parameters[x]["value"])
+                log.trace("Template Replaced "+x+" :: "+template_parameters[x].value)
             }
             
              
