@@ -117,9 +117,11 @@ try {
             connector_name = input.get('azure-arm-lbs-vm-config').get('connector-name')
             action = input.get('azure-arm-lbs-vm-config').get('action')
             log.trace(connector_name)
+            resource_group_name = input.get('azure-arm-lbs-vm-config').get('resource_group_name')
+
             template = input.get('azure-arm-lbs-vm-config').get('template')
             template_parameters = util.json(input.get('azure-arm-lbs-vm-config').get('parameters'))
-
+            
             log.trace("Before connector call")
             connector_response = call.connector(connector_name)
                 .set('template', template)
