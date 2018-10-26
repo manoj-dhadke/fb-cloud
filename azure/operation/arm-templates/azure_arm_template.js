@@ -100,10 +100,10 @@ try {
 
             // user_parameters = '{"virtualMachineSize":"'+virtualMachineSize+'", "adminUsername":"'+adminUsername+'", "adminPassword":"'+adminPassword+'" }'
             
-            template_parameters["virtualMachineSize"]["value"] = virtualMachineSize
-            log.trace("Current ::: "+template_parameters["virtualMachineSize"]["value"])
-            template_parameters["adminUsername"]["value"] = adminUsername
-            template_parameters["adminPassword"]["value"] = adminPassword
+            template_parameters["virtualMachineSize"].value = virtualMachineSize
+            log.trace("Current ::: "+template_parameters["virtualMachineSize"].value)
+            template_parameters["adminUsername"].value = adminUsername
+            template_parameters["adminPassword"].value = adminPassword
 
 
             // template_parameters = JSON.parse(template_parameters)
