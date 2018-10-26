@@ -11,9 +11,14 @@ try {
     // resource_group_name = input.get('resource-group-name')
     // action = input.get('action')
     // template_parameters = input.get('parameters')
-
+    new_input = JSON.parse(input)
     // Service configuration Inputs
-    stack_name = input.get('azure-arm-vm-config').get('stack-name')
+    if (input.hasOwnProperty('azure-arm-vm-config')){
+        stack_name = input.get('azure-arm-vm-config').get('stack-name')
+    }
+    else if(input.hasOwnProperty('azure-arm-lbs-vm-config')){
+        stack_name = input.get('azure-arm-lbs-vm-config').get('stack-name')
+    }
 
     switch (stack_name) {
         case 'Ubuntu VM':
@@ -130,7 +135,7 @@ try {
                 .sync()
 
             log.info("Connector call successfull")
-            
+
             exit_code = connector_response.get('exit-code')
             message = connector_response.get('message')
             if (exit_code == 0) {
@@ -141,11 +146,11 @@ try {
             }
             else {
                 log.trace("Exit-Code :: " + exit_code + "\nMessage :: " + message)
-                output.set('user_message',connector_response)
+                output.set('user_message', connector_response)
             }
             break;
     }
 } catch (error) {
-    output.set('user_message',error)
+    output.set('user_message', error)
     log.error(error)
 }
