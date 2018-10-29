@@ -49,6 +49,8 @@ try {
             template_body = input.get('lamp-stack-config').get('stack-template-body')   // Service config LAMP template body
             log.trace("TEMPLATE BODY :: " + template_body)
 
+            sshlocation = input.get('lamp-stack-config').get('SSHLocation')
+
             switch (action) {
                 case "create-cloud-formation-stack":
                     // Create Stack case
@@ -81,9 +83,11 @@ try {
                         .set('DBPassword', db_password)
                         .set('DBRootPassword', db_root_password)
                         .set('KeyName', keyname)
+                        .set('SSHLocation', sshlocation)
+                        .set('InstanceType', instance_type)
+                        //.set('instance-type', instance_type)
                         // Newly set variables
                         .set('stack-type', stack_type)
-                        .set('instance-type', instance_type)
                         .set('security-key', security_key)
                         .set('access-key', access_key)
 
