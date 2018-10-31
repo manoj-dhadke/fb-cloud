@@ -124,7 +124,7 @@ try {
                     // From Service form    
                     stack_name = input.get('stack_name')
                     region = input.get('region')
-                    keyname = input.get('key_name')
+                    keyname = input.get('lamp-stack-config').get('key-name')
 
                     // AWS EC2 connector call
                     connector_response = call.connector(connector_name)
@@ -159,12 +159,12 @@ try {
                     // From Service form    
                     stack_name = input.get('stack_name')                    // Name of the stack to be created
                     region = input.get('region')                            // Region eg. us-east-1
-                    stack_formation_timeout = input.get('timeout')          // Timeout for the stack creation
+                    stack_formation_timeout = input.get('moderate-tier-config').get('timeout')          // Timeout for the stack creation
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
                 
                     //keyname = input.get('key_name')                         // AWS Keypair -> Keyname
-                    keyname = input.get('moderate-tier-config').get('key_name')
+                    keyname = input.get('moderate-tier-config').get('key-name')
                     instance_type = input.get('instance_type')              // Size of instance to be created eg. t1.micro
 
                     db_name = input.get('db_name')                          // Name of the database to be created
@@ -225,7 +225,7 @@ try {
                     // From Service form    
                     stack_name = input.get('stack_name')
                     region = input.get('region')
-                    keyname = input.get('key_name')
+                    keyname = input.get('moderate-tier-config').get('key-name')
 
                     // AWS EC2 connector call
                     connector_response = call.connector(connector_name)
