@@ -57,7 +57,7 @@ try {
                     stack_name = input.get('stack_name')
                     region = input.get('region')
                     //stack_formation_timeout = input.get('timeout')
-                    stack_Formation_timeout = input.get('lamp-stack-config').get('timeout')
+                    stack_formation_timeout = input.get('lamp-stack-config').get('timeout')
                     // Convert to integer since service form is giving it as a string
                     stack_formation_timeout = parseInt(stack_formation_timeout)
                     //keyname = input.get('key_name')
