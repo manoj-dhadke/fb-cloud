@@ -1,31 +1,35 @@
 log.trace("Started executing 'fb-cloud:azure-stack:operation:create_virtual_machines.groovy' flintbit...")
 try{
-    connector_name= input.get("connector_name")                      //Name of the Connector
-    target= input.get("target")               			                  //Target address
-    username = input.get("username")               			            //Username
-    password = input.get("password")               			            //Password
-    shell = "ps"                 			                              //Shell Type
-    transport = input.get("transport")               			          //Transport
-    operation_timeout = 1000                                         //Operation Timeout
-    no_ssl_peer_verification = input.get("no_ssl_peer_verification")    //SSL Peer Verification
-    port = input.get("port")                                            //Port Number
-    request_timeout=1000000                                              //Timeout
-    aadtenant_name= input.get("azure-ad-tenant-name")                   //tenant-name for the tenant
-    tenant_username = input.get("tenant-username")                   //tenant-username of the tenant
-    tenant_password= input.get("tenant-password")                   //tenant-password for the tenant user
-    subscription_name= input.get("subscription-name")                //subscription name
-    resourcegroup=input.get("resourcegroup")
-    storagename=input.get("storagename")
-    subnetname=input.get("subnetname")
-    vnetname=input.get("vnetname")
-    networksecuritygroup=input.get("networksecuritygroup")
-    nicname=input.get("nicname")
-    vmusername=input.get("vmusername")
-    vmpassword=input.get("vmpassword")
-    vmname=input.get("vmname")
-    vmsize=input.get("vmsize")
-    publishername=input.get("publishername")
-    offer=input.get("offer")
+    azure_stack_config = input.get('azure_stack_config')
+    connector_name= azure_stack_config.get("connector_name")                            //Name of the Connector
+    target= azure_stack_config.get("target")               			                    //Target address
+    username = azure_stack_config.get("username")               			            //Username
+    password = azure_stack_config.get("password")               			            //Password
+    transport = azure_stack_config.get("transport")               			            //Transport
+    no_ssl_peer_verification = azure_stack_config.get("no_ssl_peer_verification")       //SSL Peer Verification
+    port = azure_stack_config.get("port")                                               //Port Number
+    aadtenant_name= azure_stack_config.get("azure-ad-tenant-name")                      //tenant-name for the tenant
+    tenant_username = azure_stack_config.get("tenant-username")                         //tenant-username of the tenant
+    tenant_password= azure_stack_config.get("tenant-password")                          //tenant-password for the tenant user
+    subscription_name= azure_stack_config.get("subscription-name") 
+
+
+    request_timeout=1000000                                                             //Timeout
+    operation_timeout = 1000                                                            //Operation Timeout
+    shell = "ps"                 			                                            //Shell Type
+    
+    resourcegroup=input.get("resource_group")
+    storagename=input.get("storage")
+    subnetname=input.get("subnet")
+    vnetname=input.get("vnet")
+    networksecuritygroup=input.get("network_security_group")
+    nicname=input.get("network_interface_card")
+    vmusername=input.get("virtual_machine_username")
+    vmpassword=input.get("virtual_machine_password")
+    vmname=input.get("name")
+    vmsize=input.get("virtual_machine_size")
+    publishername=input.get("publisher_name")
+    offer=input.get("operating_system")
     skus=input.get("skus")
 log.info("Flintbit input parameters are,connector name:: ${connector_name} |target:: ${target} |username:: ${username}|shell:: ${shell}|transport:: ${transport}|operation_timeout:: ${operation_timeout}|no_ssl_peer_verification :: ${no_ssl_peer_verification}|AAD_tenant_name:: ${aadtenant_name}|Tenant_username:: ${tenant_username}|Subscription_name:: ${subscription_name}|port :: ${port}")
 import_command="cd C:\\AzureStack-Tools-master; .\\azureimport_script1.ps1"
