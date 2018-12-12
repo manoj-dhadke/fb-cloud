@@ -4,7 +4,7 @@ begin
     # Flintbit Input Parameters
     # Mandatory
     @connector_name = @input.get('connector_name')
-    @group_id = @input.get('group-id')
+    @resource_group_name = @input.get('resource-group-name')
     @action = 'delete-resource-group'
 
     # Optional
@@ -14,7 +14,7 @@ begin
     @subscription_id = @input.get('subscription-id')
     @client_id = @input.get('client-id')
 
-    @log.info("Flintbit input parameters are, action : #{@action} | Group id : #{@group_id} ")
+    @log.info("Flintbit input parameters are, action : #{@action} | resource_group_name : #{@resource_group_name} ")
 
     connector_call = @call.connector(@connector_name)
                           .set('action', @action)
@@ -22,7 +22,7 @@ begin
                           .set('subscription-id', @subscription_id)
                           .set('key', @key)
                           .set('client-id', @client_id)
-                          .set('group-id',@group_id)
+                          .set('resource-group-name',@resource_group_name)
 
     if @connector_name.nil? || @connector_name.empty?
         raise 'Please provide "MS Azure connector name (connector_name)" to delete resource group'
