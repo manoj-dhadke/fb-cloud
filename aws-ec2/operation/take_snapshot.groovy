@@ -1,5 +1,5 @@
 //@Author : Varun
-log.trace("Started executing 'fb-cloud:aws-ec2:operation:take_snapshot_of_volume.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:aws-ec2:operation:take_snapshot.groovy' flintbit...")
 try{
 
     // Flintbit Input Parameters
@@ -75,4 +75,4 @@ try{
     log.error(e.message)
     output.set('exit-code', 1).set('error', e.message)
 }
-log.trace("Finished executing 'fb-cloud:aws-ec2:operation:take_snapshot_of_volume.groovy' flintbit")
+log.trace("Finished executing 'fb-cloud:aws-ec2:operation:take_snapshot.groovy' flintbit")
