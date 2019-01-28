@@ -2,9 +2,9 @@ log.trace("Started executing 'fb-cloud:azure:operation:create_disk.groovy' flint
 try{
 // Flintbit Input Parameters
     // Mandatory  
-    connector_name = input.get('connector_name') //name of Azure connector
+    connector_name = input.get('connector-name') //name of Azure connector
     action = 'create-disk' //Specifies the name of the operation: create-disk
-    disk_name= input.get("disk-name") //name of the subnet which you want to create
+    disk_name= input.get("data-disk-name") //name of the subnet which you want to create
     size_in_gb = input.get("size-in-gb")
     group_name = input.get("group-name")
     region = input.get("region")
@@ -54,7 +54,7 @@ try{
 
     if (response_exitcode == 0){
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
-        output.set('exit-code', 0).set('message', response_message)
+        output.set('exit-code', 0).set('message', response_message).set('disk-details',response.get('disk-details'))
     } else {
         log.error("ERROR in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
         output.set('exit-code', 1).set('message', response_message)
