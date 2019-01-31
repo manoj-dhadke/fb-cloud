@@ -8,6 +8,11 @@ try{
     size_in_gb = input.get("size-in-gb")
     group_name = input.get("group-name")
     region = input.get("region")
+    os_type = input.get("os-type")
+    data_snapshot = input.get("data-snapshot")
+    data_disk = input.get("data-disk")
+    disk_snapshot = input.get("disk-snapshot")
+    vhd_id = input.get("vhd-id")
     log.info("connector-name:${connector_name} | action :${action} | disk-name:${disk_name}")
 
     //optional
@@ -37,12 +42,32 @@ try{
                             .set('group-name', group_name)
                             .set('size-in-gb', size_in_gb)
                             .set('region', region)
-
-    if( request_timeout == null || request_timeout instanceof String ){
+                            
+     
+    if( os_type != null || os_type instanceof String ){
+        log.trace("Calling ${connector_name} with default timeout...")
+        response = connector_call.set('os-type', os_type)
+     }
+    if( data_snapshot != null || data_snapshot instanceof String ){
+        log.trace("Calling ${connector_name} with default timeout...")
+        response = connector_call.set('data-snapshot', data_snapshot)
+     }
+    if( data_disk != null || data_disk instanceof String ){
+        log.trace("Calling ${connector_name} with default timeout...")
+        response = connector_call.set('data-disk', data_disk)
+     }   
+    if( disk_snapshot != null || disk_snapshot instanceof String ){
+        log.trace("Calling ${connector_name} with default timeout...")
+        response = connector_call.set('disk-snapshot', disk_snapshot)
+     }
+    if( vhd_id != null || vhd_id instanceof String ){
+        log.trace("Calling ${connector_name} with default timeout...")
+        response = connector_call.set('vhd-id', vhd_id)
+     }
+    if (request_timeout == null || request_timeout instanceof String){
         log.trace("Calling ${connector_name} with default timeout...")
         response = connector_call.sync()
-     }
-    else{
+    } else{
         log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
         response = connector_call.timeout(request_timeout).sync()
     }
