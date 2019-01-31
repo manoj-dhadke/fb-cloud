@@ -47,7 +47,8 @@ try{
     response_exitcode = response.exitcode	// Exit status code
     response_message = response.message	// Execution status messages
 
-    if (response_exitcode == 0){
+    // response_message =='success' check will be removed from response_exitcode is handel from AZURE connector side
+    if (response_exitcode == 0 || response_message =='success' ) {
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
         output.set('exit-code', 0).set('message', response_message)
     } else {
