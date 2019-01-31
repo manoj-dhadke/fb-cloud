@@ -39,7 +39,7 @@ try{
         response = connector_call.timeout(request_timeout).sync()
     }
     // Amazon EC2 Connector Response Meta Parameters
-    log.error(" Response  ::   ${response}")
+    log.debug(" Response  ::   ${response}")
     response_exitcode = response.exitcode()	// Exit status code
     response_message = response.message()	// Execution status messages
 

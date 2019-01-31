@@ -1,5 +1,6 @@
 //@Author : Varun
 log.trace("Started executing 'fb-cloud:aws-ec2:operation:describe_volume.groovy' flintbit...")
+
 try{
 
     // Flintbit Input Parameters
@@ -29,7 +30,7 @@ try{
                                     .set('access-key', access_key)
                                     .set('security-key', secret_key)
 
-    if (region !=null && region !=""){
+    if (region !=null || region !=""){
         connector_call.set('region', region)
     }
     else{
