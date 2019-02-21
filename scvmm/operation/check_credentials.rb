@@ -10,8 +10,10 @@ begin
     @username = @input.get("username")               			              #Username
     @password = @input.get("password")               			              #Password
     @shell = "ps"               			                                  #Shell Type
-    @transport = @input.get("transport")               			              #Transport
-    @command = "Get-SCVirtualMachine -VMMServer '#{@target}' 2>&1 | convertto-json"                             #Command to run
+    @transport = @input.get("transport")    
+    @command = "Get-SCVirtualMachine -VMMServer #{@target} 2>&1 | convertto-json -Compress"           			              #Transport
+    #@command = "Get-SCVirtualMachine -VMMServer #{@target} 2>&1 | convertto-json"
+    @log.info("Command : #{@command}")                             #Command to run
     @operation_timeout = 80               		                              #Operation Timeout
     @no_ssl_peer_verification = @input.get("no_ssl_peer_verification")        #SSL Peer Verification
     @port = @input.get("port")                                                #Port Number
@@ -66,7 +68,8 @@ begin
         @log.info("output: #{response}")
         @log.info("SUCCESS in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
-        @output.set('exit-code', 0).set('message', 'success').setraw("data",result.to_s) 
+                                               
+        @output.set('exit-code', 0).set('message', 'success').set("data",result.to_s) 
     else
         @log.error("ERROR in executing #{@connector_name} where, exitcode :: #{response_exitcode} | 
                                                             message ::  #{response_message}")
