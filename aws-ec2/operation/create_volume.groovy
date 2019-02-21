@@ -9,6 +9,7 @@ try{
     volume_type = input.get('volume-type')// Specifies the type of the volume
     volume_size = input.get('volume-size')
     availability_zone = input.get('availability-zone')
+    iops = input.get('iops')
     
     // Optional
     access_key = input.get('access-key')
@@ -43,6 +44,7 @@ try{
                                     .set('availability-zone', availability_zone)
                                     .set('access-key', access_key)
                                     .set('security-key', secret_key)
+                                    .set('iops', iops)
 
     if (region !=null && region !=""){
         connector_call.set('region', region)

@@ -1,5 +1,5 @@
 // begin
-log.trace("Started execution 'fb-cloud:google-cloud:operation:list_zones.groovy' flintbit...") // execution Started
+log.trace("Started execution 'fb-cloud:google-cloud:operation:list_zones.groovy' flintbit...${input}") // execution Started
 try{
     // Flintbit input parametes
     // Mandatory
@@ -35,7 +35,7 @@ try{
        throw new Exception ( 'Please provide "Please provide service account credentials (service-account-credentials)" to list zones')
     }
     else{
-        connector_call.set('service-account-credentials', service_account_credenetials)
+        connector_call.set('service-account-credentials', util.json(service_account_credenetials))
     }
     //checking that the request timeout provided or not
     if( request_timeout == null || request_timeout instanceof String ){
@@ -54,7 +54,7 @@ try{
     response_message =  response.message() // Execution status message
 
     //list of the zones
-    zone_list=response.get('zones-list')
+        zone_list=response.get('zones-list')
 
     if (response_exitcode == 0){
         log.info("Success in executing ${connector_name} Connector, where exitcode :: ${response_exitcode} | message :: ${response_message}")

@@ -29,7 +29,7 @@ try {
 
     connector_call =  call.connector(connector_name).set('action', action).set('instance-id', instance_id).set('access-key',  access_key).set('security-key',  secret_key)
 
-    if (region != null && region == ""){
+    if (region != null || region == ""){
         connector_call.set('region', region)
     }
     else{
