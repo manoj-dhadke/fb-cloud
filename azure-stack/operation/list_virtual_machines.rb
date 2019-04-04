@@ -8,7 +8,7 @@ begin
     @connector_name= @input.get("connector_name")                             #Name of the Connector
     @target= @input.get("target")               			                  #Target address
     @username = @input.get("username")               			              #Username
-    @password = @input.get("password")               			              #Password
+    @password =  @input.get("password")               			              #Password
     @shell = "ps"                 			                                  #Shell Type
     @transport = @input.get("transport")               			              #Transport
     @operation_timeout = 1000                                           		  #Operation Timeout
@@ -68,9 +68,10 @@ begin
          	             	     .set("operation_timeout",@operation_timeout)
 	                             .set("timeout",@request_timeout)
 				     .timeout(@request_timeout)
-	                   	     .sync    
-                 
-		if login_azure_stack.exitcode == 0
+                                .sync    
+                                bg = @util.json(login_azure_stack.get('result'))
+                                # @log.info"$$$$$$$:#{bg}"
+		if login_azure_stack.exitcode == 0 && !bg.get('Exception')
  			 vm_list=login_azure_stack.get('result')
                          vm_list=JSON.parse(vm_list)
                          @log.info"vm-list:#{vm_list}"
