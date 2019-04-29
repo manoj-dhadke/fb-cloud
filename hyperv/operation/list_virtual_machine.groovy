@@ -46,7 +46,7 @@ try{
     //Winrm Connector Response Parameters
     result = response.get("result")               //Response Body
 
-    if (response.exitcode == 0){
+    if (response_exitcode == 0){
 
         log.info("output"+result.toString())
         log.info("SUCCESS in executing ${connector_name} where, exitcode :: ${response_exitcode} |message ::  ${response_message}")
