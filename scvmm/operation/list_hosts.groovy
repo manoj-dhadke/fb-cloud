@@ -11,22 +11,13 @@ try{
     password = input.get("password")               			                        //Password
     shell = "ps"              			                                            //Shell Type
     transport = input.get("transport")               			                    //Transport
-    command = "Get-SCVMHost -VMMServer "target" | convertto-json"                   //Command to run
+    command = "Get-SCVMHost -VMMServer ${target}| convertto-json"                   //Command to run
     operation_timeout = 80               		                                    //Operation Timeout
     no_ssl_peer_verification = input.get("no_ssl_peer_verification")                //SSL Peer Verification
     port = input.get("port")                                                        //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-    log.info("Flintbit input parameters are,  connector name        ::    ${connector_name} |
-                                            target                   ::    ${target} |
-                                            username                 ::    ${username}|
-                                            password                 ::    ${password} |
-                                            shell                    ::    ${shell}|
-                                            transport                ::    ${transport}|
-                                            command                  ::    ${command}|
-                                            operation_timeout        ::    ${operation_timeout}|
-                                            no_ssl_peer_verification ::    ${no_ssl_peer_verification}|
-                                            port                     ::    ${port}")
+    log.info("action : list | name : ${hyperv_connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
     connector_call = call.connector(connector_name)
                     .set("target",target)
@@ -72,5 +63,3 @@ catch( Exception e){
 }
 
 log.trace("Finished executing 'fb-cloud:scvmm:list_virtual_machine.groovy' flintbit...")
-
-
