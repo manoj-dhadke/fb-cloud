@@ -49,11 +49,11 @@ try{
     if (response_exitcode == 0){
 
         log.info("output"+result.toString())
-        log.info("SUCCESS in executing ${connector_name} where, exitcode ::ss ${response_exitcode} |message ::  ${response_message}")
+        log.info("SUCCESS in executing ${connector_name} where, exitcode :: ${response_exitcode} |message ::  ${response_message}")
         output.set('exit-code', 0).set('message', 'success').setraw("hosts",result.toString())
     }
     else{
-        log.error("ERROR in executing ${connector_name} where, exitcode ::sss ${response_exitcode} |message ::  ${response_message}")
+        log.error("ERROR in executing ${connector_name} where, exitcode :: ${response_exitcode} |message ::  ${response_message}")
         output.set('exit-code', 1).set('message', response_message)
     }
 }
