@@ -59,7 +59,7 @@ try{
 
         log.info("output"+result.toString())
         log.info("SUCCESS in executing ${connector_name} where, exitcode :: ${response_exitcode} |message ::  ${response_message}")
-        output.set('exit-code', 0).set('message', 'success').setraw("virtual-machine",result.toString())
+        output.set('exit-code', 0).set('message', 'success').setraw("hosts",result.toString())
     }
     else{
         log.error("ERROR in executing ${connector_name} where, exitcode :: ${response_exitcode} |message ::  ${response_message}")
