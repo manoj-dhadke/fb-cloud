@@ -1,10 +1,11 @@
 // require 'json'
 // require 'rubygems'
 // #begin   
-log.trace("Started executing 'fb-cloud:scvmm:details_hosts_example.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
     // Mandatory  
+   // hyperv_connector_name = config.global('flintcloud-integrations.hyperv.name')
     connector_name= input.get("connector_name")                                     //Name of the Connector
     target= input.get("target")               			                            //Target address
     username = input.get("username")               			                        //Username
@@ -18,7 +19,7 @@ try{
     port = input.get("port")                                                        //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-    log.info("action : list | name : ${hyperv_connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
+   // log.info("action : list | name : ${hyperv_connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
     connector_call = call.connector(connector_name)
                     .set("target",target)
@@ -63,4 +64,4 @@ catch( Exception e){
     output.set('exit-code', 1).set('message', e.message)
 }
 
-log.trace("Finished executing 'fb-cloud:scvmm:details_hosts_example.groovy' flintbit...")
+log.trace("Finished executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
