@@ -17,7 +17,7 @@ try{
     port = input.get("port")                                                        //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-    log.info("action : list | name : ${hyperv_connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
+    log.info("action : list | name : ${connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
     connector_call = call.connector(connector_name)
                     .set("target",target)
