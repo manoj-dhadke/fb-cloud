@@ -17,7 +17,10 @@ try{
     port = input.get("port").toString().toInteger()                                         //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-log.info("PORT::${port}")
+    class_type=port.getClass()
+    log.info("CLASS type::${class_type}")
+    log.info("PORT::${port}")
+
 
     //log.info("action : list | name : ${connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
