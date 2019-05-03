@@ -14,10 +14,12 @@ try{
     command = "Get-SCVMHost -VMMServer ${target}| convertto-json"                   //Command to run
     operation_timeout = 80               		                                    //Operation Timeout
     no_ssl_peer_verification = input.get("no_ssl_peer_verification")                //SSL Peer Verification
-    port = input.get("port")                                                        //Port Number
+    port = input.get("port").toString().toInteger()                                         //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-    log.info("action : list | name : ${connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
+log.info("PORT::${port}")
+
+    //log.info("action : list | name : ${connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
     connector_call = call.connector(connector_name)
                     .set("target",target)
