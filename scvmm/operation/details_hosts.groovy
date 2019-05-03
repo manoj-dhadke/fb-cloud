@@ -1,23 +1,26 @@
 // require 'json'
 // require 'rubygems'
 // #begin   
-log.trace("Started executing 'fb-cloud:scvmm:list_hosts_example.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
     // Mandatory  
+   // hyperv_connector_name = config.global('flintcloud-integrations.hyperv.name')
     connector_name= input.get("connector_name")                                     //Name of the Connector
     target= input.get("target")               			                            //Target address
     username = input.get("username")               			                        //Username
     password = input.get("password")               			                        //Password
+    hostname =input.get("host-name")                                               //Host Name
     shell = "ps"              			                                            //Shell Type
     transport = input.get("transport")               			                    //Transport
-    command = "Get-SCVMHost -VMMServer ${target}| convertto-json"                   //Command to run
+    command = "Get-SCVMHost -ComputerName ${hostname} -VMMServer ${target}| convertto-json 2>&1 -Compress"   //Command to run
     operation_timeout = 80               		                                    //Operation Timeout
     no_ssl_peer_verification = input.get("no_ssl_peer_verification")                //SSL Peer Verification
     port = input.get("port")                                                        //Port Number
     request_timeout= input.get("timeout")                                           //Timeout
 
-    log.info("action : list | name : ${connector_name} | tenant id : ${tenant_id} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
+   
+    log.info("action : list | name : ${connector_name} | target : ${target} | username : ${username} | password : ${password} | port : ${port} | transport : ${transport} | no_ssl_peer_verification : ${no_ssl_peer_verification}")
 
     connector_call = call.connector(connector_name)
                     .set("target",target)
@@ -62,4 +65,4 @@ catch( Exception e){
     output.set('exit-code', 1).set('message', e.message)
 }
 
-log.trace("Finished executing 'fb-cloud:scvmm:list_virtual_machine.groovy' flintbit...")
+log.trace("Finished executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
