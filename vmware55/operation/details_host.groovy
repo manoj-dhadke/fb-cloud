@@ -1,14 +1,15 @@
 // begin
-log.trace("Started execution 'fb-cloud:vmware55:operation:list_hosts.groovy' flintbit...") // execution Started
+log.trace("Started execution 'fb-cloud:vmware55:operation:details_host.groovy' flintbit...") // execution Started
 try{
 
     // Flintbit Input Parameters
     // Mandatory
     connector_name = input.get('connector_name') // vmware55 connector name
-    action = 'list-hosts' // name of action:list-hosts
+    action = 'host-details' // name of action:host-details
     username = input.get('username') // username of vmware55 connector
     password = input.get('password') // password of vmware55 connector
     url = input.get('url')
+    hostName = input.get('host-name')
 
     // Optional
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -18,9 +19,10 @@ try{
                           .set('url', url)
                           .set('username', username)
                           .set('password', password)
+                          .set('host-name', hostName)
     // checking connector name is nil or empty
     if (connector_name == null || connector_name == ""){
-        throw new Exception ('Please provide "VMWare connector name (connector_name)" to list hosts') 
+        throw new Exception ('Please provide "VMWare connector name (connector_name)" to list get details of a host') 
     }
 
     if (request_timeout == null || request_timeout instanceof String){
@@ -52,5 +54,5 @@ catch(Exception e){
     output.set('exit-code', -1).set('message', e.message)
 }
 
-log.trace("Finished execution 'fb-cloud:vmware55:operation:list_hosts.groovy' flintbit...")
+log.trace("Finished execution 'fb-cloud:vmware55:operation:details_host.groovy' flintbit...")
 // end
