@@ -46,7 +46,7 @@ try{
         output.set('result', response.toString()).set('exit-code', 0)
     }else{
         log.error("ERROR in executing ${connector_name} where, exitcode :: ${response_exitcode} | message :: ${response_message}")
-        output.set('message', response_message.toString()).set('exit-code', -1)
+        output.set('message', response_message.toString()).set('exit-code', response_exitcode)
     }
 }
 catch(Exception e){
