@@ -1,7 +1,7 @@
 // require 'json'
 // require 'rubygems'
 // #begin   
-log.trace("Started executing 'fb-cloud:scvmm:list_hosts_example.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:scvmm:operation:list_hosts_example.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
     // Mandatory  
@@ -67,4 +67,4 @@ catch( Exception e){
     output.set('exit-code', 1).set('message', e.message)
 }
 
-log.trace("Finished executing 'fb-cloud:scvmm:list_virtual_machine.groovy' flintbit...")
+log.trace("Finished executing 'fb-cloud:scvmm:operation:list_hosts_example.groovy' flintbit...")
