@@ -1,6 +1,3 @@
-// require 'json'
-// require 'rubygems'
-// #begin   
 log.trace("Started executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
@@ -10,10 +7,9 @@ try{
     target= input.get("target")               			                            //Target address
     username = input.get("username")               			                        //Username
     password = input.get("password")               			                        //Password
-    hostname =input.get("host-name")                                               //Host Name
     shell = "ps"              			                                            //Shell Type
     transport = input.get("transport")               			                    //Transport
-    command = "Get-SCVMHost -ComputerName ${hostname} -VMMServer ${target}| convertto-json 2>&1 -Compress"   //Command to run
+    command="Get-SCVMHost -VMMServer ${target} |Select ComputerName | convertto-json 2>&1 -Compress" //Command to run
     operation_timeout = 80               		                                    //Operation Timeout
     no_ssl_peer_verification = input.get("no_ssl_peer_verification")                //SSL Peer Verification
     port = input.get("port")                                                        //Port Number
@@ -65,4 +61,4 @@ catch( Exception e){
     output.set('exit-code', 1).set('message', e.message)
 }
 
-log.trace("Finished executing 'fb-cloud:scvmm:details_hosts.groovy' flintbit...")
+log.trace("Finished executing 'fb-cloud:scvmm:operation:details_hosts.groovy' flintbit...")
