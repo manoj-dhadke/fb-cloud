@@ -9,7 +9,7 @@ try{
     username = input.get('username') // username of vmware55 connector
     password = input.get('password') // password of vmware55 connector
     url = input.get('url')
-    hostName = input.get('host-name')
+    host_ip = input.get('host-ip')
 
     // Optional
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
@@ -19,7 +19,7 @@ try{
                           .set('url', url)
                           .set('username', username)
                           .set('password', password)
-                          .set('host-name', hostName)
+                          .set('host-ip', host_ip)
     // checking connector name is nil or empty
     if (connector_name == null || connector_name == ""){
         throw new Exception ('Please provide "VMWare connector name (connector_name)" to list get details of a host') 
