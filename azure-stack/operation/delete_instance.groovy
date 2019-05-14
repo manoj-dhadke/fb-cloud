@@ -1,5 +1,5 @@
 // begin
-log.trace("Started executing 'fb-cloud:azure:operation:delete_instance.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:azure-stack:operation:delete_instance.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
     // Mandatory
@@ -15,6 +15,7 @@ try{
     subscriptionId=provider_details.get('credentials').get('subscription_id')
     tenantId = provider_details.get('credentials').get('tenant_id')
     subtype=provider_details.get('subtype')
+    arm_endpoint = input.get('arm-endpoint')
 
     log.info("Flintbit input parameters are, action : ${action} | Group name : ${group_name} | Name : ${name}")
 
@@ -36,7 +37,12 @@ try{
     else{
         connector_call.set('instance-name', name)
     }
-
+    if (arm_endpoint == null || arm_endpoint  ==""){
+        throw new Exception('Please provide "Azure ARM Endpoint (arm_endpoint) to delete Instance')
+    }
+    else{
+        connector_call.set('arm-endpoint',arm_endpoint)
+    }
     if( request_timeout == null || request_timeout instanceof String){
         log.trace("Calling ${connector_name} with default timeout...")
         response = connector_call.sync()
@@ -65,5 +71,5 @@ catch(Exception e){
     log.error(e.message)
     output.set('exit-code', 1).set('message', e.message)
 }
-log.trace("Finished executing 'fb-cloud:azure:operation:delete_instance.groovy' flintbit")
+log.trace("Finished executing 'fb-cloud:azure-stack:operation:delete_instance.groovy' flintbit")
 // end
