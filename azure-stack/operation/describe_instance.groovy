@@ -1,5 +1,5 @@
 // begin
-log.trace("Started executing 'fb-cloud:azure:operation:describe_instance.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:azure-stack:operation:describe_instance.groovy' flintbit...")
 try{
     // Flintbit Input Parameters
     // Mandatory
@@ -14,6 +14,7 @@ try{
     tenant_id = input.get('tenant-id')
     subscription_id = input.get('subscription-id')
     client_id = input.get('client-id')
+    arm_endpoint = input.get('arm-endpoint')
 
     log.info("Flintbit input parameters are,connector_name: ${connector_name}| action : ${action} | Group name : ${group_name} | Name : ${instance_name} | tenant_id : ${tenant_id} | subscription_id : ${subscription_id} | key : ${key} | client_id : ${client_id}")
 
@@ -23,6 +24,7 @@ try{
                           .set('subscription-id', subscription_id)
                           .set('key', key)
                           .set('client-id', client_id)
+                          .set('arm-endpoint',arm_endpoint)
                           .set('instance-name',instance_name)
                           .set('group-name',group_name)
 
@@ -60,5 +62,5 @@ catch(Exception e){
     log.error(e.message)
     output.set('exit-code', -1).set('message', e.message)
 }
-log.trace("Finished executing 'fb-cloud:azure:operation:describe_instance.groovy' flintbit")
+log.trace("Finished executing 'fb-cloud:azure-stack:operation:describe_instance.groovy' flintbit")
 // end
