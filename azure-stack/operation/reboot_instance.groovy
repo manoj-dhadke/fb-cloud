@@ -4,7 +4,7 @@ try{
     // Flintbit Input Parameters
     // Mandatory
     connector_name = input.get('connector_name')
-    action = 'reboot-instance'
+    action = 'as-reboot-instance'
     group_name = input.get('group-name')
     name = input.get('instance-name')
 

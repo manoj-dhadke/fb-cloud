@@ -4,7 +4,7 @@ try{
     // Flintbit Input Parameters
     // Mandatory
     connector_name = input.get('connector_name')
-    action = 'describe-instance'
+    action = 'as-describe-instance'
     instance_name = input.get('instance-name')
     group_name = input.get('group-name')
 

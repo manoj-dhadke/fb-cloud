@@ -4,7 +4,7 @@ try{
     // Flintbit Input Parameters
     // Mandatory
     connector_name = config.global('flintcloud-integrations.azure.name')
-    action = 'delete-instance'
+    action = 'as-delete-instance'
     group_name = input.get('group-name')
     name = input.get('instance-name')
     provider_details = util.json(input.get('provider_details'))
