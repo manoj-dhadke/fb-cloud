@@ -37,8 +37,8 @@ try{
     }
 
     // $ Amazon EC2 Connector Response Meta Parameters
-    response_exitcode = response.exitcode	//# Exit status code
-    response_message = response.message	//# Execution status messages
+    response_exitcode = response.exitcode()	//# Exit status code
+    response_message = response.message()	//# Execution status messages
 
     if (response_exitcode == 0){
         log.info("SUCCESS in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
