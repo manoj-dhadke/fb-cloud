@@ -9,7 +9,7 @@ try{
     name = input.get('instance-name')
     provider_details = util.json(input.get('provider_details'))
     // Optional
-    request_timeout = 240000
+    request_timeout = 480000
     clientId=provider_details.get('credentials').get('client_id')
     key=provider_details.get('credentials').get('key')
     subscriptionId=provider_details.get('credentials').get('subscription_id')

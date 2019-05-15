@@ -9,7 +9,7 @@ try{
     name = input.get('instance-name')
 
     // Optional
-    request_timeout = 180000
+    request_timeout = 480000
     key = input.get('key')
     tenant_id = input.get('tenant-id')
     subscription_id = input.get('subscription-id')

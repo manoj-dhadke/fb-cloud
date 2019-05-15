@@ -7,7 +7,7 @@ try{
     action = 'as-list-region'
 
     // # Optional
-    request_timeout = 180000
+    request_timeout = 360000
     key = input.get('key')
     tenant_id = input.get('tenant-id')
     subscription_id = input.get('subscription-id')
