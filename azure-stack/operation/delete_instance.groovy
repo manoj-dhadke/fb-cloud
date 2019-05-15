@@ -7,25 +7,23 @@ try{
     action = 'as-delete-instance'
     group_name = input.get('group-name')
     name = input.get('instance-name')
-    provider_details = util.json(input.get('provider_details'))
     // Optional
     request_timeout = 480000
-    clientId=provider_details.get('credentials').get('client_id')
-    key=provider_details.get('credentials').get('key')
-    subscriptionId=provider_details.get('credentials').get('subscription_id')
-    tenantId = provider_details.get('credentials').get('tenant_id')
-    subtype=provider_details.get('subtype')
+    key = input.get('key')
+    tenant_id = input.get('tenant-id')
+    subscription_id = input.get('subscription-id')
+    client_id = input.get('client-id')
     arm_endpoint = input.get('arm-endpoint')
 
     log.info("Flintbit input parameters are, action : ${action} | Group name : ${group_name} | Name : ${name}")
 
     connector_call = call.connector(connector_name)
                           .set('action', action)
-                          .set('tenant-id', tenantId)
-                          .set('subscription-id', subscriptionId)
+                          .set('tenant-id', tenant_id)
+                          .set('subscription-id', subscription_id)
                           .set('key', key)
                           .set('group-name',group_name)
-                          .set('client-id', clientId)
+                          .set('client-id', client_id)
 
     if (connector_name == null || connector_name ==""){
         throw new Exception( 'Please provide "MS Azure connector name (connector_name)" to delete Instance')
