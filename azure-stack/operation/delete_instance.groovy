@@ -62,7 +62,7 @@ try{
     else{
         log.error("ERROR in executing ${connector_name} where, exitcode : ${response_exitcode} | message : ${response_message}")
         user_message=("Error in deleting Virtual Machine")
-        output.set('exit-code', 1).set('message', response_message).set('user_message', user_message)
+        output.set('exit-code', 1).set('user_message', user_message)
     }
 }
 catch(Exception e){
