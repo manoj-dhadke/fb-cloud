@@ -14,7 +14,7 @@ try{
     subscription_id = input.get('subscription-id') //Azure account subscription-id
     client_id = input.get('client-id') //Azure client-id
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
-    arm_endpoint = input.get('arm-endpoint')
+    arm_endpoint = input.get('arm_endpoint')
    //Checking that the connector name is provided or not,if not then throw exception with error message
    if (connector_name == null || connector_name == ""){
        throw new Exception ( 'Please provide "Azure connector name (connector_name)"')
@@ -35,9 +35,10 @@ try{
                             .set('client-id', client_id)
                             .set('data-disk-id',disk_id)
                             .set('arm-endpoint',arm_endpoint)
+
     if( request_timeout == null || request_timeout instanceof String ){
         log.trace("Calling ${connector_name} with default timeout...")
-        response = connector_call.sync()
+        response = connector_call.timeout(120000).sync()
      }
     else{
         log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
