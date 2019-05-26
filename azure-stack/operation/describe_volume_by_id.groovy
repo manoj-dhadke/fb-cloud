@@ -15,7 +15,7 @@ try{
    subscription_id = input.get('subscription-id')// $Azure account subscription-id
    client_id = input.get('client-id')// $Azure client-id
    arm_endpoint = input.get('arm-endpoint')
-
+   request_timeout = input.get('input')
 //    $Checking that the connector name is provided or not,if not then raise the exception with error message
    if (connector_name!=null && connector_name == ""){
        raise 'Please provide "MS Azure Stack connector name (connector_name)" to describe volume'
@@ -37,14 +37,14 @@ try{
                           .set('client-id', client_id)
                           .set('data-disk-id',data_disk_id)
                           .set('arm-endpoint',arm_endpoint)
-                          .timeout(2800000)
+                          .timeout(280000)
 
     if (request_timeout!=null ){
         log.trace("Calling ${connector_name} with default timeout...")
-        response = connector_call.sync()
+        response = connector_call.timeout(request_timeout).sync()
     }else{
         log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
-        response = connector_call.timeout(request_timeout).sync()
+        response = connector_call.timeout(280000).sync()
     }
 
 
