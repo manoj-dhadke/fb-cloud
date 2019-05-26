@@ -1,4 +1,4 @@
-log.trace("Started executing 'fb-cloud:azure:operation:delete_disk.groovy' flintbit...")
+log.trace("Started executing 'fb-cloud:azure-stack:operation:delete_disk.groovy' flintbit...")
 try{
 // Flintbit Input Parameters
     // Mandatory  
@@ -14,7 +14,7 @@ try{
     subscription_id = input.get('subscription-id') //Azure account subscription-id
     client_id = input.get('client-id') //Azure client-id
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
-    arm_endpoint = input.get('arm_endpoint')
+    arm_endpoint = input.get('arm-endpoint')
    //Checking that the connector name is provided or not,if not then throw exception with error message
    if (connector_name == null || connector_name == ""){
        throw new Exception ( 'Please provide "Azure connector name (connector_name)"')
@@ -62,4 +62,4 @@ try{
     log.error(e.message)
     output.set('exit-code', -2).set('message', e.message)
 }
-log.trace("Finished executing 'fb-cloud:azure:operation:delete_disk.groovy' flintbit")
+log.trace("Finished executing 'fb-cloud:azure-stack:operation:delete_disk.groovy' flintbit")
