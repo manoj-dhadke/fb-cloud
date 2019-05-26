@@ -14,7 +14,7 @@ try{
     subscription_id = input.get('subscription-id') //Azure account subscription-id
     client_id = input.get('client-id') //Azure client-id
     request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
-    arm_endpoint = input.get('arm-endpoint')
+
    //Checking that the connector name is provided or not,if not then throw exception with error message
    if (connector_name == null || connector_name == ""){
        throw new Exception ( 'Please provide "Azure connector name (connector_name)"')
@@ -24,9 +24,7 @@ try{
     if (disk_id == null || disk_id == ""){
        throw new Exception ( 'Please provide "Disk Id"')
     }
-    if (arm_endpoint == null || arm_endpoint == ""){
-        throw new Exception ('Please provide "Azure Stack arm endpoint" to delete volume')
-    }
+
         connector_call = call.connector(connector_name)
                             .set('action', action)
                             .set('tenant-id', tenant_id)
@@ -34,7 +32,7 @@ try{
                             .set('key', key)
                             .set('client-id', client_id)
                             .set('data-disk-id',disk_id)
-                            .set('arm-endpoint',arm_endpoint)
+
     if( request_timeout == null || request_timeout instanceof String ){
         log.trace("Calling ${connector_name} with default timeout...")
         response = connector_call.sync()
