@@ -41,6 +41,13 @@ try{
 		throw new Exception('Please provide "Security Key (security-key)"')
     }
 
+    //initializing the connector with the parameter
+	connector_call = call.connector(connector_name)
+                        .set('action', action)
+                        .set('bucket-name',bucket_name)
+                        .set("access-key",access_key)
+                        .set("security-key",security_key)
+    
     if(region==null || region==""){
         connector_call = connector_call.set("region","us-east-1")
         log.info("Setting the default region as 'us-east-1'")
@@ -48,12 +55,6 @@ try{
     else{
         connector_call = connector_call.set("region",region)
     }
-    //initializing the connector with the parameter
-	connector_call = call.connector(connector_name)
-                        .set('action', action)
-                        .set('bucket-name',bucket_name)
-                        .set("access-key",access_key)
-                        .set("security-key",security_key)
 
 	// checking that request timeout is provided or not
 	if(request_timeout==null || (request_timeout instanceof java.lang.String)){
