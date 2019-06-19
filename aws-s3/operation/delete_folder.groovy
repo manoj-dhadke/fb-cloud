@@ -15,7 +15,7 @@ try{
 	security_key = input.get("security-key") //aws account security key
 
 	// Optional input parameters
-	request_timeout = input.get('timeout')	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
+	request_timeout = 240000	// Execution time of the Flintbit in milliseconds (default timeout is 60000 milloseconds)
     region = input.get("region")
 
 	log.info("Connector Name :${connector_name}"+
