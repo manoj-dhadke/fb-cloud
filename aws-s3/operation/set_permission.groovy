@@ -7,6 +7,7 @@ log.trace("Started executing 'fb-cloud:aws-s3:operation:set_permission.groovy' f
 try{
 	// Flintbit Input Parameters
 	// Mandatory Input Parameters
+
 	connector_name = input.get('connector_name') // Name of the aws-s3 Connector
 	action = 'set-permission' //input.get("action")
 	bucket_name = input.get('bucket-name') //name of the bucket
@@ -14,10 +15,7 @@ try{
 	permissiontype = input.get('permission-type') //permission which you want to set for file
     access_key = input.get("access-key") //aws account access key
     security_key = input.get("security-key") //aws account security key
-	
-       // Optional input parameters
-       request_timeout = 240000	// Execution time of the Flintbit in milliseconds
-       region = input.get("region")
+    region = input.get("region")
 
        log.info("Connector Name :${connector_name}"+
                    "| Action :${action}"+ 
@@ -55,6 +53,11 @@ try{
 		throw new Exception('Please provide "Security Key (security-key)"')
     }
 
+    // checking that region is provided or not
+	if(region==null || region==""){
+        throw new Exception('Please provide "Region (region)"')
+    }
+
     //initializing the connector with the parameter
        connector_call = call.connector(connector_name)
                   .set('action', action)
@@ -63,25 +66,22 @@ try{
                   .set('file', filename)
                   .set("access-key",access_key)
                   .set("security-key",security_key)
+                  .set("region",region)
 
-    if(region==null || region==""){
-        connector_call = connector_call.set("region","us-east-1")
-        log.info("Setting the default region as 'us-east-1'")
+    if(input.hasProperty("request_timeout")){
+        request_timeout = input.get("request_timeout");
+        if(request_timeout!=null || request_timeout!=""){
+            response = connector_call.timeout(request_timeout).sync(); 
+            log.info("Request Timeout: "+request_timeout);
+        }
+        else{
+			response = connector_call.timeout(240000).sync(); 
+            log.info("Calling connector with request_timeout 240000 miliseconds");
+        }
     }
-    else{
-        connector_call = connector_call.set("region",region)
-    }
-
-	// checking that request timeout is provided or not
-	if(request_timeout==null || (request_timeout instanceof java.lang.String)){
-		log.trace("Calling ${connector_name} with default timeout...")
-		// calling aws-s3 connector
-		response = connector_call.sync()
-    }
-	else{
-		log.trace("Calling ${connector_name} with given timeout ${request_timeout}...")
-		// calling aws-s3 connector
-		response = connector_call.timeout(request_timeout).sync()
+    else{  //request_timeout key not present in input JSON 
+		response = connector_call.timeout(240000).sync(); 
+        log.info("Calling connector with request_timeout 240000 miliseconds");
     }
 
 	response_exitcode = response.exitcode()              		// Exit status code
