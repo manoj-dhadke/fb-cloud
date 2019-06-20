@@ -18,10 +18,6 @@ log.info("Connector Name: "+connector_name);
 action = "start-instances";
 log.info("Action: "+action);
 
-//Timeout
-request_timeout = 60000;
-log.info("Timeout: "+request_timeout);
-
 if(input_scope.hasOwnProperty("cloud_connection")){
 
     //Access-Key & Security-Key - mandatory
@@ -68,7 +64,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
         log.error("Input does not contain the key 'instance_id'")
     }
 
-    //Region - Not mandatory
+    //Region - mandatory
     if(input_scope.hasOwnProperty("region")){
         region = input.get("region");
         if(region!=null || region!=""){
@@ -76,15 +72,32 @@ if(input_scope.hasOwnProperty("cloud_connection")){
             log.info("Region: "+region);
         }
         else{
-            log.info("Region is null or empty string.");
+            log.error("Region is null or empty string.");
         }
     }
     else{  //region key not present in input JSON 
-        log.info("Input does not contain the key 'region'");
+        log.error("Input does not contain the key 'region'");
+    }
+
+    //Timeout - NOT mandatory
+    if(input_scope.hasOwnProperty("request_timeout")){
+        request_timeout = input.get("request_timeout");
+        if(request_timeout!=null || request_timeout!=""){
+            connector_call.set("timeout",request_timeout); 
+            log.info("Request Timeout: "+request_timeout);
+        }
+        else{
+            connector_call.set("timeout",240000); 
+            log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
+        }
+    }
+    else{
+        connector_call.set("timeout",240000); 
+        log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
     }
 
     //Connector Call
-    response = connector_call.set("action",action).timeout(request_timeout).sync();
+    response = connector_call.set("action",action).sync();
 
     //Response Metaparameters
     response_exitcode = response.exitcode();
