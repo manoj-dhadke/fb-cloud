@@ -17,11 +17,7 @@ log.info("Connector Name: "+connector_name);
 action = "create-application-load-balancer";
 log.info("Action: "+action);
 
-//Timeout
-request_timeout = 60000;
-log.info("Timeout: "+request_timeout);
-
-connector_call.set("action",action).set("timeout",request_timeout);
+connector_call.set("action",action);
 
 if(input_scope.hasOwnProperty("cloud_connection")){
 
@@ -78,7 +74,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
         log.error("Input does not contain the key 'subnet_id'")
     }
 
-    //Region -not mandatory
+    //Region - mandatory
     if(input_scope.hasOwnProperty("region")){
         region = input.get("region");
         if(region!=null || region!=""){
@@ -86,27 +82,12 @@ if(input_scope.hasOwnProperty("cloud_connection")){
             log.info("Region: "+region);
         }
         else{
-            log.info("Region is null or empty string.");
+            log.error("Region is null or empty string.");
         }
     }
     else{  //region key not present in input JSON 
-        log.info("Input does not contain the key 'region'");
+        log.error("Input does not contain the key 'region'");
     }
-
-    /*Scheme - not mandatory
-    if(input_scope.hasOwnProperty("scheme")){
-        scheme = input.get("scheme");
-        if(scheme!=null || scheme!=""){
-            connector_call.set("scheme",scheme); 
-            log.info("scheme: "+scheme);
-        }
-        else{
-            log.info("scheme is null or empty string.");
-        }
-    }
-    else{  //scheme key not present in input JSON 
-        log.info("Input does not contain the key 'scheme'");
-    }*/
 
     //Security Groups - not mandatory
     if(input_scope.hasOwnProperty("security_groups")){
@@ -133,20 +114,22 @@ if(input_scope.hasOwnProperty("cloud_connection")){
         log.info("Input does not contain the key 'security_groups'");
     }
 
-    /*Tags - not manadatory
-    if(input_scope.hasOwnProperty("tags")){
-        tags = input.get("tags");
-        if(tags!=null || tags!=""){
-            connector_call.set("tags",tags); 
-            log.info("tags: "+tags);
+    //Timeout - NOT mandatory
+    if(input_scope.hasOwnProperty("request_timeout")){
+        request_timeout = input.get("request_timeout");
+        if(request_timeout!=null || request_timeout!=""){
+            connector_call.set("timeout",request_timeout); 
+            log.info("Request Timeout: "+request_timeout);
         }
         else{
-            log.info("tags is null or empty string.");
+            connector_call.set("timeout",240000); 
+            log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
         }
     }
-    else{  //tags key not present in input JSON 
-        log.info("Input does not contain the key 'tags'");
-    }*/
+    else{
+        connector_call.set("timeout",240000); 
+        log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
+    }
     
     //Connector call
     response = connector_call.sync();

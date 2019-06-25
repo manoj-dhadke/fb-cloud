@@ -17,11 +17,7 @@ log.info("Connector Name: "+connector_name);
 action = "associate-subnet-ipv6-cidr-block";
 log.info("Action: "+action);
 
-//Timeout
-request_timeout = 60000;
-log.info("Timeout: "+timeout);
-
-connector_call.set("action",action).set("timeout",request_timeout);
+connector_call.set("action",action);
 
 if(input_scope.hasOwnProperty("cloud_connection")){
 
@@ -83,11 +79,28 @@ if(input_scope.hasOwnProperty("cloud_connection")){
             log.info("Region: "+region);
         }
         else{
-            log.info("Region is null or empty string.");
+            log.error("Region is null or empty string.");
         }
     }
     else{  //region key not present in input JSON 
-        log.info("Input does not contain the key 'region'");
+        log.error("Input does not contain the key 'region'");
+    }
+
+    //Timeout - NOT mandatory
+    if(input_scope.hasOwnProperty("request_timeout")){
+        request_timeout = input.get("request_timeout");
+        if(request_timeout!=null || request_timeout!=""){
+            connector_call.set("timeout",request_timeout); 
+            log.info("Request Timeout: "+request_timeout);
+        }
+        else{
+            connector_call.set("timeout",240000); 
+            log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
+        }
+    }
+    else{
+        connector_call.set("timeout",240000); 
+        log.info("request_timeout not given. Setting 240000 miliseconds as timeout");
     }
 
     //Connnector Call
@@ -99,7 +112,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 
     if(response_exitcode==0){
         log.info("Associated Subnet IPv6 CIDR Block successfully.");
-        output.set("user_message","Associated Subnet IPv6 CIDR Bloack successfully.")
+        output.set("user_message","Associated Subnet IPv6 CIDR Block successfully.")
                 .set("exit-code",response_exitcode)
                 .set("message",response_message);
         log.trace("Finished executing 'fb-cloud:aws-ec2:operation:workflow:associate_subnet_ipv6_cidr_block.js' successfully.")
