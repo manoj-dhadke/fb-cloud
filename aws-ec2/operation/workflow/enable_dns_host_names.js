@@ -60,6 +60,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(input_scope.hasOwnProperty("is_enable_dns_host_names")){
         is_enable_dns_host_names = input.get("is_enable_dns_host_names");
         if(is_enable_dns_host_names!=null || is_enable_dns_host_names!=""){
+            is_enable_dns_host_names = JSON.parse(is_enable_dns_host_names);
             connector_call.set("is-enable-dns-host-names",is_enable_dns_host_names); 
             log.info("Is Enable DNS Host Names: "+is_enable_dns_host_names);
         }

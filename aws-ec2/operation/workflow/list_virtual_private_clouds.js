@@ -86,19 +86,20 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 
     if(response_exitcode==0){
         if(vpcs_set.length>0){
-            user_message = "The VPC List is:<br>";
+            user_message = "<b>The VPC List is:</b><ul>";
             for(i=0;i<vpcs_set.length;i++){
-                user_message = user_message + "VPC"+(i+1)+"<br>"+
-                                "VPC ID: "+vpcs_set[i].get("vpc-id")+"<br>"+
-                                "CIDR Block: "+vpcs_set[i].get("cidr-block")+"<br>"+
-                                "DHCP Option ID: "+vpcs_set[i].get("dhcp-option-id")+"<br>"+
-                                "Instance Tenancy: "+vpcs_set[i].get("instance-tenancy")+"<br>";
+                user_message = user_message + "    <li><b>VPC "+(i+1)+"</b><ol>"+
+                                "        <li><b>VPC ID:</b> "+vpcs_set[i].get("vpc-id")+"</li>"+
+                                "        <li><b>CIDR Block:</b> "+vpcs_set[i].get("cidr-block")+"</li>"+
+                                "        <li><b>DHCP Option ID:</b> "+vpcs_set[i].get("dhcp-option-id")+"</li>"+
+                                "        <li><b>Instance Tenancy:</b> "+vpcs_set[i].get("instance-tenancy")+"</li></ol></li>";
             }
+            user_message = user_message + "</ul>";
             output.set("user_message",user_message);
             log.info(user_message);
         }
         else{
-            user_message = "No Subnets in the given Region";
+            user_message = "No VPCs in the given Region";
             output.set("user_message",user_message);
             log.info(user_message);
         }

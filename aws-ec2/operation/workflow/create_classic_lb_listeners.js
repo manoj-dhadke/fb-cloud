@@ -149,8 +149,8 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     response_message = response.message();
 
     if(response_exitcode==0){
-        log.info("Classic Listeners Created Successfully.");
-        output.set("user_message","Classic Listeners Created Successfully")
+        log.info("Classic Load Balancer's Listener has been Created Successfully.");
+        output.set("user_message","Classic Load Balancer's Listener has been Created Successfully.")
                 .set("exit-code",response_exitcode)
                 .set("message",response_message);
         log.trace("Finished executing 'fb-cloud:aws-ec2:operation:workflow:create_classic_lb_listeners.js' successfully");

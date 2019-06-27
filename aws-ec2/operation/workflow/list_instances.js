@@ -82,12 +82,13 @@ log.info("Action: "+action);
     instance_set = response.get("instance-list");
 
     if(response_exitcode==0){
-        user_message = "";
+        user_message = "The List of Instances:<ol>";
         if(instance_set.length!=0){
             for(i = 0; i<instance_set.length ; i++){
                 log.info("Instance ID "+(i+1)+": "+instance_set[i].get("instance-id"));
-                user_message = user_message + "Instance ID "+(i+1)+" :"+instance_set[i].get("instance-id");
+                user_message = user_message + "<li><b>Instance ID:</b> "+instance_set[i].get("instance-id")+"</li>";
             }
+            user_message = user_message+"</ol>";
             log.info("Instances Listed Successfully");
         }
         else{

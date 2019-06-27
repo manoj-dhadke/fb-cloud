@@ -87,22 +87,23 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(response_exitcode==0){
         
         if(load_balancers_list.length>0){
-            user_message = "The List of Application Load Balancers is:<br>";
+            user_message = "<b>The List of Application Load Balancers is:</b><ul>";
 
             for( i = 0 ; i < load_balancers_list.length ; i++){
-                user_message = user_message + "Application Load Balancer"+(i+1)+"<br>"+
-                            "Name: "+load_balancers_list[i].get("name")+"<br>"+
-                            "Schema: "+load_balancers_list[i].get("schema")+"<br>"+
-                            "VPC ID: "+load_balancers_list[i].get("vpc-id")+"<br>"+
-                            "Load Balancer ARN: "+load_balancers_list[i].get("load-balancer-arn")+"<br>"+
-                            "Availability Zones: "+load_balancers_list[i].get("availability-zone")+"<br>"+
-                            "Security Groups: "+load_balancers_list[i].get("security-group-list")+"<br>";
+                user_message = user_message + "    <li><b>Application Load Balancer "+(i+1)+"</b><ol>"+
+                            "        <li><b>Name:</b> "+load_balancers_list[i].get("name")+"</li>"+
+                            "        <li><b>Schema:</b> "+load_balancers_list[i].get("schema")+"</li>"+
+                            "        <li><b>VPC ID:</b> "+load_balancers_list[i].get("vpc-id")+"</li>"+
+                            "        <li><b>Load Balancer ARN:</b> "+load_balancers_list[i].get("load-balancer-arn")+"</li>"+
+                            "        <li><b>Availability Zones:</b> "+load_balancers_list[i].get("availability-zone")+"</li>"+
+                            "        <li><b>Security Groups:</b> "+load_balancers_list[i].get("security-group-list")+"</li></ol></li>";
             }
+            user_message = user_message + "</ul>";
             log.info(user_message);
             output.set("user_message",user_message);
         }
         else{
-            user_message = "No Application Load Balancers in the given Region";
+            user_message = "No Application Load Balancers available in the given Region";
             output.set("user_message",user_message);
             log.info(user_message);
         }

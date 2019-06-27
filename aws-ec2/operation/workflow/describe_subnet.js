@@ -99,11 +99,11 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     subnet_details = response.get("subnet-details");
 
     if(response_exitcode==0){
-        user_message = "The Subnet Details are:<br>" + 
-                        " Subnet ID: "+subnet_details.get("subnet-id")+"<br>"+
-                        " CIDR Block: "+subnet_details.get("cidr-block")+"<br>"+
-                        " VPC ID: "+subnet_details.get("vpc-id")+"<br>"+
-                        " Availabilty Zone: "+subnet_details.get("availability-zone");
+        user_message = "<b>The Subnet Details are:</b><ul>" + 
+                        "    <li><b>Subnet ID:</b> "+subnet_details.get("subnet-id")+"</li>"+
+                        "    <li><b>CIDR Block:</b> "+subnet_details.get("cidr-block")+"</li>"+
+                        "    <li><b>VPC ID:</b> "+subnet_details.get("vpc-id")+"</li>"+
+                        "    <li><b>Availabilty Zone:</b> "+subnet_details.get("availability-zone")+"</li></ul>";
         log.info(user_message);
         output.set("message",response_message)
             .set("exit-code",response_exitcode)

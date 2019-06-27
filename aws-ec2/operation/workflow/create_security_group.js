@@ -115,7 +115,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 
     if(response_exitcode==0){
         log.info("Successfully created a Security Group");
-        user_message = "Successfully created a Security Group with Group-ID: "+group_id;
+        user_message = "Successfully created a Security Group with <b>Group-ID: "+group_id+"</b>";
         output.set("message",response_message)
             .set("exit-code",response_exitcode)
             .set("user_message",user_message)

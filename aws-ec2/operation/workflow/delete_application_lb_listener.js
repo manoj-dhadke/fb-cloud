@@ -106,10 +106,10 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     response_message = response.message();
 
     if(response_exitcode==0){
-        log.info("Successfully deleted the Application LB Listener.");
+        log.info("Successfully Deleted the Application Load Balancer's Listener.");
         output.set("message",response_message)
             .set("exit-code",response_exitcode)
-            .set("user_message","Successfully deleted the Application LB Listener.");
+            .set("user_message","Successfully Deleted the Application Load Balancer's Listener.");
         log.trace("Finished executing 'fb-cloud:aws-ec2:operation:workflow:delete_application_lb_listener.js' successfully");
     }
     else{

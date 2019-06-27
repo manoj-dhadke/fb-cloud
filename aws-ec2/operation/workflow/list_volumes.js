@@ -86,15 +86,16 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(response_exitcode==0){
        
        if(volume_list.length>1){
-           user_message = "The List of Volumes is:<br>";
+           user_message = "<b>The List of Volumes is:</b><ul>";
             for(i=0;i<volume_list.length;i++){
-                user_message = user_message+"Volume"+(i+1)+":<br>"+
-                               "Volume ID: "+volume_list[i].get("volume-id")+"<br>"+
-                               "Volume Type: "+volume_list[i].get("volume-type")+"<br>"+
-                               "Size: "+volume_list[i].get("size")+"<br>"+
-                               "Snapshot ID: "+volume_list[i].get("snapshot-id")+"<br>"+
-                               "Availability Zone: "+volume_list[i].get("availability-zone")+"<br>";
+                user_message = user_message+"    <li><b>Volume"+(i+1)+":</b><ol>"+
+                               "        <li><b>Volume ID:</b> "+volume_list[i].get("volume-id")+"</li>"+
+                               "        <li><b>Volume Type:</b> "+volume_list[i].get("volume-type")+"</li>"+
+                               "        <li><b>Size:</b> "+volume_list[i].get("size")+"</li>"+
+                               "        <li><b>Snapshot ID:</b> "+volume_list[i].get("snapshot-id")+"</li>"+
+                               "        <li><b>Availability Zone:</b> "+volume_list[i].get("availability-zone")+"</li></ol>";
             }
+            user_message = user_message + "</ul>";
             output.set("user_message",user_message);
         }
         else{ //If no volumes available in the given Region

@@ -151,8 +151,8 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     response_message = response.message();
 
     if(response_exitcode==0){
-        log.info("Applications Listeners Created Successfully.");
-        output.set("user_message","Applications Listeners Created Successfully")
+        log.info("Application Load Balancer's Listener has been Created Successfully.");
+        output.set("user_message","Application Load Balancer's Listener has been Created Successfully.")
                 .set("exit-code",response_exitcode)
                 .set("message",response_message);
         log.trace("Finished executing 'fb-cloud:aws-ec2:operation:workflow:create_application_lb_listeners.js' successfully");

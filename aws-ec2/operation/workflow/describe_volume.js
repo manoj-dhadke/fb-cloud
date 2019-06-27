@@ -99,12 +99,12 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     volume_details = response.get("volume-details");
 
     if(response_exitcode==0){
-        user_message = "The Volume Details are:<br>"+
-                               "Volume ID: "+volume_details.get("volumeId")+"<br>"+
-                               "Volume Type: "+volume_details.get("volumeType")+"<br>"+
-                               "Size: "+volume_details.get("size")+"<br>"+
-                               "Snapshot ID: "+volume_details.get("snapshotId")+"<br>"+
-                               "Availability Zone: "+volume_details.get("availabilityZone")+"<br>";
+        user_message = "<b>The Volume Details are:</b><ul>"+
+                               "    <li><b>Volume ID:</b> "+volume_details.get("volumeId")+"</li>"+
+                               "    <li><b>Volume Type:</b> "+volume_details.get("volumeType")+"</li>"+
+                               "    <li><b>Size:</b> "+volume_details.get("size")+"GiB</li>"+
+                               "    <li><b>Snapshot ID:</b> "+volume_details.get("snapshotId")+"</li>"+
+                               "    <li><b>Availability Zone:</b> "+volume_details.get("availabilityZone")+"</li></ul>";
         output.set("message",response_message)
             .set("exit-code",response_exitcode)
             .set("user_message",user_message)
