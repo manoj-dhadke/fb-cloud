@@ -87,23 +87,32 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(response_exitcode==0){
 
         if(load_balancers_list.length>0){
-            user_message = "The Classic Load Balancer Details are:<br>";
+            user_message = "<b>The Classic Load Balancer Details are:</b><ul>";
 
             for(i=0;i<load_balancers_list.length;i++){
-                user_message = user_message + "Classic Load Balancer"+(i+1)+"<br>"+
-                            "Name: "+load_balancers_list[i].get("name")+"<br>"+
-                            "Schema: "+load_balancers_list[i].get("schema")+"<br>"+
-                            "VPC ID: "+load_balancers_list[i].get("vpc-id")+"<br>"+
-                            "Listener Details: "+load_balancers_list[i].get("listener-details")+"<br>"+
-                            "Availability Zones: "+load_balancers_list[i].get("availability-zone")+"<br>"+
-                            "Subnet IDs: "+load_balancers_list[i].get("subnet-list")+"<br>"+
-                            "Security Group IDs:"+load_balancers_list[i].get("security-group-list")+"<br>";
+                user_message = user_message + "    <li><b>Classic Load Balancer "+(i+1)+"</b><ol>"+
+                            "        <li><b>Name:</b> "+load_balancers_list[i].get("name")+"</li>"+
+                            "        <li><b>VPC ID:</b> "+load_balancers_list[i].get("vpc-id")+"</li>";
+                user_message = user_message + "        <li><b>Subnet IDs:</b><ul>";
+                subnet_list = load_balancers_list[i].get("subnet-list");
+                for(j=0;j<subnet_list.length;j++){
+                    user_message = user_message + "          <li>"+subnet_list[j]+"</li>";
+                }
+                user_message = user_message + "</ul>";
+                user_message = user_message + "        <li><b>Instance IDs:</b><ul>";
+                instance_id_list = load_balancers_list[i].get("instance-id-list");
+                for(j=0;j<instance_id_list.length;j++){
+                    user_message = user_message + "          <li>"+instance_id_list[j]+"</li>";
+                }
+                user_message = user_message + "</ul>";
+                user_message = user_message + "</li></ol></li>"
             }
+            user_message = user_message + "</ul>";
             log.info(user_message);
             output.set("user_message",user_message);
         }
         else{
-            user_message = "No Classic Load Balancers in the given Region";
+            user_message = "No Classic Load Balancers available in the given Region";
             output.set("user_message",user_message);
             log.info(user_message);
         }

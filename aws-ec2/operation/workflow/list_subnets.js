@@ -86,14 +86,15 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 
     if(response_exitcode==0){
         if(subnet_list.length>0){
-            user_message = "The Subnet Details are:<br>";
+            user_message = "<b>The Subnet Details are:</b><ul>";
             for(i=0;i<subnet_list.length;i++){
-                user_message = user_message + "Subnet"+(i+1)+"<br>"+
-                                "Availability Zone: "+subnet_list[i].get("availability-zone")+"<br>"+
-                                "CIDR Block: "+subnet_list[i].get("cidr-block")+"<br>"+
-                                "VPC ID: "+subnet_list[i].get("vpc-id")+"<br>"+
-                                "Subnet ID: "+subnet_list[i].get("subnet-id")+"<br>";
+                user_message = user_message + "    <li><b>Subnet"+(i+1)+"</b><ol>"+
+                                "        <li><b>Availability Zone:</b> "+subnet_list[i].get("availability-zone")+"</li>"+
+                                "        <li><b>CIDR Block:</b> "+subnet_list[i].get("cidr-block")+"</li>"+
+                                "        <li><b>VPC ID:</b> "+subnet_list[i].get("vpc-id")+"</li>"+
+                                "        <li><b>Subnet ID:</b> "+subnet_list[i].get("subnet-id")+"</li></ol>";
             }
+            user_message = user_message + "</ul>";
             output.set("user_message",user_message);
             log.info(user_message);
         }

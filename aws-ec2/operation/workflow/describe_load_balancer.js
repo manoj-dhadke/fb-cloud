@@ -100,9 +100,9 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     load_balancers_details = load_balancers_details[0];
 
     if(response_exitcode==0){
-        user_message = "Application Load Balancer Details are:<br>"
-                        +"Name: "+load_balancers_details.get("name")+"<br>"
-                        +"VPC ID: "+load_balancers_details.get("vpc-id")+"<br>";
+        user_message = "<b>Classic Load Balancer Details are:</b><ul>"
+                        +"    <li><b>Name:</b> "+load_balancers_details.get("name")+"</li>"
+                        +"    <li><b>VPC ID:</b> "+load_balancers_details.get("vpc-id")+"</li></ul>";
         log.info(user_message);
         output.set("exit-code",0)
               .set("user_message",user_message)
@@ -119,52 +119,3 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 else{   //cloud_connection key not present in input JSON
     log.error("Cloud Connection not given. Can not authenticate without Secret-Key and Access-Key");
 }
-
-/*{
-      "name": "Test",
-      "schema": "internet-facing",
-      "vpc-id": "vpc-4ede6d34",
-      "dns-name": "Test-510573296.us-east-1.elb.amazonaws.com",
-      "canonical-hosted-zone-name": "Test-510573296.us-east-1.elb.amazonaws.com",
-      "canonical-hosted-zone-id": "Z35SXDOTRQ7X7K",
-      "created-time": "Fri May 31 15:57:21 IST 2019",
-      "listener-details": [
-        {
-          "key": 8081,
-          "instance-port": 8081,
-          "instance-protocol": "HTTP",
-          "protocol": "HTTP",
-          "ssl-certificate-id": null,
-          "load-balancer-port": 26
-        }
-      ],
-      "availability-zone": [
-        "us-east-1b",
-        "us-east-1c"
-      ],
-      "backend-server-description": [],
-      "healthcheck-details": {
-        "healthy-threshold": 10,
-        "interval": 30,
-        "target": "TCP:8081",
-        "timeout": "TCP:8081",
-        "unhealthy-threshold": 2
-      },
-      "policy-details": {
-        "app-cookie-stickness-policy-details": [],
-        "lb-cookie-stickness-policy-details": [],
-        "other-policy-details": []
-      },
-      "subnet-list": [
-        "subnet-c6eadd8c",
-        "subnet-dab8daf4"
-      ],
-      "security-group-list": [
-        "sg-509aa312"
-      ],
-      "source-security-group-details": {
-        "group-name": "default",
-        "owner-alias": "026434237240"
-      },
-      "instance-id-list": []
-    } */

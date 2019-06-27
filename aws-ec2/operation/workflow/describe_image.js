@@ -100,13 +100,14 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     image_info = response.get("image-info");
 
     if(response_exitcode==0){
-        user_message = "The Image Description is:<br>";
-        user_message = user_message + "Architecture: "+image_info.get("architecture")+"<br>"+
-                        " Description: "+image_info.get("description")+"<br>"+
-                        " Image Name: "+image_info.get("image-name")+"<br>"+
-                        " Image Location: "+image_info.get("image-location")+"<br>"+
-                        " Kernel ID: "+image_info.get("kernel-id")+"<br>"+
-                        " Hypervisor: "+image_info.get("hypervisor");
+        user_message = "<b>The Image Description is:</b><ul>";
+        user_message = user_message + "    <li><b>Architecture:</b> "+image_info.get("architecture")+"</li>"+
+                        "    <li><b>Description:</b> "+image_info.get("description")+"</li>"+
+                        "    <li><b>Image Type:</b> "+image_info.get("image-type")+"</li>"+
+                        "    <li><b>Image Name:</b> "+image_info.get("image-name")+"</li>"+
+                        "    <li><b>Image Location:</b> "+image_info.get("image-location")+"</li>"+
+                        "    <li><b>Kernel ID:</b> "+image_info.get("kernel-id")+"</li>"+
+                        "    <li><b>Hypervisor:</b> "+image_info.get("hypervisor")+"</li></ul>";
         log.info(user_message);
         output.set("user_message",user_message)
             .set("exit-code",response_exitcode)

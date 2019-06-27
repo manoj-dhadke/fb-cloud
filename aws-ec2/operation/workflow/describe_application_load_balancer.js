@@ -100,10 +100,10 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     load_balancers_details = load_balancers_details[0];
 
     if(response_exitcode==0){
-        user_message = "Application Load Balancer Details are:<br>"
-                        +"Name: "+load_balancers_details.get("name")+"<br>"
-                        +"Load Balancer ARN: "+load_balancers_details.get("load-balancer-arn")+"<br>"
-                        +"VPC ID: "+load_balancers_details.get("vpc-id")+"<br>";
+        user_message = "<b>Application Load Balancer Details are:</b><ul>"
+                        +"    <li><b>Name:</b> "+load_balancers_details.get("name")+"</li>"
+                        +"    <li><b>Load Balancer ARN:</b> "+load_balancers_details.get("load-balancer-arn")+"</li>"
+                        +"    <li><b>VPC ID:</b> "+load_balancers_details.get("vpc-id")+"</li></ul>";
         log.info(user_message);
         output.set("exit-code",0)
               .set("user_message",user_message)

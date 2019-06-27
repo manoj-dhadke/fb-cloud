@@ -110,11 +110,12 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     instance_set = response.get("terminated-instance-set");
 
     if(response_exitcode==0){
-        user_message = "";
+        user_message = "The List of Instances is:<ol>";
         for(i = 0; i<instance_set.length ; i++){
-            log.info("Instance ID: "+instance_set[i].get("instance-id")+"  |  Current State: "+instance_set[i].get("current-state")+"  |  Previous State: "+instance_set[i].get("previous-state"));
-            user_message = user_message +(i+1) +". Instance ID: "+instance_set[i].get("instance-id")+"  |  Current State: "+instance_set[i].get("current-state")+"  |  Previous State: "+instance_set[i].get("previous-state")+"<br>";
+            log.info("Instance ID: "+instance_set[i].get("instance-id")+"  |  Current State: terminated  |  Previous State: "+instance_set[i].get("previous-state"));
+            user_message = user_message +"<li><b>Instance ID:</b> "+instance_set[i].get("instance-id")+"  |  <b>Current State:</b> terminated  |  <b>Previous State:</b> "+instance_set[i].get("previous-state")+"</li>";
         }
+        user_message = user_message + "</ol>";
         log.info("Instances Terminated Successfully");
         output.set("user_message",user_message)
             .set("exit-code",response_exitcode)

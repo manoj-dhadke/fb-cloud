@@ -42,9 +42,12 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     //Instance ID - mandatory
     if(input_scope.hasOwnProperty("instance_id")){
         instance_id = input.get("instance_id");
-        if(instance_id!=null || instance_id!=""){
-            connector_call.set("instance-id",instance_id); 
-            log.info("Instance ID: "+instance_id);
+        index = instance_id.indexOf(",");
+        if(index==-1){
+            if(instance_id!=null || instance_id!=""){
+                connector_call.set("instance-id",instance_id); 
+                log.info("Instance ID: "+instance_id);
+            }
         }
         else{
             log.error("Instance ID is null or empty string.")
@@ -97,7 +100,7 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     instance_set = response.get("instances-info");
 
     if(response_exitcode==0){
-        user_message = "";
+        user_message = "<b>The Instance Details are:</b><ul>";
         for( i = 0 ; i < instance_set.length ; i++){
             log.info("Amazon EC2 instance image id :"+instance_set[i].get("image-id")+
                 " | public ip :"+instance_set[i].get("public-ip")+
@@ -126,12 +129,14 @@ if(input_scope.hasOwnProperty("cloud_connection")){
                 " | vpc id : "+instance_set[i].get("vpc-id")+
                 " | ami launch index : "+instance_set[i].get("ami-launch-index"));
                 
-            user_message = user_message + "Amazon EC2 instance image id :"+instance_set[i].get("image-id")+
-                        " | public ip :"+instance_set[i].get("public-ip")+
-                        " | instance type :"+instance_set[i].get("instance-type")+
-                        " | key-name : "+instance_set[i].get("key-name")+
-                        " | private ip : "+instance_set[i].get("private-ip")
+            user_message = user_message +"    <li><b>Instance "+(i+1)+"</b><ol>"+
+                        "        <li><b>Amazon EC2 instance image id:</b> "+instance_set[i].get("image-id")+"</li>"
+                        "        <li><b>Public IP:</b> "+instance_set[i].get("public-ip")+"</li>"
+                        "        <li><b>Instance Type:</b> "+instance_set[i].get("instance-type")+"</li>"
+                        "        <li><b>Key-Name:</b> "+instance_set[i].get("key-name")+"</li>"
+                        "        <li><b>Private IP:</b> "+instance_set[i].get("private-ip")+"</li></ol></li>"
         }
+        user_message = user_message + "</ul>";
         log.info("Instances Described Successfully");
         output.set("user_message",user_message)
             .set("exit-code",response_exitcode)
@@ -148,4 +153,3 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 else{  //cloud_connection key not present in input JSON 
    log.error("Cloud Connection not given. Can not authenticate without Secret-Key and Access-Key");
 }
-

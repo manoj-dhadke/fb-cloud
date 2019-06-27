@@ -99,13 +99,18 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     listener_details = response.get('listener-details');
 
     if(response_exitcode==0){
-        user_message = "";
-        for( i = 0 ; i < listener_details.length ; i++ ){
-            user_message = user_message + "Listener " + (i+1) + ".<br>"
-                           +"Listener ARN: "+listener_details[i].get("listener-arn")+"<br>"
-                           +"Port: "+listener_details[i].get("port")+"<br>"
-                           +"Protocol: "+listener_details[i].get("protocol")+"<br>"
-                           +"Load Balancer ARN: "+listener_details[i].get("load-balancer-arn")+"<br>"
+        if(listener_details.length==0){
+            user_message = "There are NO Listeners Configured to this Load Balancer.";
+        }
+        else{
+            user_message = "<b>The Load Balancer Listener Details are:</b><ul>";
+            for( i = 0 ; i < listener_details.length ; i++ ){
+                user_message = user_message + "    <li><b>Listener " + (i+1) + "</b><ol>"
+                           +"        <li><b>Listener ARN:</b> "+listener_details[i].get("listener-arn")+"</li>"
+                           +"        <li><b>Port:</b> "+listener_details[i].get("port")+"</li>"
+                           +"        <li><b>Protocol:</b> "+listener_details[i].get("protocol")+"</li></ol></li>"
+            }
+            user_message = user_message + "</ul>";
         }
         log.info(user_message);
         output.set("exit-code",0)

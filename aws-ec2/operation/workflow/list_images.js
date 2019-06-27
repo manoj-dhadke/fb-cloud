@@ -98,11 +98,24 @@ if(input_scope.hasOwnProperty("cloud_connection")){
         log.info(response);
         response = JSON.parse(response);
         list_image_array = response["image-list"];
+
         if(list_image_array.length==0){
-            user_message = "The Given Region Doest Not Contain any Images";
+            user_message = "The Given Region Does Not Contain any Images";
         }
         else{
-           user_message = String(list_image_array) 
+            user_message = "<b>The List of Images is:</b><ul>";
+            for(i=0 ; i<list_image_array.length ; i++){
+                image_info = list_image_array[i]
+                user_message = user_message + "    <li><b>Image "+(i+1)+"</b><ol>"+
+                "        <li><b>Image ID:</b> "+image_info["image-id"]+"</li>"+
+                "        <li><b>Image Type:</b> "+image_info["image-type"]+"</li>"+
+                "        <li><b>Image Name:</b> "+image_info["image-name"]+"</li>"+
+                "        <li><b>Image Location:</b> "+image_info["image-location"]+"</li>"+
+                "        <li><b>Description:</b> "+image_info["description"]+"</li>"+
+                "        <li><b>Hypervisor:</b> "+image_info["hypervisor"]+"</li></ol>";
+            }
+             
+            user_message = user_message + "</ul>";
         }
         output.set("exit-code",response_exitcode)
             .set("message",response_message)

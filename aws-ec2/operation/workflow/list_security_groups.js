@@ -87,16 +87,17 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(response_exitcode==0){
         
         if(security_group_list.length>0){
-            user_message = "The Security Groups are:<br>";
+            user_message = "<b>The Security Groups are:</b><ul>";
 
             for(i=0;i<security_group_list.length;i++){
-                user_message = user_message + "Security Group"+(i+1)+"<br>"+
-                                "Group ID: "+security_group_list[i].get("group-id")+"<br>"+
-                                "Group Name: "+security_group_list[i].get("group-name")+"<br>"+
-                                "Group Description: "+security_group_list[i].get("group-description")+"<br>"+
-                                "VPC ID: "+security_group_list[i].get("vpc-id")+"<br>"+
-                                "IP Permissions: "+security_group_list[i].get("ip-permissions")+"<br>";
+                user_message = user_message + "    <li><b>Security Group"+(i+1)+"</b><ol>"+
+                                "        <li><b>Group ID:</b> "+security_group_list[i].get("group-id")+"</li>"+
+                                "        <li><b>Group Name:</b> "+security_group_list[i].get("group-name")+"</li>"+
+                                "        <li><b>Group Description:</b> "+security_group_list[i].get("group-description")+"</li>"+
+                                "        <li><b>VPC ID:</b> "+security_group_list[i].get("vpc-id")+"</li>"+
+                                "        <li><b>IP Permissions:</b> "+security_group_list[i].get("ip-permissions")+"</li></ol></li>";
             }
+            user_message = user_message + "</ul>";
             log.info(user_message);
             output.set("user_message",user_message);
         }
