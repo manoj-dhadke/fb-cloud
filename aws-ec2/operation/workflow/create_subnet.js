@@ -75,18 +75,8 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(input_scope.hasOwnProperty("availability_zone")){
         availability_zone = input.get("availability_zone");
         if(availability_zone!=null || availability_zone!=""){
-            index = availability_zone.indexOf(","); //to see if the user has selected more than one availability zones
-            if(index!=-1){
-                availability_zone = availability_zone.split(",");
-                connector_call.set("availability-zone",availability_zone); 
-                log.info("Availability Zone: "+availability_zone);
-            }
-            else{
-                availability_zone_array = [];
-                availability_zone_array.push(availability_zone);
-                connector_call.set("availability-zone",availability_zone_array); 
-                log.info("Availability Zone: "+availability_zone_array);
-            }
+            connector_call.set("availability-zone",availability_zone); 
+            log.info("Availability Zone: "+availability_zone);
         }
         else{
             log.info("availability_zone Name is null or empty string.")

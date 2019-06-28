@@ -92,11 +92,14 @@ if(input_scope.hasOwnProperty("cloud_connection")){
             for( i = 0 ; i < load_balancers_list.length ; i++){
                 user_message = user_message + "    <li><b>Application Load Balancer "+(i+1)+"</b><ol>"+
                             "        <li><b>Name:</b> "+load_balancers_list[i].get("name")+"</li>"+
-                            "        <li><b>Schema:</b> "+load_balancers_list[i].get("schema")+"</li>"+
                             "        <li><b>VPC ID:</b> "+load_balancers_list[i].get("vpc-id")+"</li>"+
-                            "        <li><b>Load Balancer ARN:</b> "+load_balancers_list[i].get("load-balancer-arn")+"</li>"+
-                            "        <li><b>Availability Zones:</b> "+load_balancers_list[i].get("availability-zone")+"</li>"+
-                            "        <li><b>Security Groups:</b> "+load_balancers_list[i].get("security-group-list")+"</li></ol></li>";
+                            "        <li><b>Availability Zones:</b><ul>";
+                            availabilty_zones = load_balancers_list[i].get("availability-zone")
+                            for(j = 0 ; j<availabilty_zones.length ; j++){
+                                user_message = user_message + "          <li>"+availabilty_zones[j]+"</li>";
+                            }
+                            user_message = user_message + "</ul></li>"+
+                            "        <li><b>Load Balancer ARN:</b> "+load_balancers_list[i].get("load-balancer-arn")+"</li></ol></li>";
             }
             user_message = user_message + "</ul>";
             log.info(user_message);
