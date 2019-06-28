@@ -100,9 +100,11 @@ if(input_scope.hasOwnProperty("cloud_connection")){
 
 
     if(response_exitcode==0){
-        user_message = "";
-        user_message = user_message + "CIDR Block: "+vpc_info.get("cidr-block")+"<br>"
-                                    + "VPC ID: "+vpc_info.get("vpc-id")+"<br>";
+        user_message = "<b>The Details of the VPC are:</b><ul>";
+        user_message = user_message + "    <li><b>VPC ID:</b> "+vpc_info.get("vpc-id")+"</li>"
+                                    + "    <li><b>CIDR Block:</b> "+vpc_info.get("cidr-block")+"</li>"
+                                    + "    <li><b>Instance Tenancy:</b> " +vpc_info.get("instance-tenancy")+"</li>"
+                                    + "    <li><b>DHCP Option ID:</b> "+vpc_info.get("dhcp-option-id")+"</li><ul>";
         output.set("exit-code",0)
               .set("user_message",user_message)
               .set("message",response_message)

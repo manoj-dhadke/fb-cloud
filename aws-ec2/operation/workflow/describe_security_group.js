@@ -117,18 +117,9 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     if(response_exitcode==0){
         user_message = "<b>The details of the Security Group are:</b><ul>"
                         +"    <li><b>Group Name:</b> "+security_group_info.get("group-name")+"</li>"
-                        +"    <li><b>Group Description:</b> "+security_group_info.get("group-description")+"</li>"
                         +"    <li><b>Group ID:</b> "+security_group_info.get("group-id")+"</li>"
                         +"    <li><b>VPC ID:</b> "+security_group_info.get("vpc-id")+"</li></ul>";
         
-        ip_info_array = security_group_info["ip-permissions"];
-    
-        for(i = 0 ; i < ip_info_array.length ; i++){
-            ip_info = ip_info_array[i];
-            user_message = user_message +"    <ul><b>IP Permission:</b> "+"<br>"+"        <li><b>IP Protocol:</b> "+ip_info.get("ip-protocol")+"</li>"
-                        +"        <li><b>From Port:</b> "+ip_info.get("from-port")+"</li>"
-                        +"        <li><b>To Port:</b> "+ip_info.get("to-port")+"</li></ul>";
-        }
         log.info(user_message);
         
         output.set("message",response_message)

@@ -130,11 +130,11 @@ if(input_scope.hasOwnProperty("cloud_connection")){
                 " | ami launch index : "+instance_set[i].get("ami-launch-index"));
                 
             user_message = user_message +"    <li><b>Instance "+(i+1)+"</b><ol>"+
-                        "        <li><b>Amazon EC2 instance image id:</b> "+instance_set[i].get("image-id")+"</li>"
-                        "        <li><b>Public IP:</b> "+instance_set[i].get("public-ip")+"</li>"
-                        "        <li><b>Instance Type:</b> "+instance_set[i].get("instance-type")+"</li>"
-                        "        <li><b>Key-Name:</b> "+instance_set[i].get("key-name")+"</li>"
-                        "        <li><b>Private IP:</b> "+instance_set[i].get("private-ip")+"</li></ol></li>"
+                        "        <li><b>Amazon EC2 instance image id:</b> "+instance_set[i].get("image-id")+"</li>"+
+                        "        <li><b>Public IP:</b> "+instance_set[i].get("public-ip")+"</li>"+
+                        "        <li><b>Instance Type:</b> "+instance_set[i].get("instance-type")+"</li>"+
+                        "        <li><b>Key-Name:</b> "+instance_set[i].get("key-name")+"</li>"+
+                        "        <li><b>Private IP:</b> "+instance_set[i].get("private-ip")+"</li></ol></li>";
         }
         user_message = user_message + "</ul>";
         log.info("Instances Described Successfully");

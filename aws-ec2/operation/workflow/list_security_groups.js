@@ -90,12 +90,10 @@ if(input_scope.hasOwnProperty("cloud_connection")){
             user_message = "<b>The Security Groups are:</b><ul>";
 
             for(i=0;i<security_group_list.length;i++){
-                user_message = user_message + "    <li><b>Security Group"+(i+1)+"</b><ol>"+
+                user_message = user_message + "    <li><b>Security Group "+(i+1)+"</b><ol>"+
                                 "        <li><b>Group ID:</b> "+security_group_list[i].get("group-id")+"</li>"+
                                 "        <li><b>Group Name:</b> "+security_group_list[i].get("group-name")+"</li>"+
-                                "        <li><b>Group Description:</b> "+security_group_list[i].get("group-description")+"</li>"+
-                                "        <li><b>VPC ID:</b> "+security_group_list[i].get("vpc-id")+"</li>"+
-                                "        <li><b>IP Permissions:</b> "+security_group_list[i].get("ip-permissions")+"</li></ol></li>";
+                                "        <li><b>VPC ID:</b> "+security_group_list[i].get("vpc-id")+"</li></ol></li>";
             }
             user_message = user_message + "</ul>";
             log.info(user_message);

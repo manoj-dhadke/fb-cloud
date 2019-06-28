@@ -110,13 +110,9 @@ if(input_scope.hasOwnProperty("cloud_connection")){
     instance_set = response.get("reboot-instance-id");
 
     if(response_exitcode==0){
-        /*user_message = "";
-        for(i = 0; i<instance_set.length ; i++){
-            log.info("Instance ID: "+instance_set[i].get("instance-id")+" | Current State: "+instance_set[i].get("current-state")+" | Previous State: "+instance_set[i].get("previous-state"));
-            user_message = user_message + "Instance ID: "+instance_set[i].get("instance-id")+" | Current State: "+instance_set[i].get("current-state")+" | Previous State: "+instance_set[i].get("previous-state")+"<br>";
-        }*/
+        user_message = "Instances Rebooted Successfully";
         log.info("Instances Rebooted Successfully");
-        output.set("user_message",instance_set)
+        output.set("user_message",user_message)
             .set("exit-code",response_exitcode)
             .set("message",response_message)
             .set("result",instance_set);
