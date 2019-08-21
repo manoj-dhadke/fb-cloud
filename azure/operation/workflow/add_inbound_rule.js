@@ -4,17 +4,17 @@ log.trace("Started executing 'fb-cloud:azure:operation:add_inbound_rule.js' flin
 // Mandatory
 connector_name = 'msazure'
 action = 'add-inbound-rule' // Specifies the name of the operation:add-inbound-rule
-security_group_name = input.get('security-group-name') // please provide firewall name
-resource_group_name = input.get('group-name')
+security_group_name = input.get('security_group_name') // please provide firewall name
+resource_group_name = input.get('group_name')
 rule = input.get('rule')
 
 // Optional
 // Add inbound rules to specified addresses, e.g. 10.0.0.1 - 10.0.0.15,
-from_address = input.get('from-address')
-to_address = input.get('to-address')
+from_address = input.get('from_address')
+to_address = input.get('to_address')
 // Port range
-to_port = input.get('to-port')
-from_port = input.get('from-port')
+to_port = input.get('to_port')
+from_port = input.get('from_port')
 // TCp or UDP or ICMP or ANY
 protocol = input.get('protocol')
 // Azure priority value range 100-65000  
@@ -22,7 +22,7 @@ priority = input.get('priority')
 // Firewall description
 description = input.get('description')
 
-request_timeout = input.get('request-timeout')
+request_timeout = 18000 //input.get('request_timeout')
 input_clone = JSON.parse(input)
 if (input_clone.hasOwnProperty('cloud_connection')) {
 

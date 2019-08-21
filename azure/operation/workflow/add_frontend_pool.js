@@ -3,7 +3,7 @@ log.trace("Started executing 'fb-cloud:azure:operation:add_frontend_pool.js' fli
 // Flintbit Input Parameters
 // Mandatory
 connector_name = 'msazure'
-group_name = input.get('group_name')
+group_name = input.get('resource_group_name')
 load_balancer_name = input.get('load_balancer_name')
 frontend_pool_name = input.get('frontend_pool_name')
 public_ip_address_name = input.get('public_ip_address_name')

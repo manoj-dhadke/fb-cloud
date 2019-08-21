@@ -4,8 +4,8 @@ log.trace("Started executing 'fb-cloud:azure:operation:add_outbound_rule.js' fli
 // Mandatory
 connector_name = 'msazure'
 action = 'add-outbound-rule' // Specifies the name of the operation: add - outbound - rule
-security_group_name = input.get('security-group-name') // please provide firewall name
-resource_group_name = input.get('group-name')
+security_group_name = input.get('security_group_name') // please provide firewall name
+resource_group_name = input.get('group_name')
 rule = input.get('rule')
 
 // optional
@@ -32,7 +32,7 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Checking that the connector name is provided or not,if not then log.error(the exception with error message
     if (connector_name == null && connector_name == "") {
-        log.error('Please provide "MS Azure connector name connector_name')
+        log.error('Please provide MS Azure connector name connector_name')
     }
 
     if (security_group_name == null && security_group_name == "") {

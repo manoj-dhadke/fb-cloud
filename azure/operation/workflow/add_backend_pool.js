@@ -4,7 +4,7 @@ log.trace("Started executing 'fb-cloud:azure:operation:add_backend_pool.js' flin
 log.info("Flintbit 'fb-cloud:azure:operation:add_backend_pool.js' inputs are "+input)
 // Mandatory
 connector_name = 'msazure'
-group_name = input.get('group_name')
+group_name = input.get('resource_group_name')
 load_balancer_name = input.get('load_balancer_name')
 backend_pool_name = input.get('backend_pool_name')
 network_interface_id = input.get('network_interface_id')
