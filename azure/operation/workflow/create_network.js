@@ -10,7 +10,7 @@ address_spaces = input.get('address_spaces') //provide address space in the form
 action = 'create-network' //Specifies the name of the operation:create-network
 
 input_clone = JSON.parse(input)
-if (input_clone.hasOwnProperties('cloud_connection')) {
+if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Get credentials
     encryptedCredentials = input.get('cloud_connection').get('encryptedCredentials')

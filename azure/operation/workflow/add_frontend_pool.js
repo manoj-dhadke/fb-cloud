@@ -12,7 +12,7 @@ action = 'add-frontend-pool'
 // Optional
 request_timeout = 180000
 input_clone = JSON.parse(input)
-if (input_clone.hasOwnProperties('cloud_connection')) {
+if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Get credentials
     encryptedCredentials = input.get('cloud_connection').get('encryptedCredentials')

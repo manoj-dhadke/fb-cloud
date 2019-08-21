@@ -13,7 +13,7 @@ action = 'add-backend-pool'
 request_timeout = 180000
 
 input_clone = JSON.parse(input)
-if (input_clone.hasOwnProperties('cloud_connection')) {
+if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Get credentials
     encryptedCredentials = input.get('cloud_connection').get('encryptedCredentials')
@@ -79,6 +79,6 @@ if (input_clone.hasOwnProperties('cloud_connection')) {
     }
 }else{
     log.error("Please provide Azure credentials")
-    output.set("error", "Please provide Azure credentials")
+    output.set("error", "Please provide Azure connection credentials")
 }
 log.trace("Finished executing 'fb-cloud:azure:operation:add_backend_pool.rb' flintbit")

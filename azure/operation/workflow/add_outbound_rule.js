@@ -20,7 +20,7 @@ description = input.get('description')
 request_timeout = 180000//input.get('request-timeout')
 
 input_clone = JSON.parse(input)
-if (input_clone.hasOwnProperties('cloud_connection')) {
+if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Get credentials
     encryptedCredentials = input.get('cloud_connection').get('encryptedCredentials')
