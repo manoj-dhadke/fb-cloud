@@ -2,7 +2,7 @@ log.trace("Started executing 'fb-cloud:azure:operation:add_outbound_rule.js' fli
 
 // Flintbit Input Parameters
 // Mandatory
-connector_name = input.get('connector_name') // name of Azure connector
+connector_name = 'msazure'
 action = 'add-outbound-rule' // Specifies the name of the operation: add - outbound - rule
 security_group_name = input.get('security-group-name') // please provide firewall name
 resource_group_name = input.get('group-name')

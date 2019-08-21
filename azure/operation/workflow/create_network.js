@@ -2,7 +2,7 @@ log.trace("Started executing 'fb-cloud:azure:operation:create_network.js' flintb
 
 //Flintbit Input Parameters
 //Mandatory
-connector_name = input.get('connector_name') //name of Azure connector
+connector_name = 'msazure'
 region = input.get('region') //name of the region in which the the network will be located
 resource_group = input.get('resource-group') //name of the resource group in which you want to create the network
 network_name = input.get('network-name')     //name of network which you want to create

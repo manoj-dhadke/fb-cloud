@@ -1,7 +1,7 @@
 log.trace("Started executing 'fb-cloud:azure:operation:add_private_frontend_pool.js' flintbit...")
 // Flintbit Input Parameters
 // Mandatory
-connector_name = input.get('connector_name')
+connector_name = 'msazure'
 group_name = input.get('group-name')
 load_balancer_name = input.get('load-balancer-name')
 frontend_pool_name = input.get('frontend-pool-name')

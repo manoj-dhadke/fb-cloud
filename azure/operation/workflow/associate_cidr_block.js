@@ -2,7 +2,7 @@
 log.trace("Started executing 'fb-cloud:azure:operation:associate_cidr_block.js' flintbit...")
 // Flintbit Input Parameters
 // Mandatory
-connector_name = input.get('connector_name') //name of Azure connector
+connector_name = 'msazure'
 action = 'associate-cidr-block' //Specifies the name of the operation:associate-cidr-block
 network_id = input.get('network-id') //ID of the netowrk which you want to delete
 address_spaces = input.get('address-spaces') // provide address space in the form  of CIDR notion
