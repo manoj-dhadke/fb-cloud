@@ -1,5 +1,5 @@
 log.trace("Started executing 'fb-cloud:azure:operation:create_resource_group.js' flintbit...")
-
+log.info("Flintbit inputs: "+input)
 // Flintbit Input Parameters
 // Mandatory
 connector_name = 'msazure' //input.get('connector_name')
@@ -10,17 +10,18 @@ action = 'create-resource-group'
 // Optional
 request_timeout = 120000
 input_clone = JSON.parse(input)
-if (input_clone.hasOwnProperties('cloud_connection')) {
+if (input_clone.hasOwnProperty('cloud_connection')) {
 
     // Get credentials
     encryptedCredentials = input.get('cloud_connection').get('encryptedCredentials')
+    log.trace("Encrypted:: "+encryptedCredentials)
 
     key = encryptedCredentials.get('key')
     tenant_id = encryptedCredentials.get('tenant_id')
     subscription_id = encryptedCredentials.get('subscription_id')
     client_id = encryptedCredentials.get('client_id')
 
-    log.info("Flintbit input parameters are, action : " + action + " | Group name : " + group_name + " | Name : " + name)
+    log.info("Flintbit input parameters are, action : " + action + " | Group name : " + group_name + " | Region : " + region)
 
     connector_call = call.connector(connector_name)
         .set('action', action)
