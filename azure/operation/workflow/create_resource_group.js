@@ -50,7 +50,7 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
 
     if (response_exitcode == 0) {
         log.info("SUCCESS in executing " + connector_name + " where, exitcode : " + response_exitcode + " | message : " + response_message)
-        output.set('exit-code', 0).set('message', response_message).set('id', response.get('id'))
+        output.set('exit-code', 0).set('message', response_message).set('id', 'Successfully created resource group with- \nID: '+response.get('id'))
     } else {
         log.error("ERROR in executing " + connector_name + " where, exitcode : " + response_exitcode + " | message : " + response_message)
         output.set('exit-code', 1).set('message', response_message)
