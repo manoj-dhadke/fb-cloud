@@ -9,12 +9,19 @@ action = "create-cloud-formation-stack"
 log.info("All inputs :: " + input)
 input_clone = JSON.parse(input)
 
-if (input_clone.hasOwnProperty('template')) {
+if (input_clone.hasOwnProperty('cft_template')) {
 
     // Cloud Formation Template JSON
-    template = input.get('template')
-    if (template != null) {
-        log.debug("LAMP Template JSON:: \n" + template)
+    template = input.get('cft_template')
+    if (template != null && template != "") {
+        log.debug("CFT Template JSON:: \n" + template)
+
+        if(typeof template == "string"){
+            log.trace("Template is given as a JSON string. Coverting to JSON object")
+            template = util.json(template)
+        }else if (typeof template == "object"){
+            log.trace("Template JSON is given")
+        }
 
         // Credential Variables
         access_key = ""
@@ -59,13 +66,16 @@ if (input_clone.hasOwnProperty('template')) {
             } else if (typeof stack_parameters == "string") {
                 log.trace("Converting stack parameters JSON string to JSON object")
                 stack_parameters = util.json(stack_parameters)
-                log.trace("Stack parameters JSON " + stack_parameters)
+                log.trace("Stack parameters JSON " + typeof stack_parameters)
             }
 
             // Stack Name
             if (input_clone.hasOwnProperty("stack_name")) {
+            
                 stack_name = input.get("stack_name")
+                log.trace("Stack name is "+stack_name)
                 region = input.get('region')
+                log.trace("Region is "+region)
 
                 // Building Connector Request
                 connector_request = call.connector(connector_name)
@@ -101,6 +111,7 @@ if (input_clone.hasOwnProperty('template')) {
 
                 }else{
                     log.error("LAMP stack creation failed with "+exit_code)
+                    log.error("Failed due to- "+message)
                     output.set("exit-code", -1).set("error", message)
                 }
 
