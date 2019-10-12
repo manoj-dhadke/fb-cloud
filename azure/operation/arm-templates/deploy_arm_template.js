@@ -105,15 +105,18 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
         } else {
             log.error("Exitcode is " + exit_code)
             log.error("Error Message :: " + message)
+            output.exit(-1, message)
             output.set("exit-code", -1).set("error", message).set("user_message", message)
         }
 
     } else {
         log.error("Please provide Azure ARM template")
+        output.exit(-1, "Please provide Azure ARM template")
     }
 
 } else {
     log.error("Please provide credentials for Azure.")
+    output.exit(-1, "Please provide credentials for Azure")
 }
 
 log.trace("Finished executing flintbit 'fb-cloud:azure:operation:arm-templates:deploy_arm_template.js' flintbit")

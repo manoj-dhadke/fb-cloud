@@ -117,20 +117,24 @@ if (input_clone.hasOwnProperty('cft_template')) {
                 log.error("LAMP stack creation failed with " + exit_code)
                 log.error("Failed due to :: " + message)
                 output.set("exit-code", -1).set("error", message).set("user_message", message)
+                output.exit(-1, message)
             }
 
 
         } else {
             log.error("Please provide stack name for this LAMP stack")
+            output.exit(-1, "Please provide stack name for this LAMP stack")
         }
 
 
     } else {
         log.error("Cloud Formation template is null or empty")
+        output.exit(-1, "Cloud Formation template is null or empty")
     }
 
 } else {
     log.error("Cloud Formation template for LAMP stack is not given. Please provide LAMP stack template.")
+    output.exit(-1, "Cloud Formation template for LAMP stack is not given. Please provide LAMP stack template")
 }
 
 
