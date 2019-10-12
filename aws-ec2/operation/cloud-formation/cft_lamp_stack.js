@@ -16,10 +16,10 @@ if (input_clone.hasOwnProperty('cft_template')) {
     if (template != null && template != "") {
         log.debug("CFT Template JSON:: \n" + template)
 
-        if(typeof template == "string"){
+        if (typeof template == "string") {
             log.trace("Template is given as a JSON string. Coverting to JSON object")
             template = util.json(template)
-        }else if (typeof template == "object"){
+        } else if (typeof template == "object") {
             log.trace("Template JSON is given")
         }
 
@@ -58,7 +58,7 @@ if (input_clone.hasOwnProperty('cft_template')) {
 
         stack_parameters = null
 
-        // LAMP Stack Parameters
+        // Stack Parameters
         if (input_clone.hasOwnProperty('stack_parameters')) {
             stack_parameters = input.get('stack_parameters')
             if (typeof stack_parameters == "object") {
@@ -68,60 +68,62 @@ if (input_clone.hasOwnProperty('cft_template')) {
                 stack_parameters = util.json(stack_parameters)
                 log.trace("Stack parameters JSON " + typeof stack_parameters)
             }
+        } else {
+            log.info("Stack parameters are not present")
+        }
 
-            // Stack Name
-            if (input_clone.hasOwnProperty("stack_name")) {
-            
-                stack_name = input.get("stack_name")
-                log.trace("Stack name is "+stack_name)
-                region = input.get('region')
-                log.trace("Region is "+region)
+        // Stack Name
+        if (input_clone.hasOwnProperty("stack_name")) {
 
-                // Building Connector Request
-                connector_request = call.connector(connector_name)
-                    .set('action', action)
-                    .set('region', region)
-                    .set('security-key', secret_key)
-                    .set('access-key', access_key)
-                    .set('stack-parameters', stack_parameters)
-                    .set('stack-template-body', template)
-                    .set('stack-name', stack_name)
-                    .set('stack-formation-timeout', 300000)
-                    .timeout(300000)
-                    .sync()
+            stack_name = input.get("stack_name")
+            log.trace("Stack name is " + stack_name)
+            region = input.get('region')
+            log.trace("Region is " + region)
 
-                exit_code = connector_request.exitcode()
-                message = connector_request.message()
+            // Building Connector Request
+            connector_request = call.connector(connector_name)
+                .set('action', action)
+                .set('region', region)
+                .set('security-key', secret_key)
+                .set('access-key', access_key)
+                .set('stack-parameters', stack_parameters)
+                .set('stack-template-body', template)
+                .set('stack-name', stack_name)
+                .set('stack-formation-timeout', 300000)
+                .timeout(300000)
+                .sync()
 
-                if(exit_code == 0){
-                    log.trace("Exitcode is "+exit_code)
+            exit_code = connector_request.exitcode()
+            message = connector_request.message()
 
-                    // Response Values
-                    // Setting user message
-                    stack_id = connector_request.get('stack-id')
-                    output_array = stack_id.replace(/[/:]/g, ' ').split(' ')
+            if (exit_code == 0) {
+                log.trace("Exitcode is " + exit_code)
 
-                    user_message_region = output_array[3]
-                    user_message_stack_name = output_array[6]
-                    user_message_stack_id = output_array[7]
+                // Response Values
+                // Setting user message
+                stack_id = connector_request.get('stack-id')
+                log.trace("Stack ID :: "+stack_id)
+                output_array = stack_id.replace(/[/:]/g, ' ').split(' ')
 
-                    log.trace("LAMP stack successfully deployed with details - \nRegion: "+user_message_region+"\nStack Name: "+user_message_stack_name+"\nStack ID: "+user_message_stack_id)
+                user_message_region = output_array[3]
+                user_message_stack_name = output_array[6]
+                user_message_stack_id = output_array[7]
 
-                    output.set("exit-code", 0).set("result", user_message_stack_id)
+                log.trace("LAMP stack successfully deployed with details - \nRegion: " + user_message_region + "\nStack Name: " + user_message_stack_name + "\nStack ID: " + user_message_stack_id)
 
-                }else{
-                    log.error("LAMP stack creation failed with "+exit_code)
-                    log.error("Failed due to- "+message)
-                    output.set("exit-code", -1).set("error", message)
-                }
-
+                output.set("exit-code", 0).set("result", user_message_stack_id)
 
             } else {
-                log.error("Please provide stack name for this LAMP stack")
+                log.error("LAMP stack creation failed with " + exit_code)
+                log.error("Failed due to :: " + message)
+                output.set("exit-code", -1).set("error", message)
             }
+
+
         } else {
-            log.error("Please provide LAMP stack parameters")
+            log.error("Please provide stack name for this LAMP stack")
         }
+
 
     } else {
         log.error("Cloud Formation template is null or empty")
