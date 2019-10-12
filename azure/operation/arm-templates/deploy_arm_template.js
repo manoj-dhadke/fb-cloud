@@ -100,8 +100,9 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
         if (exit_code == 0) {
             log.trace("Exitcode is " + exit_code)
             log.trace("Connector Response :: " + connector_response)
+            deployment_id = connector_response.get("message")
             log.trace("Success Message :: " + message)
-            output.set("exit-code", 0).set("message", message).set("user_message", message)
+            output.set("exit-code", 0).set("result", deployment_id).set("user_message", deployment_id).set("message", message)
         } else {
             log.error("Exitcode is " + exit_code)
             log.error("Error Message :: " + message)
