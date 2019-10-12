@@ -105,7 +105,7 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
         } else {
             log.error("Exitcode is " + exit_code)
             log.error("Error Message :: " + message)
-            output.set("exit-code", 0).set("error", message).set("user_message", message)
+            output.set("exit-code", -1).set("error", message).set("user_message", message)
         }
 
     } else {
