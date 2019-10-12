@@ -101,11 +101,11 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
             log.trace("Exitcode is " + exit_code)
             log.trace("Connector Response :: " + connector_response)
             log.trace("Success Message :: " + message)
-            output.set("exit-code", 0).set("message", message)
+            output.set("exit-code", 0).set("message", message).set("user_message", message)
         } else {
             log.error("Exitcode is " + exit_code)
             log.error("Error Message :: " + message)
-            output.set("exit-code", 0).set("error", message)
+            output.set("exit-code", 0).set("error", message).set("user_message", message)
         }
 
     } else {

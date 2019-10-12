@@ -111,12 +111,12 @@ if (input_clone.hasOwnProperty('cft_template')) {
 
                 log.trace("LAMP stack successfully deployed with details - \nRegion: " + user_message_region + "\nStack Name: " + user_message_stack_name + "\nStack ID: " + user_message_stack_id)
 
-                output.set("exit-code", 0).set("result", user_message_stack_id)
+                output.set("exit-code", 0).set("result", user_message_stack_id).set("user_message", message)
 
             } else {
                 log.error("LAMP stack creation failed with " + exit_code)
                 log.error("Failed due to :: " + message)
-                output.set("exit-code", -1).set("error", message)
+                output.set("exit-code", -1).set("error", message).set("user_message", message)
             }
 
 
