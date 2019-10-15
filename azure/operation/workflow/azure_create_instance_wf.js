@@ -7,6 +7,7 @@
 log.trace("Started executing 'fb-cloud:azure:operation:workflow:azure_create_instance_wf.js' flintbit...")
 log.info("Input:: " + input)
 input_clone = JSON.parse(input)
+connector_name = "msazure"
 //Input from JSON Params
 azure_service_parameters = input.get('azure_service_parameters')
 if (typeof azure_service_parameters == "string") {
@@ -68,6 +69,7 @@ log.trace(subscription_id)
 log.trace(client_id)
 
 create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instance.groovy")
+                                    .set("connector_name", connector_name)
                                     .set('tenant-id', tenant_id)
                                     .set('subscription-id', subscription_id)
                                     .set('client-id', client_id)
