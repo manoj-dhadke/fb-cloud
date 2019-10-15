@@ -6,7 +6,7 @@
 
 log.trace("Started executing 'fb-cloud:azure:operation:azure_create_instance_wf.js' flintbit...")
 log.info("Input:: " + input)
-
+input_clone = JSON.parse(input)
 //Input from JSON Params
 azure_service_parameters = input.get('azure_service_parameters')
 if (typeof azure_service_parameters == "string") {
