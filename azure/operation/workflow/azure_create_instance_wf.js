@@ -37,7 +37,6 @@ client_id= input.get("cloud_connection.encryptedCredentials.client_id")
 //Input from Service Form
 os_name = input.get('operating_system')
 log.info("OS Name:: "+os_name)
-log.info("OS Name:: "+os_name.class())
 // Getting OS Name
 //os_type = azure_service_parameters.get('os_mapping').get(os_name)
 
