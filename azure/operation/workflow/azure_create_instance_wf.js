@@ -37,24 +37,28 @@ client_id= input.get("cloud_connection.encryptedCredentials.client_id")
 //Input from Service Form
 os_name = input.get('operating_system')
 log.info("OS Name:: "+os_name)
-
+log.info("OS Name:: "+os_name.class())
 // Getting OS Name
 //os_type = azure_service_parameters.get('os_mapping').get(os_name)
 
 if (os_name="Ubuntu 16.04 LTS"){
     image= azure_service_parameters.get("os_mapping").get('linux').get("Ubuntu 16.04 LTS")
     os_type=azure_service_parameters.get("os_mapping").get('linux').get("os_type")
+    log.trace("Valid OS Type is Linux: " + os_type + " and Image Name is: "+image)
+     call.bit("fb-cloud:azure:operation:create_instance.groovy").set('image', image).set('os_type', os_type)
 
 }
 else if (os_name="Windows 2012R2") {
     image= azure_service_parameters.get("os_mapping").get('windows').get("Windows 2012R2")
     os_type=azure_service_parameters.get("os_mapping").get('windows').get("os_type")
+    log.trace("Valid OS Type is Windows: " + os_type + " and Image Name is: "+image)
+    call.bit("fb-cloud:azure:operation:create_instance.groovy").set('image', image).set('os_type', os_type)
 }
 else{
     log.info("Failed to get valid Operating System Name")
 }
 
-log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image)
+//log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image)
 create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instance.groovy")
                                     .set("connector_name", connector_name)
                                     .set('tenant_id', tenant_id)
@@ -68,9 +72,9 @@ create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instan
                                     .set('subnet_id', subnet_id)
                                     .set('username', username)
                                     .set('password', password)
-                                    .set('os_type', os_type)
+                                    //.set('os_type', os_type)
                                     .set('size', size)
-                                    .set('image', image)
+                                    //.set('image', image)
                                     .set('network_name', network_name)
                                     .timeout(2800000)
                                     .sync()
