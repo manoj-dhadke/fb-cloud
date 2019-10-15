@@ -9,6 +9,12 @@ log.info("Input:: " + input)
 
 //Input from JSON Params
 azure_service_parameters = input.get('azure_service_parameters')
+if (typeof azure_service_parameters == "string") {
+    log.trace("Template is given as a JSON string. Coverting to JSON object")
+    azure_service_parameters = util.json(azure_service_parameters)
+} else if (typeof azure_service_parameters == "object") {
+    log.trace("Template JSON is given")
+}
 instance_name = input.get('instance_name')
 region = azure_service_parameters.get('region')
 resource_group = azure_service_parameters.get('resource_group')
