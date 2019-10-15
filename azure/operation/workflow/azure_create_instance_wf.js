@@ -91,6 +91,7 @@ if(create_instance_exit_code == 0){
 else{
     // Setting user message (will be visible on CMP)
     output.set('exit-code', -1).set('error', create_instance_message)
+    output.exit(-1, create_instance_message)
 }
 
 log.trace("Finished executing 'fb-cloud:azure:operation:workflow:azure_create_instance_wf.js' flintbit.")
