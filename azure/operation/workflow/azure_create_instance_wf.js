@@ -79,8 +79,8 @@ create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instan
 log.trace("Called connector")
 
 // Getting exit-code for create instance flinbit call
-create_instance_exit_code = create_azure_instance_response.exitcode()
-create_instance_message= create_azure_instance_response.message()
+create_instance_exit_code = create_azure_instance_response.get("exit-code")
+create_instance_message= create_azure_instance_response.get("message")
 log.trace("Exit code: "+create_instance_exit_code)
 log.info(create_azure_instance_response)
 
