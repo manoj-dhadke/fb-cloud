@@ -55,7 +55,6 @@ create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instan
                                     .set('subscription-id', subscription_id)
                                     .set('client-id', client_id)
                                     .set('key', key)
-                                    .set('group-name',group_name)
                                     .set('instance-name', instance_name)
                                     .set('region', region)
                                     .set('resource-group', resource_group)
