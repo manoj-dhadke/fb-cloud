@@ -15,26 +15,27 @@ if (typeof azure_service_parameters == "string") {
 } else if (typeof azure_service_parameters == "object") {
     log.trace("Template JSON is given")
 }
-instance_name = input.get('instance_name')
-region = azure_service_parameters.get('region')
-resource_group = azure_service_parameters.get('resource_group')
-network_name = azure_service_parameters.get('network_name')
-public_ip = instance_name+ '_ip'
-subnet_id = azure_service_parameters.get('subnet_id')
-username = azure_service_parameters.get('username')
-password = azure_service_parameters.get('password')
-size = azure_service_parameters.get('size')
-image =""
+instance_name= input.get('instance_name')
+region= azure_service_parameters.get('region')
+resource_group= azure_service_parameters.get('resource_group')
+network_name= azure_service_parameters.get('network_name')
+public_ip= instance_name+ '_ip'
+subnet_id= azure_service_parameters.get('subnet_id')
+username= azure_service_parameters.get('username')
+password= azure_service_parameters.get('password')
+size= azure_service_parameters.get('size')
+image=""
 os_type=""
 
 //Fetching from Azure Connection 
-key = input.get("cloud_connection.encryptedCredentials.key")
-tenant_id = input.get("cloud_connection.encryptedCredentials.tenant_id")
-subscription_id = input.get("cloud_connection.encryptedCredentials.subscription_id")
-client_id = input.get("cloud_connection.encryptedCredentials.client_id")
-
+key= input.get("cloud_connection.encryptedCredentials.key")
+tenant_id= input.get("cloud_connection.encryptedCredentials.tenant_id")
+subscription_id= input.get("cloud_connection.encryptedCredentials.subscription_id")
+client_id= input.get("cloud_connection.encryptedCredentials.client_id")
+        
 //Input from Service Form
 os_name = input.get('operating_system')
+log.info("OS Name:: "+os_name)
 
 // Getting OS Name
 //os_type = azure_service_parameters.get('os_mapping').get(os_name)
@@ -49,6 +50,22 @@ else{
     os_type=azure_service_parameters.get("os_mapping").get('windows').get("os_type")
 }
 log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image) 
+
+log.trace(instance_name)
+log.trace(region)
+log.trace(resource_group)
+log.trace(network_name)
+log.trace(public_ip)
+log.trace(subnet_id)
+log.trace(username)
+log.trace(password)
+log.trace(size)
+log.trace(image)
+log.trace(os_type)
+log.trace(key)
+log.trace(tenant_id)
+log.trace(subscription_id)
+log.trace(client_id)
 
 create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instance.groovy")
                                     .set('tenant-id', tenant_id)
