@@ -47,27 +47,10 @@ if (os_name="Ubuntu 16.04 LTS"){
 
 }
 else{
-    image= azure_service_parameters.get("os_mapping").get('windows').get("Windows 2012")
+    image= azure_service_parameters.get("os_mapping").get('windows').get("Windows 2012R2")
     os_type=azure_service_parameters.get("os_mapping").get('windows').get("os_type")
 }
-log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image) 
-
-log.trace(instance_name)
-log.trace(region)
-log.trace(resource_group)
-log.trace(network_name)
-log.trace(public_ip)
-log.trace(subnet_id)
-log.trace(username)
-log.trace(password)
-log.trace(size)
-log.trace(image)
-log.trace(os_type)
-log.trace(key)
-log.trace(tenant_id)
-log.trace(subscription_id)
-log.trace(client_id)
-
+log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image)
 create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instance.groovy")
                                     .set("connector_name", connector_name)
                                     .set('tenant_id', tenant_id)
