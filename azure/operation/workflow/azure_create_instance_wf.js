@@ -46,10 +46,14 @@ if (os_name="Ubuntu 16.04 LTS"){
     os_type=azure_service_parameters.get("os_mapping").get('linux').get("os_type")
 
 }
-else{
+else if (os_name="Windows 2012R2") {
     image= azure_service_parameters.get("os_mapping").get('windows').get("Windows 2012R2")
     os_type=azure_service_parameters.get("os_mapping").get('windows').get("os_type")
 }
+else{
+    log.info("Failed to get valid Operating System Name")
+}
+
 log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image)
 create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instance.groovy")
                                     .set("connector_name", connector_name)
