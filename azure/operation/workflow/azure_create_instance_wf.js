@@ -8,16 +8,16 @@ log.trace("Started executing 'fb-cloud:azure:operation:azure_create_instance_wf.
 log.info("Input:: " + input)
 
 //Input from JSON Params
-azure_service_params = input.get('azure_service_params')
+azure_service_parameters = input.get('azure_service_parameters')
 instance_name = input.get('instance_name')
-region = azure_service_params.get('region')
-resource_group = azure_service_params.get('resource_group')
-network_name = azure_service_params.get('network_name')
+region = azure_service_parameters.get('region')
+resource_group = azure_service_parameters.get('resource_group')
+network_name = azure_service_parameters.get('network_name')
 public_ip = name+ '_ip'
-subnet_id = azure_service_params.get('subnet_id')
-username = azure_service_params.get('username')
-password = azure_service_params.get('password')
-size = azure_service_params.get('size')
+subnet_id = azure_service_parameters.get('subnet_id')
+username = azure_service_parameters.get('username')
+password = azure_service_parameters.get('password')
+size = azure_service_parameters.get('size')
 image =""
 os_type=""
 
@@ -31,16 +31,16 @@ client_id = input.get("cloud_connection.encryptedCredentials.client_id")
 os_name = input.get('operating_system')
 
 // Getting OS Name
-//os_type = azure_service_params.get('os_mapping').get(os_name)
+//os_type = azure_service_parameters.get('os_mapping').get(os_name)
 
 if (os_name="Ubuntu 16.04 LTS"){
-    image= azure_service_params.get("os_mapping").get('linux').get("Ubuntu 16.04 LTS")
-    os_type=azure_service_params.get("os_mapping").get('linux').get("os_type")
+    image= azure_service_parameters.get("os_mapping").get('linux').get("Ubuntu 16.04 LTS")
+    os_type=azure_service_parameters.get("os_mapping").get('linux').get("os_type")
 
 }
 else{
-    image= azure_service_params.get("os_mapping").get('windows').get("Windows 2012")
-    os_type=azure_service_params.get("os_mapping").get('windows').get("os_type")
+    image= azure_service_parameters.get("os_mapping").get('windows').get("Windows 2012")
+    os_type=azure_service_parameters.get("os_mapping").get('windows').get("os_type")
 }
 log.trace("Valid OS Type is: " + os_type + " and Image Name is: "+image) 
 
