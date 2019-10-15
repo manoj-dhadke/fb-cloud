@@ -4,7 +4,7 @@
 ** Description: This flintbit is developed to create an Azure instance.
 **/
 
-log.trace("Started executing 'fb-cloud:azure:operation:azure_create_instance_wf.js' flintbit...")
+log.trace("Started executing 'fb-cloud:azure:operation:workflow:azure_create_instance_wf.js' flintbit...")
 log.info("Input:: " + input)
 input_clone = JSON.parse(input)
 //Input from JSON Params
@@ -19,7 +19,7 @@ instance_name = input.get('instance_name')
 region = azure_service_parameters.get('region')
 resource_group = azure_service_parameters.get('resource_group')
 network_name = azure_service_parameters.get('network_name')
-public_ip = name+ '_ip'
+public_ip = instance_name+ '_ip'
 subnet_id = azure_service_parameters.get('subnet_id')
 username = azure_service_parameters.get('username')
 password = azure_service_parameters.get('password')
@@ -86,4 +86,4 @@ else{
     output.set('exit-code', -1).set('error', create_azure_instance_response)
 }
 
-log.trace("Finished executing 'fb-cloud:azure:operation:azure_create_instance_wf.js' flintbit.")
+log.trace("Finished executing 'fb-cloud:azure:operation:workflow:azure_create_instance_wf.js' flintbit.")
