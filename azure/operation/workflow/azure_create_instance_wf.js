@@ -77,8 +77,10 @@ create_azure_instance_response= call.bit("fb-cloud:azure:operation:create_instan
                                     .sync()
 
 log.trace("Called connector")
+
 // Getting exit-code for create instance flinbit call
-create_instance_exit_code = create_azure_instance_response.get("exit-code")
+create_instance_exit_code = create_azure_instance_response.exitcode()
+create_instance_message= create_azure_instance_response.message()
 log.trace("Exit code: "+create_instance_exit_code)
 log.info(create_azure_instance_response)
 
@@ -88,7 +90,7 @@ if(create_instance_exit_code == 0){
 }
 else{
     // Setting user message (will be visible on CMP)
-    output.set('exit-code', -1).set('error', create_azure_instance_response)
+    output.set('exit-code', -1).set('error', create_instance_message)
 }
 
 log.trace("Finished executing 'fb-cloud:azure:operation:workflow:azure_create_instance_wf.js' flintbit.")
