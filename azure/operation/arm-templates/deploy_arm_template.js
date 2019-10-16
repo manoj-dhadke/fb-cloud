@@ -42,7 +42,7 @@ if (input_clone.hasOwnProperty('cloud_connection')) {
     log.trace('Resource Group Name is ' + resource_group_name)
 
     // Deployment Name
-    deployment_name = input.get('deployment_name')
+    deployment_name = input.get('stack_name')
     log.trace("Deployment name is " + deployment_name)
 
     // ARM Template
