@@ -4,9 +4,9 @@ try{
     log.trace("Inputs :: "+input)
 
     action = input.get('action')
-    connector_name = input.get('connector-name')
-    //access_key = input.get('access-key')
-    //access_key_secret = input.get('access-key-secret')
+    connector_name = "alibaba-cloud"
+    access_key = input.get('access-key')
+    access_key_secret = input.get('access-key-secret')
     region = input.get('region')
     ip_address_version = input.get('ip-address-version')
     ip_address_type = input.get('ip-address-type')
@@ -16,8 +16,8 @@ try{
     
     connector_call_response = call.connector(connector_name)
     .set('action', action)
-    //.set('access-key', access_key)
-    //.set('access-key-secret', access_key_secret)
+    .set('access-key', access_key)
+.set('access-key-secret', access_key_secret)
     .set('region', region)
     .set('ip-address-version', ip_address_version)
     .set('ip-address-type', ip_address_type)

@@ -4,9 +4,9 @@ try{
 
     log.trace("Inputs :: "+input)
     action = input.get('action')
-    connector_name = input.get('connector-name')
-    //access_key = input.get('access-key')
-    //access_key_secret = input.get('access-key-secret')
+    connector_name = "alibaba-cloud"
+    access_key = input.get('access-key')
+    access_key_secret = input.get('access-key-secret')
     region = input.get('region')
     disk_id = input.get('disk-id')
     new_disk_size = input.get('new-disk-size')
@@ -15,8 +15,8 @@ try{
     .set('action', action)
     .set('disk-id', disk_id)
     .set('new-disk-size', new_disk_size)
-    //.set('access-key', access_key)
-    //.set('access-key-secret', access_key_secret)
+    .set('access-key', access_key)
+.set('access-key-secret', access_key_secret)
     .set('region', region)
     .timeout(120000)
     .sync()

@@ -5,7 +5,7 @@ try {
 
     
     action = input.get('action')
-    connector_name = input.get('connector-name')
+    connector_name = "alibaba-cloud"
     //access_key = input.get('access-key')
     //access_key_secret = input.get('access-key-secret')
     region = input.get('region')

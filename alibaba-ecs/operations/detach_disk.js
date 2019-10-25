@@ -4,9 +4,9 @@ try{
 
     log.trace("Inputs :: "+input)
     action = input.get('action')
-    connector_name = input.get('connector-name')
-    //access_key = input.get('access-key')
-    //access_key_secret = input.get('access-key-secret')
+    connector_name = "alibaba-cloud"
+    access_key = input.get('access-key')
+    access_key_secret = input.get('access-key-secret')
     region = input.get('region')
     disk_id = input.get('disk-id')
     instance_id = input.get('instance-id')
@@ -14,8 +14,8 @@ try{
     connector_call_response = call.connector(connector_name)
     .set('action', action)
     .set('disk-id', disk_id)
-    //.set('access-key', access_key)
-    //.set('access-key-secret', access_key_secret)
+    .set('access-key', access_key)
+.set('access-key-secret', access_key_secret)
     .set('region', region)
     .set('instance-id', instance_id)
     .timeout(120000)
