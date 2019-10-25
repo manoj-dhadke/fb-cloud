@@ -4,14 +4,14 @@ try{
     log.trace("Inputs :: "+input)
     action = input.get('action')
     connector_name = "alibaba-cloud"
-    //access_key = input.get('access-key')
-    //access_key_secret = input.get('access-key-secret')
+    access_key = input.get('access-key')
+    access_key_secret = input.get('access-key-secret')
     region = input.get('region')
     
     connector_call_response = call.connector(connector_name)
     .set('action', action)
     .set('access-key', access_key)
-.set('access-key-secret', access_key_secret)
+    .set('access-key-secret', access_key_secret)
     .set('region', region)
     .timeout(300000)
     .sync()
