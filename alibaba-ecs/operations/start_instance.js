@@ -36,7 +36,6 @@ try {
         output.set('user_message', message)
         output.set('exit-code', exit_code)
     }
-
 } catch (error) {
     log.trace("Error Message :: " + error)
     output.set('user_message', error)
