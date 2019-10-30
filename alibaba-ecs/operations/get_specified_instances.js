@@ -2,7 +2,7 @@ log.trace("Started executing example:get_specified_instances.js flintbit")
 
 try{
     log.trace("Inputs :: "+input)
-    action = input.get('action')
+    action = "list-specified-instances"
     connector_name = "alibaba-cloud"
     instance_ids = input.get('instance-ids')    
     access_key = input.get('access-key')
