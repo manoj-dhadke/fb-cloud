@@ -29,6 +29,11 @@ try{
         output.set('user_message', connector_call_response.get('instances-list'))
         output.set('result', connector_call_response.get('instances-list'))
         output.set('exit-code', 0)
+    }else{
+        log.trace("EXITCODE is "+exitcode)
+       output.set('message', message)
+       output.set('user_message', message)
+       output.set('exit-code', exit_code)
     }
 
 }catch(error){
