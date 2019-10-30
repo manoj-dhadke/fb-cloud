@@ -2,7 +2,7 @@ log.trace("Started executing fb-cloud:alibaba-ecs:operations:get_instances.js fl
 
 try {
     log.trace("Inputs :: " + input)
-    action = input.get('action')
+    action = "list-instances"
     connector_name = "alibaba-cloud"
     access_key = input.get('access-key')
     access_key_secret = input.get('access-key-secret')
