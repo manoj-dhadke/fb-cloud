@@ -6,8 +6,8 @@ try {
     
     action = input.get('action')
     connector_name = "alibaba-cloud"
-    //access_key = input.get('access-key')
-    //access_key_secret = input.get('access-key-secret')
+    access_key = input.get('access-key')
+    access_key_secret = input.get('access-key-secret')
     region = input.get('region')
     image_id = input.get('image-id')
     security_group_id = input.get('security-group-id')
@@ -18,8 +18,8 @@ try {
 
     connector_call_response = call.connector(connector_name)
         .set('action', action)
-        //.set('access-key', access_key)
-        //.set('access-key-secret', access_key_secret)
+        .set('access-key', access_key)
+        .set('access-key-secret', access_key_secret)
         .set('region', region)
         .set('image-id', image_id)
         .set('security-group-id', security_group_id)
@@ -87,7 +87,7 @@ try {
         log.trace("Create Instance Response :: \n" + call)
         // output.set('user_message', call)
         output.set('result', call.toString())
-        // output.set('exit-code', 0)
+        output.set('exit-code', 0)
     }
 
 } catch (error) {
@@ -96,6 +96,7 @@ try {
     output.set('result', error)
 
     output.set('exit-code', -1)
+    output.exit(-1, error)
 }
 
 log.trace("Finished executing example:create_instance.js flintbit")
