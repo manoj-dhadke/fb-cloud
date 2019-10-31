@@ -27,16 +27,21 @@ try{
     if(exit_code == 0){
         log.trace("Delete Disk Response :: \n"+connector_call_response.get('request-id'))
         output.set('user_message', connector_call_response.get('request-id'))
-        output.set('result', connector_call_response.get('request-id'))
-
+        output.set('result', message)
+        output.set('message', message)
         output.set('exit-code', 0)
+    }else{
+        log.trace("EXITCODE is " + exit_code)
+        output.set('message', message)
+        output.set('user_message', message)
+        output.set('exit-code', exit_code)
     }
 
 }catch(error){
     log.trace("Error Message :: "+error)
     output.set('user_message', error)
     output.set('result', error)
-
+    output.set('message', error)
     output.set('exit-code', -1)
 }
 

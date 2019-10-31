@@ -25,9 +25,9 @@ try {
     log.trace("Message :: " + message)
 
     if (exit_code == 0) {
-        log.trace("Start Instance Response :: \n" + connector_call_response.get('instance-status'))
-        output.set('user_message', message)
-        output.set('result', connector_call_response.get('instance-status'))
+        log.trace("Start Instance Response :: \n" + connector_call_response)
+        output.set('user_message', connector_call_response.get('request-id'))
+        output.set('result', message)
         output.set('message', message)
         output.set('exit-code', 0)
     } else {
