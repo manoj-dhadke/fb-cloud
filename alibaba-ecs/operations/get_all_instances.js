@@ -14,6 +14,8 @@ regions = []
 // Call to get_regions.js flintbit to get list of all regions
 get_regions_call_response = call.bit('fb-cloud:alibaba-ecs:operations:get_regions.js')
     .set('connector-name', connector_name)
+    .set('access-key', access_key)
+    .set('access-key-secret', access_key_secret)
     .set('action', 'list-regions')
     .set('region', region)
     .timeout(60000)
