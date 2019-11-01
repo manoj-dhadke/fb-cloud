@@ -37,8 +37,8 @@ if (new_input.hasOwnProperty('snapshot-id')) {
     connector_call_response.set('snapshot-id', input.get('snapshot-id'))
 }
 
-connector_call_response.timeout(120000)
-connector_call_response.sync()
+connector_call_request.timeout(120000)
+connector_call_response = connector_call_request.sync()
 
 log.trace("Connector call response : " + connector_call_response)
 exit_code = connector_call_response.exitcode()
