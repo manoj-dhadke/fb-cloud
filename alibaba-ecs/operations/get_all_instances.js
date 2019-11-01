@@ -20,12 +20,12 @@ get_regions_call_response = call.bit('fb-cloud:alibaba-ecs:operations:get_region
     .sync()
 
 //log.trace(flintbit_call_response.get('result'))
-log.trace("Get All Instances Regions :: " + regions_list)
 get_regions_exit_code = get_regions_call_response.exitcode()
 get_regions_message = get_regions_call_response.message()
 
 if (get_regions_exit_code == 0) {
     regions_list = get_regions_call_response.get('result')
+    log.trace("Get All Instances Regions :: " + regions_list)
 
     for (index in regions_list) {
         //log.trace(regions_list[index].regionId)
