@@ -47,9 +47,9 @@ message = connector_call_response.message()
 log.trace("Message :: " + message)
 
 if (exit_code == 0) {
-    log.trace("Stop Instance Response :: \n" + connector_call_response.get('disk-id'))
-    output.set('user_message', connector_call_response.get('disk-id'))
-    output.set('result', connector_call_response.get('disk-id'))
+    log.trace("Stop Instance Response :: \n" + connector_call_response.get('response').get('disk-id'))
+    output.set('user_message', connector_call_response.get('response').get('disk-id'))
+    output.set('result', connector_call_response.get('response').get('disk-id'))
     output.set('message', message)
     output.set('exit-code', 0)
 } else {
