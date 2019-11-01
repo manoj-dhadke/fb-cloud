@@ -30,7 +30,7 @@ if (exit_code == 0) {
         output.set('result', connector_call_response.get('instances-list'))
     }else{
         log.trace("No VMs exist in this region")
-        output.set('result', "No VMs exist in this region")
+        output.set('result', [])
     }
     output.set('exit-code', 0)
     output.set('message', message)
