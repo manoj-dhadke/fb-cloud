@@ -1,6 +1,5 @@
 log.trace("Started executing fb-cloud:alibaba-ecs:operations:get_instances.js flintbit")
 
-try {
     log.trace("Inputs :: " + input)
     action = "list-instances"
     connector_name = "alibaba-cloud"
@@ -30,19 +29,10 @@ try {
         output.set('message', message)
 
     } else {
-        log.trace("EXITCODE is " + exit_code)
+        log.error("Exitcode is " + exit_code + "\n Error Message:: " + message)
         output.set('message', message)
-        output.set('user_message', connector_call_response.get('instances-list'))
+        output.set('user_message', message)
         output.set('exit-code', exit_code)
     }
-
-} catch (error) {
-    log.trace("Error Message :: " + error)
-    output.set('user_message', error)
-    output.set('error', error)
-    output.set('exit-code', -1)
-    output.set('message', message)
-
-}
 
 log.trace("Finished executing fb-cloud:alibaba-ecs:operations:get_instances.js flintbit")

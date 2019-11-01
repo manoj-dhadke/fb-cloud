@@ -1,6 +1,5 @@
-log.trace("Started executing example:create_instance.js flintbit")
+log.trace("Started executing fb-cloud:alibaba-ecs:operations:create_instance.js flintbit")
 
-try {
     log.trace("Inputs :: " + input)
 
     
@@ -82,21 +81,20 @@ try {
 
     log.trace("Connector call response : " + call)
     exit_code = call.exitcode()
+    message = call.message()
 
     if (exit_code == 0) {
         log.trace("Create Instance Response :: \n" + call)
-        // output.set('user_message', call)
+        output.set('user_message', message)
         output.set('result', call.toString())
         output.set('exit-code', 0)
+        output.set('message', message)
+
+    } else {
+        log.error("Exitcode is " + exit_code+"\n Error Message:: "+message)
+        output.set('message', message)
+        output.set('user_message', message)
+        output.set('exit-code', exit_code)
     }
 
-} catch (error) {
-    log.trace("Error Message :: " + error)
-    output.set('user_message', error)
-    output.set('result', error)
-
-    output.set('exit-code', -1)
-    output.exit(-1, error)
-}
-
-log.trace("Finished executing example:create_instance.js flintbit")
+log.trace("Finished executing fb-cloud:alibaba-ecs:operations:create_instance.js flintbit")
