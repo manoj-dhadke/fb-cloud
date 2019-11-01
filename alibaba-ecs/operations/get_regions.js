@@ -30,6 +30,6 @@ if (exit_code == 0) {
     output.set('message', message)
     output.set('user_message', message)
     output.set('exit-code', exit_code)
+}
 
-
-    log.trace("Finished executing fb-cloud:alibaba-ecs:operations:get_regions.js flintbit")
+log.trace("Finished executing fb-cloud:alibaba-ecs:operations:get_regions.js flintbit")
