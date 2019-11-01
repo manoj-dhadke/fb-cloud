@@ -14,7 +14,7 @@ disk_size = input.get('disk-size')
 
 new_input = JSON.parse(input)
 
-connector_call_response = call.connector(connector_name)
+connector_call_request = call.connector(connector_name)
     .set('action', action)
     .set('access-key', access_key)
     .set('access-key-secret', access_key_secret)
@@ -25,16 +25,16 @@ connector_call_response = call.connector(connector_name)
 
 // Optional Fields
 if (new_input.hasOwnProperty('disk-description')) {
-    connector_call_response.set('disk-description', input.get('disk-description'))
+    connector_call_request.set('disk-description', input.get('disk-description'))
 }
 if (new_input.hasOwnProperty('is-encrypted')) {
-    connector_call_response.set('is-encrypted', input.get('is-encrypted'))
+    connector_call_request.set('is-encrypted', input.get('is-encrypted'))
 }
 if (new_input.hasOwnProperty('disk-name')) {
-    connector_call_response.set('disk-name', input.get('disk-name'))
+    connector_call_request.set('disk-name', input.get('disk-name'))
 }
 if (new_input.hasOwnProperty('snapshot-id')) {
-    connector_call_response.set('snapshot-id', input.get('snapshot-id'))
+    connector_call_request.set('snapshot-id', input.get('snapshot-id'))
 }
 
 connector_call_request.timeout(120000)
