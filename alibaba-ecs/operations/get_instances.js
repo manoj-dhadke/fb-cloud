@@ -22,9 +22,16 @@ message = connector_call_response.message()
 log.trace("Message :: " + message)
 
 if (exit_code == 0) {
-    log.trace("Instances list :: \n" + connector_call_response.get('instances-list'))
+    
     output.set('user_message', message)
-    output.set('result', connector_call_response.get('instances-list'))
+    response_clone = JSON.parse(connector_call_response)
+    if (response_clone.hasOwnProperty('instances-list')) {
+        log.trace("Instances list :: \n" + connector_call_response.get('instances-list'))
+        output.set('result', connector_call_response.get('instances-list'))
+    }else{
+        log.trace("No VMs exist in this region")
+        output.set('result', "No VMs exist in this region")
+    }
     output.set('exit-code', 0)
     output.set('message', message)
 
