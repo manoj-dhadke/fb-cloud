@@ -3,8 +3,8 @@ log.trace("Started executing fb-cloud:alibaba-ecs:operations:delete_load_balance
 log.trace("Inputs :: " + input)
 action = "delete-load-balancer"
 connector_name = "alibaba-cloud"
-//access_key = input.get('access-key')
-//access_key_secret = input.get('access-key-secret')
+access_key = input.get('access-key')
+access_key_secret = input.get('access-key-secret')
 region = input.get('region')
 load_balancer_id = input.get('load-balancer-id')
 
