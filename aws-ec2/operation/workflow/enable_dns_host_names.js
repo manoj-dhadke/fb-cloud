@@ -1,7 +1,18 @@
-/*
- * Creation Date: 10/06/2019
- * Summary: To Enable DNS HostName on virtual private cloud
- * Description: To Enable DNS HostName on virtual private cloud on AWs using aws-ec2 connector
+/*************************************************************************
+ * 
+ * INFIVERVE TECHNOLOGIES PTE LIMITED CONFIDENTIAL
+ * __________________
+ * 
+ * (C) INFIVERVE TECHNOLOGIES PTE LIMITED, SINGAPORE
+ * All Rights Reserved.
+ * Product / Project: Flint IT Automation Platform
+ * NOTICE:  All information contained herein is, and remains
+ * the property of INFIVERVE TECHNOLOGIES PTE LIMITED.
+ * The intellectual and technical concepts contained
+ * herein are proprietary to INFIVERVE TECHNOLOGIES PTE LIMITED.
+ * Dissemination of this information or any form of reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from INFIVERVE TECHNOLOGIES PTE LIMITED, SINGAPORE.
  */
 
 log.trace("Started executing 'fb-cloud:aws-ec2:operation:workflow:enable_dns_host_names.js'");

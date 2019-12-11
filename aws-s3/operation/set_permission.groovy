@@ -1,8 +1,19 @@
-/*
-Creation Date - 18/06/2019
-Description - To Set Permission on AWS S3
-*/
-
+/*************************************************************************
+ * 
+ * INFIVERVE TECHNOLOGIES PTE LIMITED CONFIDENTIAL
+ * __________________
+ * 
+ * (C) INFIVERVE TECHNOLOGIES PTE LIMITED, SINGAPORE
+ * All Rights Reserved.
+ * Product / Project: Flint IT Automation Platform
+ * NOTICE:  All information contained herein is, and remains
+ * the property of INFIVERVE TECHNOLOGIES PTE LIMITED.
+ * The intellectual and technical concepts contained
+ * herein are proprietary to INFIVERVE TECHNOLOGIES PTE LIMITED.
+ * Dissemination of this information or any form of reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from INFIVERVE TECHNOLOGIES PTE LIMITED, SINGAPORE.
+ */
 log.trace("Started executing 'fb-cloud:aws-s3:operation:set_permission.groovy' flintbit...")
 try{
 	// Flintbit Input Parameters
